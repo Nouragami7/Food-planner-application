@@ -24,7 +24,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
     TextView signupText;
-
+    Button loginBtn;
+    EditText emailEditText, passwordEditText;
+    private FirebaseAuth myAuthantication;
 
 
     public LoginFragment() {
@@ -48,12 +50,41 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        signupText = view.findViewById(R.id.signupTxt);
+        loginBtn = view.findViewById(R.id.loginBtn);
+        emailEditText = view.findViewById(R.id.emailEditText);
+        passwordEditText = view.findViewById(R.id.passwordEditText);
+        myAuthantication = FirebaseAuth.getInstance();
 
         signupText.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_signupFragment);
         });
 
+        loginBtn.setOnClickListener(v -> {
+            String email = emailEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+            login(email,password);
+
+        });
+
+    }
+
+    private void login(String email , String password){
+        myAuthantication.signInWithEmailAndPassword(email,password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        Toast.makeText(getContext(), "Login Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Login Failed :" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
     }
