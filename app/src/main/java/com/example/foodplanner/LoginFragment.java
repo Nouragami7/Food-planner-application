@@ -10,24 +10,16 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 
-public class IntroductionFragment extends Fragment {
+public class LoginFragment extends Fragment {
+    TextView signupText;
 
-    Button singupWithEmailBtn;
-    Button singupWithGoogleBtn;
 
-    TextView login;
-
-   private static final String TAG ="IntroductionFragment";
-
-    public IntroductionFragment() {
+    public LoginFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,24 +31,17 @@ public class IntroductionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_introduction, container, false);
+        return inflater.inflate(R.layout.fragment_login, container, false);
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        singupWithEmailBtn = view.findViewById(R.id.signupWithEmail);
-        singupWithGoogleBtn = view.findViewById(R.id.singupWithGoogle);
-        login = view.findViewById(R.id.loginTxt);
+        signupText = view.findViewById(R.id.signupTxt);
 
-        singupWithEmailBtn.setOnClickListener(v -> {
-
-            Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_signupFragment);
+        signupText.setOnClickListener(v -> {
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_signupFragment);
         });
-
-        login.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_loginFragment2);
-        });
-
     }
 }

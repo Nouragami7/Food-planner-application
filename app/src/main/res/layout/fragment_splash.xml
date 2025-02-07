@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashFragment"
     android:background="#D8DFEC"
-    >
+    tools:context=".SplashFragment">
 
     <ImageView
         android:id="@+id/logoImage"
@@ -59,6 +58,5 @@
         app:layout_constraintTop_toBottomOf="@+id/dash"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading_animation"
-        />
+        app:lottie_rawRes="@raw/loading_animation" />
 </androidx.constraintlayout.widget.ConstraintLayout>
