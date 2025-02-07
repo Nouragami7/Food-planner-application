@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DishDash</string>
     <string name="description">Simplify Your Kitchen Experience</string>
-    <string name="signup">SIGN UP WITH EMAIL</string>
+    <string name="email_signup">SIGN UP WITH EMAIL</string>
     <string name="google_signup">SIGN UP WITH GOOGLE</string>
     <string name="have_account">Already have an account?</string>
     <string name="login"><u>Log In</u></string>
