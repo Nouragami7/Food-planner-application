@@ -8,4 +8,8 @@
     <color name="violetPurple">#8547CA</color>
     <color name="amber">#E9AC1E</color>
     <color name="mocha">#76845CAF</color>
+    <color name="semi_transparent_black">#66000000</color>
+    <color name="orchid_purple">#D16DE4</color>
+    <color name="light_white">#CCFFFFFF</color>
+    <color name="semi_transparent_white">#99FFFFFF</color>
 </resources>

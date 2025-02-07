@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 public class IntroductionFragment extends Fragment {
 
-
-    TextView login;
+    Button singupWithEmailBtn;
+    Button singupWithGoogleBtn;
 
     public IntroductionFragment() {
         // Required empty public constructor
@@ -41,6 +41,14 @@ public class IntroductionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        singupWithEmailBtn = view.findViewById(R.id.signupWithEmail);
+        singupWithGoogleBtn = view.findViewById(R.id.singupWithGoogle);
+
+        singupWithEmailBtn.setOnClickListener(v -> {
+
+            Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_signupFragment);
+        });
+
 
 
     }

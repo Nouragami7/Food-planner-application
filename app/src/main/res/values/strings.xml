@@ -7,8 +7,15 @@
     <string name="login"><u>Log In</u></string>
     <string name="skip">SKIP</string>
     <string name="signup_from_login"><u>Sign Up</u></string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dish">Dish</string>
     <string name="dash">Dash</string>
+    <string name="sign">Sign</string>
+    <string name="up">Up</string>
+    <string name="signup_qoute">People who love to eat are always the best</string>
+    <string name="name">Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="password">Password</string>
+    <string name="signup">Signup</string>
 </resources>
