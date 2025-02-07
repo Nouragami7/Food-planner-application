@@ -10,11 +10,21 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class LoginFragment extends Fragment {
     TextView signupText;
+
 
 
     public LoginFragment() {
@@ -38,10 +48,13 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        signupText = view.findViewById(R.id.signupTxt);
+
 
         signupText.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_signupFragment);
         });
+
+
+
     }
 }
