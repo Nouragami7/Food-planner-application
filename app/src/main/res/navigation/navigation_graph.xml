@@ -54,5 +54,29 @@
         android:id="@+id/homeFragment"
         android:name="com.example.foodplanner.controller.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="com.example.foodplanner.MealDetailsFragment"
+        android:label="fragment_meal_details"
+        tools:layout="@layout/fragment_meal_details" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="randomMeal"
+            app:argType="com.example.foodplanner.model.Meal"
+            app:nullable="true" />
+    </fragment>
+    <argument
+        android:name="id"
+        app:argType="integer" />
+    <argument
+        android:name="randomMeal"
+        app:argType="com.example.foodplanner.model.Meal"
+        app:nullable="true" />
 </navigation>

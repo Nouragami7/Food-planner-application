@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -76,7 +77,12 @@ public class HomeFragment extends Fragment implements NetworkCallback {
         } else {
             Toast.makeText(getContext(), "No meals found", Toast.LENGTH_SHORT).show();
         }
+        homeAdapter.setOnItemClickListener(Meal->{
+            navigationToAnotherFragment(Integer.parseInt(Meal.getIdMeal()),Meal);
+        });
     }
+
+
 
     @Override
     public void onSuccessResultCategory(ArrayList<Category> categories) {
@@ -104,5 +110,9 @@ public class HomeFragment extends Fragment implements NetworkCallback {
     public void onFailureResult(String errorMsg) {
         Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void navigationToAnotherFragment(int id ,Meal meal){
+    Navigation.findNavController(getView()).navigate(HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(id,meal));
     }
 }

@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment {
             sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
 
             if (validateInfo(email, password)) {
-            login(email, password);
+               login(email, password);
             }
         });
     }

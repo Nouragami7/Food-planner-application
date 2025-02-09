@@ -60,6 +60,7 @@ public class RetrofitClient {
                             networkCallback.onFailureResult("Failed to fetch meals");
                         }
                     }
+
                 }
 
                 @Override
