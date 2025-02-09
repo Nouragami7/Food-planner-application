@@ -1,5 +1,7 @@
 package com.example.foodplanner.controller;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,8 +21,7 @@ import com.example.foodplanner.R;
 
 public class SplashFragment extends Fragment {
     TextView dish,dash;
-    boolean logedIn = false;
-
+    SharedPreferences sharedPreferences;
     public SplashFragment() {
         // Required empty public constructor
     }
@@ -50,10 +51,17 @@ public class SplashFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_introductionFragment2);
+                if (isLoggedIn) {
+                    Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_homeFragment);
+                } else {
+                    Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_introductionFragment2);
+                }
             }
         },3000);
     }

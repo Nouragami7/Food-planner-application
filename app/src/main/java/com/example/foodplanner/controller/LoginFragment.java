@@ -56,6 +56,7 @@ public class LoginFragment extends Fragment {
         loginBtn = view.findViewById(R.id.loginBtn);
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
+        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         myAuthentication = FirebaseAuth.getInstance();
 
         signupText.setOnClickListener(v ->
@@ -65,6 +66,9 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(v -> {
             String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
+            sharedPreferences.edit().putString("email", email).apply();
+            sharedPreferences.edit().putString("password", password).apply();
+            sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
 
             if (TextUtils.isEmpty(email)) {
                 emailEditText.setError("Email is required");
