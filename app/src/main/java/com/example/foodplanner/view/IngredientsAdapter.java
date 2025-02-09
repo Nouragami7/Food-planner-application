@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.Country;
 
@@ -18,11 +19,11 @@ import java.util.ArrayList;
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.MyViewHolder> {
     private static final String TAG = "HomeAdapter";
     Context context;
-    ArrayList<Country> countries;
+    ArrayList<String> ingredients;
 
-    public IngredientsAdapter(Context context,  ArrayList<Country> countries) {
+    public IngredientsAdapter(Context context,  ArrayList<String> ingredients) {
         this.context = context;
-        this.countries = countries;
+        this.ingredients = ingredients;
 
     }
 
@@ -30,20 +31,25 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @Override
     public IngredientsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fragment_meal_details, parent, false);
+        View view = inflater.inflate(R.layout.ingredient, parent, false);
         return new IngredientsAdapter.MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull IngredientsAdapter.MyViewHolder holder, int position) {
-        Country country = countries.get(position);
-        holder.ingredientName.setText(country.getCountryName());
-        //Glide.with(context).load(categoriesItem.getCategoryImage()).into(holder.countryImage);
+        String ingredient = ingredients.get(position);
+        holder.ingredientName.setText(ingredient);
+        String imageUrl = "https://www.themealdb.com/images/ingredients/" + ingredient + "-Small.png";
+
+        // Load the image using Glide
+        Glide.with(context)
+                .load(imageUrl)
+                .into(holder.ingredientImage);
     }
 
     @Override
     public int getItemCount() {
-        return countries.size();
+        return ingredients.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

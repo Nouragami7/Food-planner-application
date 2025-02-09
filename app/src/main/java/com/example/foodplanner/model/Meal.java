@@ -3,6 +3,7 @@ package com.example.foodplanner.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Meal implements Serializable {
 
@@ -588,4 +589,44 @@ public class Meal implements Serializable {
 	public String getStrMeasure15(){
 		return strMeasure15;
 	}
+
+
+	public ArrayList<String> getNonNullIngredients() {
+		ArrayList<String> ingredients = new ArrayList<>();
+
+		String[] allIngredients = {
+				strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
+				strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10,
+				strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15,
+				strIngredient16, strIngredient17, strIngredient18, strIngredient19, strIngredient20
+		};
+
+		for (String ingredient : allIngredients) {
+			if (ingredient != null && !ingredient.trim().isEmpty()) {
+				ingredients.add(ingredient);
+			}
+		}
+		return ingredients;
+	}
+
+	public ArrayList<String> getNonNullMeasurements() {
+		ArrayList<String> measurements = new ArrayList<>();
+
+		String[] allMeasurements = {
+				strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5,
+				strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10,
+				strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15,
+				strMeasure16, strMeasure17, strMeasure18, strMeasure19, strMeasure20
+		};
+
+		for (String measurement : allMeasurements) {
+			if (measurement != null && !measurement.trim().isEmpty()) {
+				measurements.add(measurement);
+			}
+		}
+		return measurements;
+	}
+
+
+
 }

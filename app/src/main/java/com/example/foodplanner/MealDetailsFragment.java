@@ -1,22 +1,30 @@
 package com.example.foodplanner;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.model.Meal;
+import com.example.foodplanner.view.IngredientsAdapter;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -25,8 +33,10 @@ public class MealDetailsFragment extends Fragment {
     ImageView mealImage;
     TextView mealName;
     TextView mealCountry;
+    WebView videoWebView;
 
-
+    IngredientsAdapter adapter;
+    RecyclerView ingredientsRecycler;
 
 
     public MealDetailsFragment() {
@@ -51,19 +61,47 @@ public class MealDetailsFragment extends Fragment {
         mealImage = view.findViewById(R.id.mealImage);
         mealName = view.findViewById(R.id.mealName);
         mealCountry = view.findViewById(R.id.countryName);
+        videoWebView = view.findViewById(R.id.vedioView);
+        ingredientsRecycler = view.findViewById(R.id.ingredientsRecyclerView);
+        ingredientsRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+
         int id = MealDetailsFragmentArgs.fromBundle(getArguments()).getId();
         Meal meal = MealDetailsFragmentArgs.fromBundle(getArguments()).getRandomMeal();
+
         if (meal != null) {
-            Log.i("TAG", "onViewCreated: "+meal.getStrMeal());
+            Log.i("TAG", "onViewCreated: " + meal.getStrMeal());
 
-        }else{
-            Log.i("TAG", "onViewCreated: "+id);
+            Glide.with(getContext()).load(meal.getStrMealThumb()).into(mealImage);
+            mealName.setText(meal.getStrMeal());
+            mealCountry.setText(meal.getStrArea());
+            adapter = new IngredientsAdapter(getContext(), meal.getNonNullIngredients());
+            ingredientsRecycler.setAdapter(adapter);
+            loadYouTubeVideo(meal.getStrYoutube());
 
+        } else {
+            Log.i("TAG", "onViewCreated: " + id);
         }
-        Glide.with(getContext()).load(meal.getStrMealThumb()).into(mealImage);
-        mealName.setText(meal.getStrMeal());
-        mealCountry.setText(meal.getStrArea());
+
 
 
     }
+    private void loadYouTubeVideo(String youtubeUrl) {
+        videoWebView.getSettings().setJavaScriptEnabled(true);
+        videoWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        videoWebView.setWebChromeClient(new WebChromeClient());
+        Uri uri = Uri.parse(youtubeUrl);
+        String videoId = uri.getQueryParameter("v");
+
+        if (videoId != null) {
+            String iframe = "<iframe width=\"100%\" height=\"100%\" "+
+                    "src=\"https://www.youtube.com/embed/" + videoId + "?autoplay=0&mute=0\" " +
+            "frameborder=\"0\" allowfullscreen></iframe>";
+
+            videoWebView.loadData(iframe, "text/html", "utf-8");
+        } else {
+            videoWebView.setVisibility(View.GONE);
+        }
+    }
+
 }
