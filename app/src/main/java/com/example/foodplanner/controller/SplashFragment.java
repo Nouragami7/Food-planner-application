@@ -19,6 +19,7 @@ import com.example.foodplanner.R;
 
 public class SplashFragment extends Fragment {
     TextView dish,dash;
+    boolean logedIn = false;
 
     public SplashFragment() {
         // Required empty public constructor
@@ -52,7 +53,7 @@ public class SplashFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_homeFragment);
+                Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_introductionFragment2);
             }
         },3000);
     }

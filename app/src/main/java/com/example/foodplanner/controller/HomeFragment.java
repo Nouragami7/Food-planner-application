@@ -56,10 +56,10 @@ public class HomeFragment extends Fragment implements NetworkCallback {
         super.onViewCreated(view, savedInstanceState);
         dailyMealRecyclerView = view.findViewById(R.id.dailyRecyclerView);
         categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
+        countryRecyclerView = view.findViewById(R.id.countryRecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         dailyMealRecyclerView.setLayoutManager(layoutManager);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        countryRecyclerView = view.findViewById(R.id.countryRecyclerView);
         countryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         retrofitClient = RetrofitClient.getInstance();
         retrofitClient.makeNetworkCall(this, 10);
@@ -69,29 +69,36 @@ public class HomeFragment extends Fragment implements NetworkCallback {
 
     @Override
     public void onSuccessResult(ArrayList<Meal> meals) {
-        homeAdapter = new HomeAdapter(getContext(), meals);
-        dailyMealRecyclerView.setAdapter(homeAdapter);
-        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-
+        if (meals != null && !meals.isEmpty()) {
+            homeAdapter = new HomeAdapter(getContext(), meals);
+            dailyMealRecyclerView.setAdapter(homeAdapter);
+            Toast.makeText(getContext(), "Meals loaded successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "No meals found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
-    public void onSuccessResultCategory(ArrayList<Category> Categories) {
-        categoryAdapter = new CategoryAdapter(getContext(), Categories);
-        categoryRecyclerView.setAdapter(categoryAdapter);
-        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-
+    public void onSuccessResultCategory(ArrayList<Category> categories) {
+        if (categories != null && !categories.isEmpty()) {
+            categoryAdapter = new CategoryAdapter(getContext(), categories);
+            categoryRecyclerView.setAdapter(categoryAdapter);
+            Toast.makeText(getContext(), "Categories loaded successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "No categories found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
-    public void onSuccesResultArea(ArrayList<Country> meals) {
-        countryAdapter = new CountryAdapter(getContext(), meals);
-        countryRecyclerView.setAdapter(countryAdapter);
-        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-
-
+    public void onSuccesResultArea(ArrayList<Country> countries) {
+        if (countries != null && !countries.isEmpty()) {
+            countryAdapter = new CountryAdapter(getContext(), countries);
+            countryRecyclerView.setAdapter(countryAdapter);
+            Toast.makeText(getContext(), "Countries loaded successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "No countries found", Toast.LENGTH_SHORT).show();
+        }
     }
-
 
     @Override
     public void onFailureResult(String errorMsg) {
