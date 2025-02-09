@@ -70,20 +70,26 @@ public class LoginFragment extends Fragment {
             sharedPreferences.edit().putString("password", password).apply();
             sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
 
-            if (TextUtils.isEmpty(email)) {
-                emailEditText.setError("Email is required");
-                return;
-            }
-            if (TextUtils.isEmpty(password)) {
-                passwordEditText.setError("Password is required");
-                return;
-            }
-            if (password.length() < 6) {
-                passwordEditText.setError("Password must be at least 6 characters");
-                return;
-            }
+            if (validateInfo(email, password)) {
             login(email, password);
+            }
         });
+    }
+
+    private boolean validateInfo(String email, String password) {
+        if (TextUtils.isEmpty(email)) {
+            emailEditText.setError("Email is required");
+            return false;
+        }
+        if (TextUtils.isEmpty(password)) {
+            passwordEditText.setError("Password is required");
+            return false;
+        }
+        if (password.length() < 6) {
+            passwordEditText.setError("Password must be at least 6 characters");
+            return false;
+        }
+        return true;
     }
 
     private void login(String email, String password) {
