@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.controller;
 
 import android.os.Bundle;
 
@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodplanner.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -64,11 +65,11 @@ public class LoginFragment extends Fragment {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
             login(email,password);
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_homeFragment);
 
         });
 
     }
-
     private void login(String email , String password){
         myAuthantication.signInWithEmailAndPassword(email,password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -76,7 +77,7 @@ public class LoginFragment extends Fragment {
                     public void onSuccess(AuthResult authResult) {
                         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                         Toast.makeText(getContext(), "Login Successfully", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(), currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(getView()).navigate(R.id.action_loginFragment2_to_homeFragment);
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {

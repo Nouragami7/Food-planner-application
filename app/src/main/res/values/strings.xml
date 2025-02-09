@@ -23,4 +23,7 @@
     <string name="login_qoute">Life is a combination of magic and pasta</string>
     <string name="donot_have_account">Do not have an account?</string>
     <string name="login_txt">login</string>
+    <string name="daily_inspiration">Daily Inspiration</string>
+    <string name="category">Category</string>
+    <string name="country">Country</string>
 </resources>

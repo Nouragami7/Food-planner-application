@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.controller;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.foodplanner.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -66,12 +67,12 @@ public class SignupFragment extends Fragment {
             String confirmPassword = confirmPasswordEditText.getText().toString();
 
             if (validateInputs(username, email, password, confirmPassword)) {
-                signUp(username, email, password, view);
+                signUp(username, email, password);
             }
         });
 
         loginText.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_loginFragment2);
+            Navigation.findNavController(getView()).navigate(R.id.action_signupFragment_to_loginFragment2);
         });
     }
 
@@ -109,12 +110,12 @@ public class SignupFragment extends Fragment {
         return true;
     }
 
-    private void signUp(String username, String email, String password, View view) {
+    private void signUp(String username, String email, String password) {
         myAuthantication.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(getContext(), "SignUp Successfully", Toast.LENGTH_SHORT).show();
-                updateUserProfile(username, view);
+                updateUserProfile(username);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -124,7 +125,7 @@ public class SignupFragment extends Fragment {
         });
     }
 
-    private void updateUserProfile(String username, View view) {
+    private void updateUserProfile(String username) {
         FirebaseUser user = myAuthantication.getCurrentUser();
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest
@@ -136,9 +137,7 @@ public class SignupFragment extends Fragment {
                 @Override
                 public void onSuccess(Void unused) {
                     Toast.makeText(getContext(), "SignUp Successfully", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_loginFragment2);
-
-
+                    Navigation.findNavController(getView()).navigate(R.id.action_signupFragment_to_loginFragment2);
 
                 }
             }).addOnFailureListener(new OnFailureListener() {

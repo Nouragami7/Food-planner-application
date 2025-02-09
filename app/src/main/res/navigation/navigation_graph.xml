@@ -7,16 +7,19 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.foodplanner.SplashFragment"
+        android:name="com.example.foodplanner.controller.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_introductionFragment2"
             app:destination="@id/introductionFragment2" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/introductionFragment2"
-        android:name="com.example.foodplanner.IntroductionFragment"
+        android:name="com.example.foodplanner.controller.IntroductionFragment"
         android:label="fragment_introduction"
         tools:layout="@layout/fragment_introduction" >
         <action
@@ -28,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.example.foodplanner.SignupFragment"
+        android:name="com.example.foodplanner.controller.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
         <action
@@ -37,11 +40,19 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
-        android:name="com.example.foodplanner.LoginFragment"
+        android:name="com.example.foodplanner.controller.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment2_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment2_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.foodplanner.controller.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.controller;
 
 import android.os.Bundle;
 
@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
+import com.example.foodplanner.R;
 
 public class SplashFragment extends Fragment {
     TextView dish,dash;
@@ -50,7 +52,7 @@ public class SplashFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_introductionFragment2);
+                Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_homeFragment);
             }
         },3000);
     }
