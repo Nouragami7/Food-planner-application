@@ -7,10 +7,9 @@ import com.example.foodplanner.model.CountryResponse;
 import com.example.foodplanner.model.Meal;
 import com.example.foodplanner.model.MealResponse;
 import com.example.foodplanner.model.MealSpecification;
-import com.example.foodplanner.model.MealSpecificationResponse;
+import com.example.foodplanner.model.MealCategoryResponse;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import retrofit2.Call;
@@ -117,10 +116,10 @@ public class RetrofitClient {
         });
     }
 
-    public void makeNetworkCallMealSpecification(NetworkCallback networkCallback, String category) {
-        foodPlannerService.getMealsByCategory(category).enqueue(new Callback<MealSpecificationResponse>() {
+    public void makeNetworkCallMealSpecificationByCategory(NetworkCallback networkCallback, String category) {
+        foodPlannerService.getMealsByCategory(category).enqueue(new Callback<MealCategoryResponse>() {
             @Override
-            public void onResponse(Call<MealSpecificationResponse> call, Response<MealSpecificationResponse> response) {
+            public void onResponse(Call<MealCategoryResponse> call, Response<MealCategoryResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().getMealsFromCategory() != null) {
                     ArrayList<MealSpecification> meals = response.body().getMealsFromCategory();
                     networkCallback.onSuccessResultMealSpecification(meals);
@@ -130,14 +129,34 @@ public class RetrofitClient {
             }
 
             @Override
-            public void onFailure(Call<MealSpecificationResponse> call, Throwable t) {
+            public void onFailure(Call<MealCategoryResponse> call, Throwable t) {
                 networkCallback.onFailureResult(t.getMessage());
                 Log.e(TAG, "onFailure: " + t.getMessage());
             }
         });
     }
 
+    public void makeNetworkCallMealSpecificationByCountry(NetworkCallback networkCallback, String country) {
+        foodPlannerService.getMealsByCountry(country).enqueue(new Callback<MealCategoryResponse>() {
+            @Override
+            public void onResponse(Call<MealCategoryResponse> call, Response<MealCategoryResponse> response) {
+
+            }
+
+
+            @Override
+            public void onFailure(Call<MealCategoryResponse> call, Throwable t) {
+                networkCallback.onFailureResult(t.getMessage());
+                Log.e(TAG, "onFailure: " + t.getMessage());
+            }
+            });
+
+    }
 }
+
+
+
+
 
 
 

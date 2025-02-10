@@ -24,17 +24,22 @@ import com.example.foodplanner.network.NetworkCallback;
 import com.example.foodplanner.view.CategoryAdapter;
 import com.example.foodplanner.view.CountryAdapter;
 import com.example.foodplanner.view.HomeAdapter;
+import com.example.foodplanner.view.MealsListAdapter;
+import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview;
 
 import java.util.ArrayList;
 
 
 public class HomeFragment extends Fragment implements NetworkCallback {
 
-   RecyclerView dailyMealRecyclerView;
+   CarouselRecyclerview dailyMealRecyclerView;
    RecyclerView categoryRecyclerView;
+
+   RecyclerView mealFilteringRecyclerView;
 
    RecyclerView countryRecyclerView;
    HomeAdapter homeAdapter;
+   MealsListAdapter mealsListAdapter;
 
    CategoryAdapter categoryAdapter;
    CountryAdapter countryAdapter;
@@ -59,15 +64,12 @@ public class HomeFragment extends Fragment implements NetworkCallback {
         dailyMealRecyclerView = view.findViewById(R.id.dailyRecyclerView);
         categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
         countryRecyclerView = view.findViewById(R.id.countryRecyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        dailyMealRecyclerView.setLayoutManager(layoutManager);
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         countryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         retrofitClient = RetrofitClient.getInstance();
         retrofitClient.makeNetworkCall(this, 10);
         retrofitClient.makeNetworkCallCategory(this);
         retrofitClient.makeNetworkCallArea(this, "list");
-        retrofitClient.makeNetworkCallMealSpecification(this,"Sefood");
     }
 
     @Override
@@ -75,6 +77,10 @@ public class HomeFragment extends Fragment implements NetworkCallback {
         if (meals != null && !meals.isEmpty()) {
             homeAdapter = new HomeAdapter(getContext(), meals);
             dailyMealRecyclerView.setAdapter(homeAdapter);
+            dailyMealRecyclerView.setAlpha(true);
+            dailyMealRecyclerView.setInfinite(false);
+           // dailyMealRecyclerView.set3DItem();
+
             Toast.makeText(getContext(), "Meals loaded successfully", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "No meals found", Toast.LENGTH_SHORT).show();
@@ -89,7 +95,9 @@ public class HomeFragment extends Fragment implements NetworkCallback {
     @Override
     public void onSuccessResultCategory(ArrayList<Category> categories) {
         if (categories != null && !categories.isEmpty()) {
-            categoryAdapter = new CategoryAdapter(getContext(), categories);
+            categoryAdapter = new CategoryAdapter(getContext(), categories,categoryName -> {
+                retrofitClient.makeNetworkCallMealSpecificationByCategory(this, categoryName);
+            });
             categoryRecyclerView.setAdapter(categoryAdapter);
             Toast.makeText(getContext(), "Categories loaded successfully", Toast.LENGTH_SHORT).show();
         } else {
@@ -110,6 +118,7 @@ public class HomeFragment extends Fragment implements NetworkCallback {
 
     @Override
     public void onSuccessResultMealSpecification(ArrayList<MealSpecification> meals) {
+
 
     }
 

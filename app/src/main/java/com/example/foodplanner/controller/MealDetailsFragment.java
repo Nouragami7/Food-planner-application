@@ -54,8 +54,8 @@ public class MealDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mealImage = view.findViewById(R.id.mealImage);
-        mealName = view.findViewById(R.id.mealName);
+        mealImage = view.findViewById(R.id.mealListImage);
+        mealName = view.findViewById(R.id.mealListName);
         mealCountry = view.findViewById(R.id.countryName);
         steps = view.findViewById(R.id.instructions);
         videoWebView = view.findViewById(R.id.videoView);

@@ -28,4 +28,10 @@
     <string name="country">Country</string>
     <string name="favourite">Favourite</string>
     <string name="plan">Plan</string>
+    <string name="add_to_plan">Add to plan</string>
+    <string name="meal">MEALS</string>
+    <string name="home">Home</string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
 </resources>

@@ -5,8 +5,9 @@
     android:id="@+id/introduction_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/intro_image"
+    android:background="@drawable/yy"
     tools:context=".controller.IntroductionFragment">
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/component"
@@ -157,5 +158,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/intro_image"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

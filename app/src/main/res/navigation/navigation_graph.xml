@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_homeFragment_to_mealDetailsFragment"
             app:destination="@id/mealDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mealFilteringFragment"
+            app:destination="@id/mealFilteringFragment" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
@@ -79,4 +82,9 @@
         android:name="randomMeal"
         app:argType="com.example.foodplanner.model.Meal"
         app:nullable="true" />
+    <fragment
+        android:id="@+id/mealFilteringFragment"
+        android:name="com.example.foodplanner.controller.MealFilteringFragment"
+        android:label="fragment_meal_filtering"
+        tools:layout="@layout/fragment_meal_filtering" />
 </navigation>

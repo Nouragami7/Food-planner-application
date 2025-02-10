@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/text_bg"
             android:text="@string/daily_inspiration"
             android:textColor="@color/dark_purple"
             android:textSize="25sp"
@@ -26,21 +27,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
             android:id="@+id/dailyRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_margin="20dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dailyText"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            tools:listitem="@layout/meal_item" />
 
         <TextView
             android:id="@+id/categoryText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/text_bg"
             android:text="@string/category"
             android:textColor="@color/dark_purple"
             android:textSize="25sp"
@@ -64,7 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/text_bg"
             android:text="@string/country"
             android:textColor="@color/dark_purple"
             android:textSize="25sp"

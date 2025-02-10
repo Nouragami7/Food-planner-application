@@ -13,7 +13,7 @@
         tools:context=".controller.MealDetailsFragment">
 
         <ImageView
-            android:id="@+id/mealImage"
+            android:id="@+id/mealListImage"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
@@ -23,7 +23,7 @@
             android:src="@drawable/splash_background" />
 
         <TextView
-            android:id="@+id/mealName"
+            android:id="@+id/mealListName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -33,7 +33,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mealImage" />
+            app:layout_constraintTop_toBottomOf="@id/mealListImage" />
 
         <TextView
             android:id="@+id/countryName"
@@ -45,7 +45,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mealName" />
+            app:layout_constraintTop_toBottomOf="@id/mealListName" />
 
         <TextView
             android:id="@+id/ingredientsTitle"

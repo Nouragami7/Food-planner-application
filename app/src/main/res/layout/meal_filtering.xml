@@ -1,79 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="170dp"
     android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="15dp"
-    android:layout_marginEnd="10dp"
-    android:backgroundTint="@color/orchid_pink"
-    android:elevation="12dp"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="20dp">
+    android:layout_margin="6dp"
+    android:backgroundTint="#CDC1FF"
+    android:elevation="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="90dp">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/mealImage"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/mealListImage"
             android:layout_width="100dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/my_logo"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/ic_launcher_background"
+            app:shapeAppearanceOverlay="@style/CircleShape"/>
 
         <TextView
-            android:id="@+id/mealName"
-            android:layout_width="wrap_content"
+            android:id="@+id/mealListName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="30dp"
             android:fontFamily="@font/adlam_display"
             android:textColor="@color/dark_purple"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/mealImage"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="mealName" />
-
-        <TextView
-            android:id="@+id/favourite"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/text_bg"
-            android:fontFamily="@font/agbalumo"
-            android:text="@string/favourite"
-            android:textAlignment="center"
-            android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/plan"
-            android:layout_width="50dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="76dp"
-            android:background="@drawable/text_bg"
-            android:fontFamily="@font/agbalumo"
-            android:text="@string/plan"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
+            app:layout_constraintTop_toBottomOf="@id/mealListImage"
+            tools:text="Meal Name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

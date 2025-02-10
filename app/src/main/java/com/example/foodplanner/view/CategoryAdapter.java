@@ -1,6 +1,7 @@
 package com.example.foodplanner.view;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,10 +22,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     private static final String TAG = "HomeAdapter";
     Context context;
     ArrayList<Category> categories;
+    private OnCategoryClickListener onCategoryClickListener;
 
-    public CategoryAdapter(Context context, ArrayList<Category> categories) {
+    public interface OnCategoryClickListener {
+        void onCategoryClick(String categoryName);
+    }
+
+    public CategoryAdapter(Context context, ArrayList<Category> categories,OnCategoryClickListener onCategoryClickListener) {
         this.context = context;
         this.categories= categories;
+        this.onCategoryClickListener = onCategoryClickListener;
 
     }
 
@@ -41,9 +49,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         holder.categoryName.setText(categoriesItem.getCategoryName());
         Glide.with(context).load(categoriesItem.getCategoryImage()).into(holder.categoryImage);
         holder.itemView.setOnClickListener(v -> {
-
-
-
+            Bundle bundle = new Bundle();
+            bundle.putString("category_name", categoriesItem.getCategoryName());
+            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_mealFilteringFragment, bundle);
         });
     }
 
