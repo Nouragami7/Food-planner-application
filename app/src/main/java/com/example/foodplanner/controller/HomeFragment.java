@@ -18,6 +18,7 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.model.Category;
 import com.example.foodplanner.model.Country;
 import com.example.foodplanner.model.Meal;
+import com.example.foodplanner.model.MealSpecification;
 import com.example.foodplanner.network.RetrofitClient;
 import com.example.foodplanner.network.NetworkCallback;
 import com.example.foodplanner.view.CategoryAdapter;
@@ -66,6 +67,7 @@ public class HomeFragment extends Fragment implements NetworkCallback {
         retrofitClient.makeNetworkCall(this, 10);
         retrofitClient.makeNetworkCallCategory(this);
         retrofitClient.makeNetworkCallArea(this, "list");
+        retrofitClient.makeNetworkCallMealSpecification(this,"Sefood");
     }
 
     @Override
@@ -104,6 +106,11 @@ public class HomeFragment extends Fragment implements NetworkCallback {
         } else {
             Toast.makeText(getContext(), "No countries found", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onSuccessResultMealSpecification(ArrayList<MealSpecification> meals) {
+
     }
 
     @Override

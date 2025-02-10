@@ -1,18 +1,11 @@
 package com.example.foodplanner.model;
 
-import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 
 public class MealSpecificationResponse {
 
-	@SerializedName("meals")
-	private List<MealSpecification> meals;
-
-	public void setMeals(List<MealSpecification> meals){
-		this.meals = meals;
-	}
-
-	public List<MealSpecification> getMeals(){
+	private ArrayList<MealSpecification> meals;
+	public ArrayList<MealSpecification> getMealsFromCategory(){
 		return meals;
 	}
 }

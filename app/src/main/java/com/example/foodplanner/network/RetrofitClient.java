@@ -6,8 +6,11 @@ import com.example.foodplanner.model.CategoryResponse;
 import com.example.foodplanner.model.CountryResponse;
 import com.example.foodplanner.model.Meal;
 import com.example.foodplanner.model.MealResponse;
+import com.example.foodplanner.model.MealSpecification;
+import com.example.foodplanner.model.MealSpecificationResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import retrofit2.Call;
@@ -113,4 +116,30 @@ public class RetrofitClient {
             }
         });
     }
+
+    public void makeNetworkCallMealSpecification(NetworkCallback networkCallback, String category) {
+        foodPlannerService.getMealsByCategory(category).enqueue(new Callback<MealSpecificationResponse>() {
+            @Override
+            public void onResponse(Call<MealSpecificationResponse> call, Response<MealSpecificationResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().getMealsFromCategory() != null) {
+                    ArrayList<MealSpecification> meals = response.body().getMealsFromCategory();
+                    networkCallback.onSuccessResultMealSpecification(meals);
+                } else {
+                    networkCallback.onFailureResult("Failed to fetch meal specifications");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealSpecificationResponse> call, Throwable t) {
+                networkCallback.onFailureResult(t.getMessage());
+                Log.e(TAG, "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
 }
+
+
+
+
+
