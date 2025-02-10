@@ -34,4 +34,5 @@
     <string name="favorites">Favorites</string>
     <string name="search">Search</string>
     <string name="profile">Profile</string>
+    <string name="no_fav">No favourite rites added yet!\nStart saving your favorite meals</string>
 </resources>

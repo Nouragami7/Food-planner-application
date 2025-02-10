@@ -14,12 +14,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mealItem"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="250dp">
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="403dp"
-            android:layout_height="287dp"
+            android:layout_width="400dp"
+            android:layout_height="250dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/logo"
