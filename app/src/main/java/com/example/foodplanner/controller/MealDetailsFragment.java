@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.controller;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,21 +17,17 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
-
 import com.bumptech.glide.Glide;
+import com.example.foodplanner.R;
 import com.example.foodplanner.model.Meal;
 import com.example.foodplanner.view.IngredientsAdapter;
-
-import java.util.ArrayList;
-
-import java.util.List;
 
 
 public class MealDetailsFragment extends Fragment {
 
     ImageView mealImage;
     TextView mealName;
+    TextView steps;
     TextView mealCountry;
     WebView videoWebView;
 
@@ -61,7 +57,8 @@ public class MealDetailsFragment extends Fragment {
         mealImage = view.findViewById(R.id.mealImage);
         mealName = view.findViewById(R.id.mealName);
         mealCountry = view.findViewById(R.id.countryName);
-        videoWebView = view.findViewById(R.id.vedioView);
+        steps = view.findViewById(R.id.instructions);
+        videoWebView = view.findViewById(R.id.videoView);
         ingredientsRecycler = view.findViewById(R.id.ingredientsRecyclerView);
         ingredientsRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -75,7 +72,8 @@ public class MealDetailsFragment extends Fragment {
             Glide.with(getContext()).load(meal.getStrMealThumb()).into(mealImage);
             mealName.setText(meal.getStrMeal());
             mealCountry.setText(meal.getStrArea());
-            adapter = new IngredientsAdapter(getContext(), meal.getNonNullIngredients());
+            steps.setText(meal.getStrInstructions());
+            adapter = new IngredientsAdapter(getContext(), meal.getNonNullIngredients(),meal.getNonNullMeasurements());
             ingredientsRecycler.setAdapter(adapter);
             loadYouTubeVideo(meal.getStrYoutube());
 

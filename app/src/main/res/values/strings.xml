@@ -26,4 +26,6 @@
     <string name="daily_inspiration">Daily Inspiration</string>
     <string name="category">Category</string>
     <string name="country">Country</string>
+    <string name="favourite">Favourite</string>
+    <string name="plan">Plan</string>
 </resources>

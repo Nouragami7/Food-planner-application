@@ -14,16 +14,19 @@ import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.Country;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.MyViewHolder> {
     private static final String TAG = "HomeAdapter";
     Context context;
     ArrayList<String> ingredients;
+    ArrayList<String> measurements;
 
-    public IngredientsAdapter(Context context,  ArrayList<String> ingredients) {
+    public IngredientsAdapter(Context context, ArrayList<String> ingredients, ArrayList<String> measurements) {
         this.context = context;
         this.ingredients = ingredients;
+        this.measurements = measurements;
 
     }
 
@@ -38,10 +41,10 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @Override
     public void onBindViewHolder(@NonNull IngredientsAdapter.MyViewHolder holder, int position) {
         String ingredient = ingredients.get(position);
+        String measurement = measurements.get(position);
         holder.ingredientName.setText(ingredient);
+        holder.measurementName.setText(measurement);
         String imageUrl = "https://www.themealdb.com/images/ingredients/" + ingredient + "-Small.png";
-
-        // Load the image using Glide
         Glide.with(context)
                 .load(imageUrl)
                 .into(holder.ingredientImage);
@@ -53,13 +56,14 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView ingredientName;
+        TextView ingredientName, measurementName;
 
         ImageView ingredientImage;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             ingredientName = itemView.findViewById(R.id.ingredientName);
             ingredientImage = itemView.findViewById(R.id.ingredientImg);
+            measurementName = itemView.findViewById(R.id.measurementName);
         }
     }
 }
