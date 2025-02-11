@@ -68,8 +68,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         CardView randomIdCard;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mealName = itemView.findViewById(R.id.name);
-            mealImage = itemView.findViewById(R.id.image);
+            mealName = itemView.findViewById(R.id.myName);
+            mealImage = itemView.findViewById(R.id.myImage);
             randomIdCard = itemView.findViewById(R.id.randomIdCard);
         }
     }

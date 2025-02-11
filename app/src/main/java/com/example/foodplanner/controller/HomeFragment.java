@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment implements NetworkCallback {
         retrofitClient = RetrofitClient.getInstance();
         retrofitClient.makeNetworkCall(this, 10);
         retrofitClient.makeNetworkCallCategory(this);
-        retrofitClient.makeNetworkCallArea(this, "list");
+        retrofitClient.makeNetworkCallArea(this);
     }
 
     @Override

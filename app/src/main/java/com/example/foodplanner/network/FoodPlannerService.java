@@ -16,7 +16,7 @@ public interface FoodPlannerService {
     @GET("categories.php")
     Call<CategoryResponse> getCategories();
 
-    @GET("list.php?c=list")
+    @GET("list.php?a=list")
     Call<CountryResponse> getCountries();
 
     @GET("filter.php")

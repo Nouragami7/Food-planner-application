@@ -57,7 +57,7 @@ public class SplashFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isLoggedIn) {
+                if (!isLoggedIn) {
                     Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_homeFragment);
                 } else {
                     Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_introductionFragment2);

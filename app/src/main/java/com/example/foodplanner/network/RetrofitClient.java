@@ -98,12 +98,15 @@ public class RetrofitClient {
         });
     }
 
-    public void makeNetworkCallArea(NetworkCallback networkCallback, String area) {
+    public void makeNetworkCallArea(NetworkCallback networkCallback) {
         foodPlannerService.getCountries().enqueue(new Callback<CountryResponse>() {
             @Override
             public void onResponse(Call<CountryResponse> call, Response<CountryResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().getCountries() != null) {
                     networkCallback.onSuccesResultArea(response.body().getCountries());
+                    if (!response.body().getCountries().isEmpty()) {
+                        Log.i(TAG, "Country added: " + response.body().getCountries().get(0).getCountryName());
+                    }
                 } else {
                     networkCallback.onFailureResult("Failed to fetch countries");
                 }

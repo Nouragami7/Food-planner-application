@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".FavouriteFragment">
+    tools:context=".controller.FavouriteFragment">
 
     <ImageButton
         android:id="@+id/backButton"
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
-        android:layout_marginEnd="272dp"
+        android:layout_marginEnd="270dp"
         android:fontFamily="@font/adlam_display"
         android:text="@string/favourite"
         android:textSize="30sp"
@@ -41,7 +41,6 @@
     <androidx.constraintlayout.widget.Group
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility=""
         android:id="@+id/fav_group"
         app:constraint_referenced_ids="emptyStateText,emptyStateImage" />
 
