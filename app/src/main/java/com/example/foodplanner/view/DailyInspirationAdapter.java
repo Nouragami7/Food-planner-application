@@ -17,8 +17,8 @@ import com.example.foodplanner.model.Meal;
 
 import java.util.ArrayList;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
-    private static final String TAG = "HomeAdapter";
+public class DailyInspirationAdapter extends RecyclerView.Adapter<DailyInspirationAdapter.MyViewHolder> {
+    private static final String TAG = "DailyInspirationAdapter";
     Context context;
     ArrayList<Meal> meals;
     //setter
@@ -30,7 +30,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
 
     CardView cardView;
 
-    public HomeAdapter(Context context, ArrayList<Meal> meals) {
+    public DailyInspirationAdapter(Context context, ArrayList<Meal> meals) {
         this.context = context;
         this.meals = meals;
 
@@ -40,7 +40,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.meal_item, parent, false);
+        View view = inflater.inflate(R.layout.daily_inspiration, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -68,8 +68,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         CardView randomIdCard;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mealName = itemView.findViewById(R.id.myName);
-            mealImage = itemView.findViewById(R.id.myImage);
+            mealName = itemView.findViewById(R.id.name);
+            mealImage = itemView.findViewById(R.id.image);
             randomIdCard = itemView.findViewById(R.id.randomIdCard);
         }
     }

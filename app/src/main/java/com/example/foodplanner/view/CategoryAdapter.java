@@ -19,7 +19,7 @@ import com.example.foodplanner.model.Category;
 import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
-    private static final String TAG = "HomeAdapter";
+    private static final String TAG = "DailyInspirationAdapter";
     Context context;
     ArrayList<Category> categories;
     private OnCategoryClickListener onCategoryClickListener;

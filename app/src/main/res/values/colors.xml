@@ -17,5 +17,9 @@
     <color name="orchid_pink">#E499D6</color>
     <color name="lavender_blush">#F8E7F6</color>
     <color name="light_pink">#DD88CF</color>
+    <color name="dark_pink">#E04ECB</color>
+    <color name="transparent_dark_purple">#7C4B164C</color>
+    <color name="light_purple">#458F5A90</color>
+    <color name="light_pinko">#FFC9F4</color>
 
 </resources>

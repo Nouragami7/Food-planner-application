@@ -18,7 +18,7 @@ import com.example.foodplanner.model.MealSpecification;
 import java.util.ArrayList;
 
 public class MealsListAdapter extends RecyclerView.Adapter<MealsListAdapter.MyViewHolder> {
-    private static final String TAG = "HomeAdapter";
+    private static final String TAG = "DailyInspirationAdapter";
     Context context;
     ArrayList<MealSpecification> meals;
 

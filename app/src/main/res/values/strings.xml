@@ -35,4 +35,11 @@
     <string name="search">Search</string>
     <string name="profile">Profile</string>
     <string name="no_fav">No favourite rites added yet!\nStart saving your favorite meals</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="countries">Countries</string>
+    <string name="categories">Categories</string>
+    <string name="search_recipes_ingredients">Search recipes, ingredients...</string>
+    <string name="add_to_favourite">Add to Favourite</string>
+    <string name="steps">Steps</string>
+    <string name="logout">Logout</string>
 </resources>

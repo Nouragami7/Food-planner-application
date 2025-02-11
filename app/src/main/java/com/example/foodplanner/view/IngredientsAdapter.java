@@ -18,7 +18,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.MyViewHolder> {
-    private static final String TAG = "HomeAdapter";
+    private static final String TAG = "DailyInspirationAdapter";
     Context context;
     ArrayList<String> ingredients;
     ArrayList<String> measurements;

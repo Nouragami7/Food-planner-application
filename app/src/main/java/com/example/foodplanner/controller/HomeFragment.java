@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.foodplanner.R;
@@ -23,7 +27,7 @@ import com.example.foodplanner.network.RetrofitClient;
 import com.example.foodplanner.network.NetworkCallback;
 import com.example.foodplanner.view.CategoryAdapter;
 import com.example.foodplanner.view.CountryAdapter;
-import com.example.foodplanner.view.HomeAdapter;
+import com.example.foodplanner.view.DailyInspirationAdapter;
 import com.example.foodplanner.view.MealsListAdapter;
 import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview;
 
@@ -35,10 +39,13 @@ public class HomeFragment extends Fragment implements NetworkCallback {
    CarouselRecyclerview dailyMealRecyclerView;
    RecyclerView categoryRecyclerView;
 
+    DrawerLayout drawerLayout;
+    ImageView menuIcon;
+
    RecyclerView mealFilteringRecyclerView;
 
    RecyclerView countryRecyclerView;
-   HomeAdapter homeAdapter;
+   DailyInspirationAdapter dailyInspirationAdapter;
    MealsListAdapter mealsListAdapter;
 
    CategoryAdapter categoryAdapter;
@@ -70,13 +77,24 @@ public class HomeFragment extends Fragment implements NetworkCallback {
         retrofitClient.makeNetworkCall(this, 10);
         retrofitClient.makeNetworkCallCategory(this);
         retrofitClient.makeNetworkCallArea(this);
+        drawerLayout = view.findViewById(R.id.drawer_layout);
+        menuIcon = view.findViewById(R.id.menuIcon);
+
+        menuIcon.setOnClickListener(v -> {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
     }
 
     @Override
     public void onSuccessResult(ArrayList<Meal> meals) {
         if (meals != null && !meals.isEmpty()) {
-            homeAdapter = new HomeAdapter(getContext(), meals);
-            dailyMealRecyclerView.setAdapter(homeAdapter);
+            dailyInspirationAdapter = new DailyInspirationAdapter(getContext(), meals);
+            dailyMealRecyclerView.setAdapter(dailyInspirationAdapter);
             dailyMealRecyclerView.setAlpha(true);
             dailyMealRecyclerView.setInfinite(false);
            // dailyMealRecyclerView.set3DItem();
@@ -85,7 +103,7 @@ public class HomeFragment extends Fragment implements NetworkCallback {
         } else {
             Toast.makeText(getContext(), "No meals found", Toast.LENGTH_SHORT).show();
         }
-        homeAdapter.setOnItemClickListener(Meal->{
+        dailyInspirationAdapter.setOnItemClickListener(Meal->{
             navigationToAnotherFragment(Integer.parseInt(Meal.getIdMeal()),Meal);
         });
     }

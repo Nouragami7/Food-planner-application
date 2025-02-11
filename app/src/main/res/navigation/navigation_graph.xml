@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_homeFragment_to_mealFilteringFragment"
             app:destination="@id/mealFilteringFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
@@ -96,4 +99,9 @@
             android:id="@+id/action_favouriteFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.foodplanner.controller.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
