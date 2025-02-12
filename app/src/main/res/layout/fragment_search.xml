@@ -36,8 +36,9 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:queryHint="Search recipes, ingredients..."
-            android:iconifiedByDefault="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:iconifiedByDefault="true"
             android:background="@android:color/transparent"
             android:textColor="@color/dark_purple"/>
     </androidx.cardview.widget.CardView>

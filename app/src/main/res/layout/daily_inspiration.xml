@@ -21,7 +21,7 @@
             android:id="@+id/imageCard"
             android:layout_width="match_parent"
             android:layout_height="280dp"
-            app:cardCornerRadius="2dp"
+            app:cardCornerRadius="8dp"
             app:cardElevation="12dp"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true"
@@ -53,15 +53,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/addToPlanButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/text_bg"
+            android:backgroundTint="@color/purple"
+            app:cornerRadius="20dp"
             android:text="@string/add_to_plan"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/name"
             app:layout_constraintStart_toStartOf="parent"

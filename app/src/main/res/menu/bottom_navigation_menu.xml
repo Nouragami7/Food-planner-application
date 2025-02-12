@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/homeFragment"
+        android:title=""
         android:icon="@drawable/home_icon"
-        android:title="@string/home"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/nav_favorites"
+        android:id="@+id/favouriteFragment"
         android:icon="@drawable/the_heart"
-        android:title="@string/favorites"
+        android:title=""
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/nav_search"
+        android:id="@+id/searchFragment"
         android:icon="@drawable/search_icon"
-        android:title="@string/search"
+        android:title=""
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/nav_profile"
+        android:id="@+id/planFragment"
         android:icon="@drawable/notes_icon"
-        android:title="@string/profile"
+        android:title=""
         app:showAsAction="ifRoom" />
 
 </menu>
