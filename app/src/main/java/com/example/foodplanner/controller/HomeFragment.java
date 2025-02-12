@@ -15,19 +15,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.view.CategoryAdapter;
+import com.example.foodplanner.view.CountryAdapter;
+import com.example.foodplanner.view.DailyInspirationAdapter;
 import com.example.foodplanner.model.Category;
 import com.example.foodplanner.model.Country;
 import com.example.foodplanner.model.Meal;
 import com.example.foodplanner.model.MealSpecification;
 import com.example.foodplanner.network.RetrofitClient;
 import com.example.foodplanner.network.NetworkCallback;
-import com.example.foodplanner.view.CategoryAdapter;
-import com.example.foodplanner.view.CountryAdapter;
-import com.example.foodplanner.view.DailyInspirationAdapter;
 import com.example.foodplanner.view.MealsListAdapter;
 import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview;
 
