@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_color"
-    tools:context=".SignupFragment">
+    tools:context=".views.ui.authentication.signup.SignupFragment">
 
 
     <ImageView

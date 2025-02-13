@@ -7,16 +7,19 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.foodplanner.SplashFragment"
+        android:name="com.example.foodplanner.views.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_introductionFragment2"
             app:destination="@id/introductionFragment2" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/introductionFragment2"
-        android:name="com.example.foodplanner.IntroductionFragment"
+        android:name="com.example.foodplanner.views.ui.introduction.IntroductionFragment"
         android:label="fragment_introduction"
         tools:layout="@layout/fragment_introduction" >
         <action
@@ -25,10 +28,13 @@
         <action
             android:id="@+id/action_introductionFragment2_to_loginFragment2"
             app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_introductionFragment2_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.example.foodplanner.SignupFragment"
+        android:name="com.example.foodplanner.views.ui.authentication.signup.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
         <action
@@ -37,11 +43,76 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
-        android:name="com.example.foodplanner.LoginFragment"
+        android:name="com.example.foodplanner.views.ui.authentication.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment2_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment2_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.foodplanner.views.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mealFilteringFragment"
+            app:destination="@id/mealFilteringFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_planFragment"
+            app:destination="@id/planFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="com.example.foodplanner.views.ui.meal_details.MealDetailsFragment"
+        android:label="fragment_meal_details"
+        tools:layout="@layout/fragment_meal_details" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="randomMeal"
+            app:argType="com.example.foodplanner.models.DTOS.Meal"
+            app:nullable="true" />
+    </fragment>
+    <argument
+        android:name="id"
+        app:argType="integer" />
+    <argument
+        android:name="randomMeal"
+        app:argType="com.example.foodplanner.models.DTOS.Meal"
+        app:nullable="true" />
+    <fragment
+        android:id="@+id/mealFilteringFragment"
+        android:name="com.example.foodplanner.views.ui.meal_filtering.MealFilteringFragment"
+        android:label="fragment_meal_filtering"
+        tools:layout="@layout/fragment_meal_filtering" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.foodplanner.views.ui.favourite.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.foodplanner.views.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/planFragment"
+        android:name="com.example.foodplanner.views.ui.plan.PlanFragment"
+        android:label="fragment_plan"
+        tools:layout="@layout/fragment_plan" />
 </navigation>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D8DFEC"
-    tools:context=".SplashFragment">
+    tools:context=".views.ui.splash.SplashFragment">
 
     <ImageView
         android:id="@+id/logoImage"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/agbalumo"
-        android:text="@string/dish"
+        android:text="@string/dash"
         android:textAlignment="center"
         android:textColor="@color/violetPurple"
         android:textSize="40sp"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/agbalumo"
-        android:text="@string/dash"
+        android:text="@string/dish"
         android:textAlignment="center"
         android:textColor="@color/amber"
         android:textSize="40sp"
