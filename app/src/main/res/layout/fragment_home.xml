@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="15dp"
-    tools:context=".controller.HomeFragment">
+    tools:context=".views.ui.home.HomeFragment">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"

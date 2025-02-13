@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/yy"
-    tools:context=".controller.IntroductionFragment">
+    tools:context=".views.ui.introduction.IntroductionFragment">
 
 
     <androidx.cardview.widget.CardView

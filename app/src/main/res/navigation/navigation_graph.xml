@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.foodplanner.controller.SplashFragment"
+        android:name="com.example.foodplanner.views.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/introductionFragment2"
-        android:name="com.example.foodplanner.controller.IntroductionFragment"
+        android:name="com.example.foodplanner.views.ui.introduction.IntroductionFragment"
         android:label="fragment_introduction"
         tools:layout="@layout/fragment_introduction" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.example.foodplanner.controller.SignupFragment"
+        android:name="com.example.foodplanner.views.ui.authentication.signup.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
-        android:name="com.example.foodplanner.controller.LoginFragment"
+        android:name="com.example.foodplanner.views.ui.authentication.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.foodplanner.controller.HomeFragment"
+        android:name="com.example.foodplanner.views.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
-        android:name="com.example.foodplanner.controller.MealDetailsFragment"
+        android:name="com.example.foodplanner.views.ui.meal_details.MealDetailsFragment"
         android:label="fragment_meal_details"
         tools:layout="@layout/fragment_meal_details" >
         <argument
@@ -81,7 +81,7 @@
             app:argType="integer" />
         <argument
             android:name="randomMeal"
-            app:argType="com.example.foodplanner.model.Meal"
+            app:argType="com.example.foodplanner.models.DTOS.Meal"
             app:nullable="true" />
     </fragment>
     <argument
@@ -89,16 +89,16 @@
         app:argType="integer" />
     <argument
         android:name="randomMeal"
-        app:argType="com.example.foodplanner.model.Meal"
+        app:argType="com.example.foodplanner.models.DTOS.Meal"
         app:nullable="true" />
     <fragment
         android:id="@+id/mealFilteringFragment"
-        android:name="com.example.foodplanner.controller.MealFilteringFragment"
+        android:name="com.example.foodplanner.views.ui.meal_filtering.MealFilteringFragment"
         android:label="fragment_meal_filtering"
         tools:layout="@layout/fragment_meal_filtering" />
     <fragment
         android:id="@+id/favouriteFragment"
-        android:name="com.example.foodplanner.controller.FavouriteFragment"
+        android:name="com.example.foodplanner.views.ui.favourite.FavouriteFragment"
         android:label="fragment_favourite"
         tools:layout="@layout/fragment_favourite" >
         <action
@@ -107,12 +107,12 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.foodplanner.controller.SearchFragment"
+        android:name="com.example.foodplanner.views.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/planFragment"
-        android:name="com.example.foodplanner.controller.PlanFragment"
+        android:name="com.example.foodplanner.views.ui.plan.PlanFragment"
         android:label="fragment_plan"
         tools:layout="@layout/fragment_plan" />
 </navigation>

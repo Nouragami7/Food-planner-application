@@ -1,9 +1,9 @@
 package com.example.foodplanner.network;
 
-import com.example.foodplanner.model.Category;
-import com.example.foodplanner.model.Country;
-import com.example.foodplanner.model.Meal;
-import com.example.foodplanner.model.MealSpecification;
+import com.example.foodplanner.models.DTOS.Category;
+import com.example.foodplanner.models.DTOS.Country;
+import com.example.foodplanner.models.DTOS.Meal;
+import com.example.foodplanner.models.DTOS.MealSpecification;
 
 import java.util.ArrayList;
 
