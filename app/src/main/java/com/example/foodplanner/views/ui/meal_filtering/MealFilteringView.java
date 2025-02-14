@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public interface MealFilteringView extends LoadingView {
     public void showMealsByCategory(ArrayList<MealSpecification> meals);
     public void showMealsByCountry(ArrayList<MealSpecification> meals);
+    public void showMealsByIngredient(ArrayList<MealSpecification> meals);
     public void showError(String errorMsg);
 
 }

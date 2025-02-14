@@ -7,6 +7,7 @@ import com.example.foodplanner.models.DTOS.CountryResponse;
 import com.example.foodplanner.models.DTOS.IngredientResponse;
 import com.example.foodplanner.models.DTOS.Meal;
 import com.example.foodplanner.models.DTOS.MealCountryResponse;
+import com.example.foodplanner.models.DTOS.MealIngredientResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
 import com.example.foodplanner.models.DTOS.MealSpecification;
 import com.example.foodplanner.models.DTOS.MealCategoryResponse;
@@ -65,6 +66,10 @@ public class FoodPlannerRemoteDataSource {
     public Single<MealCountryResponse> getMealsByCountry(String country) {
         return foodPlannerService.getMealsByCountry(country);
     }
+    public Single<MealIngredientResponse> getMealsByIngredient(String ingredient) {
+        return foodPlannerService.getMealsByIngredient(ingredient);
+    }
+
     public Single<MealResponse> getMealById(int mealId) {
         return foodPlannerService.getMealById(mealId);
     }

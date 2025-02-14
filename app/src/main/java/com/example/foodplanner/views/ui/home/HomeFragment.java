@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment implements HomeView {
         dailyMealRecyclerView = view.findViewById(R.id.dailyRecyclerView);
         categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
         countryRecyclerView = view.findViewById(R.id.countryRecyclerView);
+        progressBar = view.findViewById(R.id.progressBar);
 
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         countryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -82,9 +83,8 @@ public class HomeFragment extends Fragment implements HomeView {
     public void showCategories(ArrayList<Category> categories) {
             if (categories != null && !categories.isEmpty()) {
                 CategoryAdapter categoryAdapter = new CategoryAdapter(getContext(), categories, categoryName -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("category_name", categoryName);
-                    Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_mealFilteringFragment, bundle);
+                    HomeFragmentDirections.ActionHomeFragmentToMealFilteringFragment action = HomeFragmentDirections.actionHomeFragmentToMealFilteringFragment(categoryName, "category");
+                    Navigation.findNavController(getView()).navigate(action);
                 });
                 categoryRecyclerView.setAdapter(categoryAdapter);
             } else {
@@ -96,9 +96,8 @@ public class HomeFragment extends Fragment implements HomeView {
     public void showCountries(ArrayList<Country> countries) {
         if (countries != null && !countries.isEmpty()) {
             CountryAdapter countryAdapter = new CountryAdapter(getContext(), countries, countryName -> {
-                Bundle bundle = new Bundle();
-                bundle.putString("country_name", countryName);
-                Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_to_mealFilteringFragment, bundle);
+               HomeFragmentDirections.ActionHomeFragmentToMealFilteringFragment action = HomeFragmentDirections.actionHomeFragmentToMealFilteringFragment(countryName, "country");
+                Navigation.findNavController(getView()).navigate(action);
             });
             countryRecyclerView.setAdapter(countryAdapter);
         } else {
@@ -121,11 +120,12 @@ public class HomeFragment extends Fragment implements HomeView {
 
     @Override
     public void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideLoading() {
-
+        progressBar.setVisibility(View.GONE);
     }
 }

@@ -99,6 +99,12 @@
         <action
             android:id="@+id/action_mealFilteringFragment_to_mealDetailsFragment"
             app:destination="@id/mealDetailsFragment" />
+        <argument
+            android:name="mealId"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -113,7 +119,12 @@
         android:id="@+id/searchFragment"
         android:name="com.example.foodplanner.views.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_mealFilteringFragment"
+            app:destination="@id/mealFilteringFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/planFragment"
         android:name="com.example.foodplanner.views.ui.plan.PlanFragment"

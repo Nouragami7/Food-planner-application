@@ -1,12 +1,10 @@
 package com.example.foodplanner.presenters.search;
 
-import com.example.foodplanner.models.DTOS.Category;
-import com.example.foodplanner.models.DTOS.Country;
-import com.example.foodplanner.models.DTOS.Ingredient;
+import com.example.foodplanner.models.DTOS.CategoryResponse;
+import com.example.foodplanner.models.DTOS.CountryResponse;
+import com.example.foodplanner.models.DTOS.IngredientResponse;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.views.ui.search.TheSearchView;
-
-import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -23,16 +21,13 @@ public class SearchPresenterImplementation implements SearchPresenter {
         this.compositeDisposable = new CompositeDisposable();
     }
 
-
     @Override
     public void getIngredients() {
         Disposable disposable = repository.getIngredients()
                 .subscribeOn(Schedulers.io())
+                .map(IngredientResponse::getMeals)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(ingredientResponse -> {
-                    ArrayList<Ingredient> ingredients = ingredientResponse.getMeals();
-                    searchView.ShowIngredients(ingredients);
-                }, throwable -> searchView.showError(throwable.getMessage()));
+                .subscribe(searchView::ShowIngredients, throwable -> searchView.showError(throwable.getMessage()));
         compositeDisposable.add(disposable);
     }
 
@@ -40,12 +35,9 @@ public class SearchPresenterImplementation implements SearchPresenter {
     public void getCategories() {
         Disposable disposable = repository.getCategories()
                 .subscribeOn(Schedulers.io())
+                .map(CategoryResponse::getCategories)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(categoryResponse -> {
-                    ArrayList<Category> categories = categoryResponse.getCategories();
-                    searchView.showCategories(categories);
-                }, throwable -> searchView.showError(throwable.getMessage()));
-
+                .subscribe(searchView::showCategories, throwable -> searchView.showError(throwable.getMessage()));
         compositeDisposable.add(disposable);
 
     }
@@ -54,14 +46,10 @@ public class SearchPresenterImplementation implements SearchPresenter {
     public void getCountries() {
        Disposable disposable = repository.getCountries()
                .subscribeOn(Schedulers.io())
+               .map(CountryResponse::getCountries)
                .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(countryResponse -> {
-                   ArrayList<Country> countries = countryResponse.getCountries();
-                   searchView.showCountries(countries);
-               }, throwable -> searchView.showError(throwable.getMessage()));
-
+               .subscribe(searchView::showCountries, throwable -> searchView.showError(throwable.getMessage()));
        compositeDisposable.add(disposable);
 
     }
-
 }

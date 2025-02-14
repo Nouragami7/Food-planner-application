@@ -5,7 +5,9 @@ import com.example.foodplanner.models.DTOS.CountryResponse;
 import com.example.foodplanner.models.DTOS.IngredientResponse;
 import com.example.foodplanner.models.DTOS.MealCategoryResponse;
 import com.example.foodplanner.models.DTOS.MealCountryResponse;
+import com.example.foodplanner.models.DTOS.MealIngredientResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
+import com.example.foodplanner.models.DTOS.MealSpecification;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
 
 import io.reactivex.rxjava3.core.Single;
@@ -47,6 +49,11 @@ public class Repository {
     public Single<MealCountryResponse> getMealsByCountry(String area) {
         return remoteDataSource.getMealsByCountry(area);
     }
+    public Single<MealIngredientResponse> getMealsByIngredient(String ingredient) {
+        return remoteDataSource.getMealsByIngredient(ingredient);
+    }
+
+
     public Single<MealResponse> getMealById(int mealId) {
         return remoteDataSource.getMealById(mealId);
     }

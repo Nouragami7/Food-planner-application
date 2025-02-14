@@ -3,6 +3,7 @@ package com.example.foodplanner.views.ui.search;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Ingredient;
+import com.example.foodplanner.models.DTOS.MealSpecification;
 
 import java.util.ArrayList;
 

@@ -1,14 +1,15 @@
 package com.example.foodplanner.presenters.home;
 
-import com.example.foodplanner.models.DTOS.Category;
-import com.example.foodplanner.models.DTOS.Country;
-import com.example.foodplanner.models.DTOS.Meal;
+import com.example.foodplanner.models.DTOS.CategoryResponse;
+import com.example.foodplanner.models.DTOS.CountryResponse;
+import com.example.foodplanner.models.DTOS.MealResponse;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.views.ui.home.HomeView;
 
 import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -28,25 +29,40 @@ public class HomePresenterImplementation implements HomePresenter {
 
     @Override
     public void getMeals() {
-        Disposable disposable = repository.getMeals()
+        homeView.showLoading();
+
+        Disposable disposable = Observable.concat(
+                        repository.getMeals().toObservable(),
+                        repository.getMeals().toObservable(),
+                        repository.getMeals().toObservable(),
+                        repository.getMeals().toObservable()
+                )
                 .subscribeOn(Schedulers.io())
+                .map(MealResponse::getMeals)
+                .flatMapIterable(meals -> meals)
+                .toList()
+                .map(ArrayList::new)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mealResponse -> {
-                    ArrayList<Meal> meals = mealResponse.getMeals();
+                .subscribe(meals -> {
+                    homeView.hideLoading();
                     homeView.showMeals(meals);
-                }, throwable -> homeView.showError(throwable.getMessage()));
+                }, throwable -> {
+                    homeView.hideLoading();
+                    homeView.showError(throwable.getMessage());
+                });
 
         compositeDisposable.add(disposable);
     }
-
     @Override
     public void getCategories() {
+        homeView.showLoading();
         Disposable disposable = repository.getCategories()
                 .subscribeOn(Schedulers.io())
+                .map(CategoryResponse::getCategories)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(categoryResponse -> {
-                    ArrayList<Category> categories = categoryResponse.getCategories();
-                    homeView.showCategories(categories);
+                    homeView.hideLoading();
+                    homeView.showCategories(categoryResponse);
                 }, throwable -> homeView.showError(throwable.getMessage()));
 
         compositeDisposable.add(disposable);
@@ -56,9 +72,10 @@ public class HomePresenterImplementation implements HomePresenter {
     public void getCountries() {
         Disposable disposable = repository.getCountries()
                 .subscribeOn(Schedulers.io())
+                .map(CountryResponse::getCountries)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(countryResponse -> {
-                    ArrayList<Country> countries = countryResponse.getCountries();
+                .subscribe(countries -> {
+                    homeView.hideLoading();
                     homeView.showCountries(countries);
                 }, throwable -> homeView.showError(throwable.getMessage()));
         compositeDisposable.add(disposable);

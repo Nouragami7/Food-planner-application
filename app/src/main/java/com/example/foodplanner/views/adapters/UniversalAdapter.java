@@ -6,23 +6,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Ingredient;
+import com.example.foodplanner.views.ui.search.OnItemListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class UniversalAdapter extends RecyclerView.Adapter<UniversalAdapter.GenericViewHolder> {
     private Context context;
     private List<Object> items;
+    private OnItemListener onItemListener;
 
-    public UniversalAdapter(Context context, List<Object> items) {
+    public UniversalAdapter(Context context, List<Object> items, OnItemListener onItemListener) {
         this.context = context;
         this.items = new ArrayList<>(items);
+        this.onItemListener = onItemListener;
     }
 
     @NonNull
@@ -38,14 +44,17 @@ public class UniversalAdapter extends RecyclerView.Adapter<UniversalAdapter.Gene
 
         if (item instanceof Ingredient) {
             holder.itemName.setText(((Ingredient) item).getStrIngredient());
+            holder.itemView.setOnClickListener(v -> onItemListener.onItemClick(item));
         } else if (item instanceof Category) {
             holder.itemName.setText(((Category) item).getCategoryName());
             holder.loadImage(((Category) item).getCategoryImage());
+            holder.itemView.setOnClickListener(v -> onItemListener.onItemClick(item));
         } else if (item instanceof Country) {
             holder.itemName.setText(((Country) item).getCountryName());
             String flagUrl = "https://www.themealdb.com/images/icons/flags/big/64/" +
                     ((Country) item).getCountryName().substring(0, 2).toLowerCase() + ".png";
             holder.loadImage(flagUrl);
+            holder.itemView.setOnClickListener(v -> onItemListener.onItemClick(item));
         }
     }
 

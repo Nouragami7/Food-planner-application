@@ -4,8 +4,10 @@ import com.example.foodplanner.models.DTOS.CategoryResponse;
 import com.example.foodplanner.models.DTOS.CountryResponse;
 import com.example.foodplanner.models.DTOS.IngredientResponse;
 import com.example.foodplanner.models.DTOS.MealCountryResponse;
+import com.example.foodplanner.models.DTOS.MealIngredientResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
 import com.example.foodplanner.models.DTOS.MealCategoryResponse;
+import com.example.foodplanner.models.DTOS.MealSpecification;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
@@ -33,4 +35,7 @@ public interface FoodPlannerService {
 
     @GET("lookup.php")
     Single<MealResponse> getMealById(@Query("i") int mealId);
+
+    @GET("filter.php")
+    Single<MealIngredientResponse> getMealsByIngredient(@Query("i") String ingredient);
 }

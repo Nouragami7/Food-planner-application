@@ -1,6 +1,7 @@
 package com.example.foodplanner.views.ui.meal_filtering;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +50,16 @@ public class MealFilteringFragment extends Fragment implements MealFilteringView
         MealFilteringPresenterImplementation mealFilteringPresenter = new MealFilteringPresenterImplementation(this, repository);
         progressBar = view.findViewById(R.id.progressBar);
 
-        if (getArguments() != null) {
-            String categoryName = getArguments().getString("category_name", "");
-            String countryName = getArguments().getString("country_name", "");
-            mealFilteringPresenter.getMealsByCategory(categoryName);
-            mealFilteringPresenter.getMealsByCountry(countryName);
+        MealFilteringFragmentArgs args = MealFilteringFragmentArgs.fromBundle(getArguments());
+        String id = args.getMealId();
+        String type = args.getType();
+        if (type.equals("category")) {
+            mealFilteringPresenter.getMealsByCategory(id);
+            Log.i("TAG", "onViewCreated: " + id);
+        } else if (type.equals("country")) {
+            mealFilteringPresenter.getMealsByCountry(id);
+        } else if (type.equals("ingredient")) {
+            mealFilteringPresenter.getMealsByIngredient(id);
         }
     }
 
@@ -61,16 +67,24 @@ public class MealFilteringFragment extends Fragment implements MealFilteringView
     public void showMealsByCategory(ArrayList<MealSpecification> meals) {
         if (meals != null && !meals.isEmpty()) {
             mealsListAdapter = new MealsListAdapter(requireContext(), meals, this::navigateToMealDetails);
+            mealsRecyclerView.setAdapter(mealsListAdapter);
+        } else {
+            showError("no data");
+        }
+    }
 
+    @Override
+    public void showMealsByCountry(ArrayList<MealSpecification> meals) {
+        if (meals != null && !meals.isEmpty()) {
+            mealsListAdapter = new MealsListAdapter(getContext(), meals, this::navigateToMealDetails);
             mealsRecyclerView.setAdapter(mealsListAdapter);
         } else {
             showError("No meals found");
         }
     }
 
-
     @Override
-    public void showMealsByCountry(ArrayList<MealSpecification> meals) {
+    public void showMealsByIngredient(ArrayList<MealSpecification> meals) {
         if (meals != null && !meals.isEmpty()) {
             mealsListAdapter = new MealsListAdapter(getContext(), meals, this::navigateToMealDetails);
             mealsRecyclerView.setAdapter(mealsListAdapter);

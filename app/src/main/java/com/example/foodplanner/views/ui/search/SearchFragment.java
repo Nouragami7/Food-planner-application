@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,11 +17,13 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Ingredient;
+import com.example.foodplanner.models.DTOS.MealSpecification;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
 import com.example.foodplanner.presenters.search.SearchPresenter;
 import com.example.foodplanner.presenters.search.SearchPresenterImplementation;
 import com.example.foodplanner.views.adapters.UniversalAdapter;
+import com.example.foodplanner.views.ui.meal_filtering.MealFilteringFragmentDirections;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -58,7 +62,16 @@ public class SearchFragment extends Fragment implements TheSearchView {
         Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance());
         searchPresenter = new SearchPresenterImplementation(this, repository);
 
-        universalAdapter = new UniversalAdapter(getContext(), filteredItems);
+        universalAdapter = new UniversalAdapter(getContext(), filteredItems, item -> {
+            if (item instanceof Ingredient) {
+                navigateToMealFregment(((Ingredient) item).getStrIngredient(),"ingredient");
+            } else if (item instanceof Category) {
+                navigateToMealFregment(((Category) item).getCategoryName(),"category");
+            } else if (item instanceof Country) {
+                navigateToMealFregment(((Country) item).getCountryName(),"country");
+            }
+        });
+
         searchRecyclerView.setAdapter(universalAdapter);
         searchRecyclerView.setVisibility(View.GONE);
 
@@ -67,10 +80,10 @@ public class SearchFragment extends Fragment implements TheSearchView {
         setupChipGroup();
     }
 
+
     private void fetchAllData() {
         allItems.clear();
         filteredItems.clear();
-
         searchPresenter.getIngredients();
         searchPresenter.getCategories();
         searchPresenter.getCountries();
@@ -158,4 +171,11 @@ public class SearchFragment extends Fragment implements TheSearchView {
     public void showError(String errorMsg) {
         Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show();
     }
+
+    void navigateToMealFregment (String id,String type){
+        NavController navController = Navigation.findNavController(requireView());
+       SearchFragmentDirections.ActionSearchFragmentToMealFilteringFragment action = SearchFragmentDirections.actionSearchFragmentToMealFilteringFragment(id,type);
+        navController.navigate(action);
+    }
+
 }
