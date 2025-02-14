@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/splash_background" />
+                    tools:src="@drawable/splash_background" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -135,7 +134,6 @@
                     android:textSize="16sp"
                     android:textColor="@android:color/black"/>
             </androidx.cardview.widget.CardView>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

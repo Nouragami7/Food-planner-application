@@ -6,8 +6,8 @@ import com.example.foodplanner.models.DTOS.MealCountryResponse;
 import io.reactivex.rxjava3.core.Single;
 
 public interface MealFilteringPresenter {
-    Single<MealCategoryResponse> getMealsByCategory(String category);
-    Single<MealCountryResponse> getMealsByCountry(String area);
+   void getMealsByCategory(String category);
+    void getMealsByCountry(String area);
 
 
 }

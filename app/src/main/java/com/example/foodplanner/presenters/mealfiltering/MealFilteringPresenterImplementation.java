@@ -28,33 +28,33 @@ public class MealFilteringPresenterImplementation implements MealFilteringPresen
     }
 
     @Override
-    public Single<MealCategoryResponse> getMealsByCategory(String category) {
-
+    public void getMealsByCategory(String category) {
+        mealFilteringView.showLoading();
         Disposable disposable = repository.getMealsByCategory(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealCategoryResponse -> {
+                    mealFilteringView.hideLoading();
                     ArrayList<MealSpecification> meals = mealCategoryResponse.getMealsFromCategory();
                     mealFilteringView.showMealsByCategory(meals);
                 }, throwable -> mealFilteringView.showError(throwable.getMessage()));
 
         compositeDisposable.add(disposable);
-        return repository.getMealsByCategory(category);
     }
 
     @Override
-    public Single<MealCountryResponse> getMealsByCountry(String area) {
+    public void getMealsByCountry(String area) {
+        mealFilteringView.showLoading();
         Disposable disposable = repository.getMealsByCountry(area)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealCategoryResponse -> {
+                    mealFilteringView.hideLoading();
                     ArrayList<MealSpecification> meals = mealCategoryResponse.getMealsFromCountry();
                     mealFilteringView.showMealsByCountry(meals);
                 }, throwable -> mealFilteringView.showError(throwable.getMessage()));
 
         compositeDisposable.add(disposable);
-        return repository.getMealsByCountry(area);
-
     }
 
 }

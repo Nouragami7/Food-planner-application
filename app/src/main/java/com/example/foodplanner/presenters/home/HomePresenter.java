@@ -8,9 +8,9 @@ import com.example.foodplanner.models.DTOS.MealResponse;
 import io.reactivex.rxjava3.core.Single;
 
 public interface HomePresenter {
-   public Single<MealResponse> getMeals();
-   public Single<CategoryResponse> getCategories();
-   public Single<CountryResponse> getCountries();
+   public void getMeals();
+   public void getCategories();
+   public void getCountries();
 
 
 }

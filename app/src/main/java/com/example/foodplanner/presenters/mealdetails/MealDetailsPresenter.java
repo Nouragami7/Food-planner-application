@@ -1,7 +1,9 @@
 package com.example.foodplanner.presenters.mealdetails;
 
+import com.example.foodplanner.views.ui.loadingView.LoadingView;
+
 public interface MealDetailsPresenter  {
-    void getMealDetails();
-    void onDestroy();
-    void loadVideo(String youtubeUrl);
+   public void getMealDetailsById(int id);
+
+
 }

@@ -26,4 +26,7 @@ public interface FoodPlannerService {
 
     @GET("filter.php")
     Single<MealCountryResponse> getMealsByCountry(@Query("a") String country);
+
+    @GET("lookup.php")
+    Single<MealResponse> getMealById(@Query("i") int mealId);
 }

@@ -1,14 +1,11 @@
 package com.example.foodplanner.models.Repository;
 
-import com.example.foodplanner.database.FoodPlannerLocalDataSource;
 import com.example.foodplanner.models.DTOS.CategoryResponse;
 import com.example.foodplanner.models.DTOS.CountryResponse;
 import com.example.foodplanner.models.DTOS.MealCategoryResponse;
 import com.example.foodplanner.models.DTOS.MealCountryResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
-import com.example.foodplanner.network.FoodPlannerService;
-import com.example.foodplanner.network.NetworkCallback;
 
 import io.reactivex.rxjava3.core.Single;
 
@@ -45,6 +42,9 @@ public class Repository {
     }
     public Single<MealCountryResponse> getMealsByCountry(String area) {
         return remoteDataSource.getMealsByCountry(area);
+    }
+    public Single<MealResponse> getMealById(int mealId) {
+        return remoteDataSource.getMealById(mealId);
     }
 
 }

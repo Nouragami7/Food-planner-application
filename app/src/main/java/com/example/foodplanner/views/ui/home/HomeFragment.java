@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public class HomeFragment extends Fragment implements HomeView {
     private RecyclerView categoryRecyclerView;
     private RecyclerView countryRecyclerView;
     private HomePresenterImplementation homePresenter;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -117,5 +119,15 @@ public class HomeFragment extends Fragment implements HomeView {
                     HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealId, meal)
             );
         }
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }

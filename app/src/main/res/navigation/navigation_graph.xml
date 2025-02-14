@@ -95,7 +95,11 @@
         android:id="@+id/mealFilteringFragment"
         android:name="com.example.foodplanner.views.ui.meal_filtering.MealFilteringFragment"
         android:label="fragment_meal_filtering"
-        tools:layout="@layout/fragment_meal_filtering" />
+        tools:layout="@layout/fragment_meal_filtering" >
+        <action
+            android:id="@+id/action_mealFilteringFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.example.foodplanner.views.ui.favourite.FavouriteFragment"

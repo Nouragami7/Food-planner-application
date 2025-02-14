@@ -61,6 +61,9 @@ public class FoodPlannerRemoteDataSource {
     public Single<MealCountryResponse> getMealsByCountry(String country) {
         return foodPlannerService.getMealsByCountry(country);
     }
+    public Single<MealResponse> getMealById(int mealId) {
+        return foodPlannerService.getMealById(mealId);
+    }
 
 }
 
