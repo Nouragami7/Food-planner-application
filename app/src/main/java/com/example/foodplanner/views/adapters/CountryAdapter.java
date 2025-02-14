@@ -108,4 +108,10 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
         else if (countryName.equals("vietnamese")) return "vn";
         else return "x";
     }
+
+
+    public void updateData(ArrayList<Country> newCountries) {
+        this.countries = newCountries;
+        notifyDataSetChanged();
+    }
 }

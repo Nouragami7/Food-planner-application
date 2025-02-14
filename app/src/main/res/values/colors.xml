@@ -22,5 +22,8 @@
     <color name="dark_transparent_purple">#458F5A90</color>
     <color name="light_pinko">#FFC9F4</color>
     <color name="light_purple">#BE67FA</color>
+    <color name="chip_default">#E0E0E0</color>
+    <color name="chip_selected">#FF9800</color>
+
 
 </resources>

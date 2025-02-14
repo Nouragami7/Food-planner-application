@@ -90,8 +90,6 @@ public class HomeFragment extends Fragment implements HomeView {
             } else {
                 showError("No categories found");
             }
-
-
     }
 
     @Override

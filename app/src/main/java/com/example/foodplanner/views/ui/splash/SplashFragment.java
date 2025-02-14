@@ -18,6 +18,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.models.DTOS.Category;
+import com.example.foodplanner.models.DTOS.Country;
+import com.example.foodplanner.views.ui.search.TheSearchView;
+
+import java.util.ArrayList;
 
 public class SplashFragment extends Fragment {
     TextView dish,dash;
@@ -65,4 +70,5 @@ public class SplashFragment extends Fragment {
             }
         },3000);
     }
+
 }

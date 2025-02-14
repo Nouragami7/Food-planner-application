@@ -1,6 +1,11 @@
 package com.example.foodplanner.views.ui.meal_filtering;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,13 +15,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.R;
 import com.example.foodplanner.models.DTOS.MealSpecification;
 import com.example.foodplanner.models.Repository.Repository;
@@ -29,9 +27,6 @@ import java.util.ArrayList;
 public class MealFilteringFragment extends Fragment implements MealFilteringView {
     private RecyclerView mealsRecyclerView;
     private MealsListAdapter mealsListAdapter;
-    private MealFilteringPresenterImplementation mealFilteringPresenter;
-    private String categoryName;
-    private String countryName;
     private ProgressBar progressBar;
 
     public MealFilteringFragment() {
@@ -51,42 +46,37 @@ public class MealFilteringFragment extends Fragment implements MealFilteringView
         mealsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance());
-        mealFilteringPresenter = new MealFilteringPresenterImplementation(this, repository);
+        MealFilteringPresenterImplementation mealFilteringPresenter = new MealFilteringPresenterImplementation(this, repository);
         progressBar = view.findViewById(R.id.progressBar);
 
         if (getArguments() != null) {
-            categoryName = getArguments().getString("category_name", "");
-            countryName = getArguments().getString("country_name", "");
+            String categoryName = getArguments().getString("category_name", "");
+            String countryName = getArguments().getString("country_name", "");
             mealFilteringPresenter.getMealsByCategory(categoryName);
             mealFilteringPresenter.getMealsByCountry(countryName);
         }
     }
+
     @Override
     public void showMealsByCategory(ArrayList<MealSpecification> meals) {
-            if (meals != null && !meals.isEmpty()) {
-                mealsListAdapter = new MealsListAdapter(requireContext(), meals, mealId -> {
-                  Toast.makeText(getContext(), "Meal ID: " + mealId, Toast.LENGTH_SHORT).show();
-                   navigateToMealDetails(mealId);
-                });
+        if (meals != null && !meals.isEmpty()) {
+            mealsListAdapter = new MealsListAdapter(requireContext(), meals, this::navigateToMealDetails);
 
-                mealsRecyclerView.setAdapter(mealsListAdapter);
-            } else {
-                showError("No meals found");
-            }
+            mealsRecyclerView.setAdapter(mealsListAdapter);
+        } else {
+            showError("No meals found");
         }
+    }
 
 
     @Override
     public void showMealsByCountry(ArrayList<MealSpecification> meals) {
         if (meals != null && !meals.isEmpty()) {
-            mealsListAdapter = new MealsListAdapter(getContext(), meals,mealId->{
-               navigateToMealDetails(mealId);
-            });
+            mealsListAdapter = new MealsListAdapter(getContext(), meals, this::navigateToMealDetails);
             mealsRecyclerView.setAdapter(mealsListAdapter);
         } else {
             showError("No meals found");
         }
-
     }
 
     @Override
@@ -108,8 +98,7 @@ public class MealFilteringFragment extends Fragment implements MealFilteringView
 
     public void navigateToMealDetails(int mealId) {
         NavController navController = Navigation.findNavController(requireView());
-        MealFilteringFragmentDirections.ActionMealFilteringFragmentToMealDetailsFragment action =
-                MealFilteringFragmentDirections.actionMealFilteringFragmentToMealDetailsFragment(mealId, null);
+        MealFilteringFragmentDirections.ActionMealFilteringFragmentToMealDetailsFragment action = MealFilteringFragmentDirections.actionMealFilteringFragmentToMealDetailsFragment(mealId, null);
         navController.navigate(action);
     }
 }

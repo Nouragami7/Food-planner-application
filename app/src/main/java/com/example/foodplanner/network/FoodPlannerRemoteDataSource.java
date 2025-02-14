@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.foodplanner.models.DTOS.CategoryResponse;
 import com.example.foodplanner.models.DTOS.CountryResponse;
+import com.example.foodplanner.models.DTOS.IngredientResponse;
 import com.example.foodplanner.models.DTOS.Meal;
 import com.example.foodplanner.models.DTOS.MealCountryResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
@@ -53,6 +54,9 @@ public class FoodPlannerRemoteDataSource {
 
     public Single<CountryResponse> getCountries() {
         return foodPlannerService.getCountries();
+    }
+    public Single<IngredientResponse> getIngredients() {
+        return foodPlannerService.getIngredients();
     }
 
     public Single<MealCategoryResponse> getMealsByCategory(String category) {

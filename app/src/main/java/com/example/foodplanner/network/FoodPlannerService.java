@@ -2,6 +2,7 @@ package com.example.foodplanner.network;
 
 import com.example.foodplanner.models.DTOS.CategoryResponse;
 import com.example.foodplanner.models.DTOS.CountryResponse;
+import com.example.foodplanner.models.DTOS.IngredientResponse;
 import com.example.foodplanner.models.DTOS.MealCountryResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
 import com.example.foodplanner.models.DTOS.MealCategoryResponse;
@@ -20,6 +21,9 @@ public interface FoodPlannerService {
 
     @GET("list.php?a=list")
     Single<CountryResponse> getCountries();
+
+    @GET("list.php?i=list")
+    Single<IngredientResponse> getIngredients();
 
     @GET("filter.php")
     Single<MealCategoryResponse> getMealsByCategory(@Query("c") String category);

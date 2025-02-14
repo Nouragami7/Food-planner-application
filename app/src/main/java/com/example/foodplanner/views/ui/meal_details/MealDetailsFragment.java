@@ -18,6 +18,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 
@@ -32,9 +33,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
     private ImageView mealImage;
     private TextView mealName, steps, mealCountry;
     private WebView videoWebView;
-    private IngredientsAdapter adapter;
     private RecyclerView ingredientsRecycler;
-    private MealDetailsPresenterImplementation presenter;
     private int mealId;
 
     public MealDetailsFragment() {
@@ -58,16 +57,14 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         ingredientsRecycler = view.findViewById(R.id.ingredientsRecyclerView);
         ingredientsRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        presenter = new MealDetailsPresenterImplementation(this, Repository.getInstance(FoodPlannerRemoteDataSource.getInstance()));
+        MealDetailsPresenterImplementation presenter = new MealDetailsPresenterImplementation(this, Repository.getInstance(FoodPlannerRemoteDataSource.getInstance()));
 
         Meal meal = MealDetailsFragmentArgs.fromBundle(getArguments()).getRandomMeal();
         mealId = MealDetailsFragmentArgs.fromBundle(getArguments()).getId();
 
         if (meal != null) {
-            Log.i("MealDetailsFragment", "Meal received: " + meal.getStrMeal());
             displayMealDetails(meal);
         } else {
-            Log.w("MealDetailsFragment", "Meal object is null, fetching from API...");
             presenter.getMealDetailsById(mealId);
         }
     }
@@ -77,10 +74,8 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         mealName.setText(meal.getStrMeal());
         mealCountry.setText(meal.getStrArea());
         steps.setText(meal.getStrInstructions());
-
-        adapter = new IngredientsAdapter(getContext(), meal.getNonNullIngredients(), meal.getNonNullMeasurements());
+        IngredientsAdapter adapter = new IngredientsAdapter(getContext(), meal.getNonNullIngredients(), meal.getNonNullMeasurements());
         ingredientsRecycler.setAdapter(adapter);
-
         loadYouTubeVideo(meal.getStrYoutube());
     }
 
@@ -93,7 +88,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         String videoId = uri.getQueryParameter("v");
 
         if (videoId != null) {
-            String iframe = "<iframe width=\"100%\" height=\"100%\" "+
+            String iframe = "<iframe width=\"100%\" height=\"100%\" " +
                     "src=\"https://www.youtube.com/embed/" + videoId + "?autoplay=0&mute=0\" " +
                     "frameborder=\"0\" allowfullscreen></iframe>";
 
@@ -106,7 +101,6 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
     @Override
     public void showMealDetailsById(Meal meal) {
         if (meal != null) {
-            Log.d("MealDetailsFragment", "Meal received from API: " + meal.getStrMeal());
             displayMealDetails(meal);
         } else {
             showError("Meal not found");

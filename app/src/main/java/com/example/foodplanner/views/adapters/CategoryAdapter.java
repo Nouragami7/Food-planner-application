@@ -63,5 +63,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             categoryImage = itemView.findViewById(R.id.myImage);
         }
     }
+    public void updateData(ArrayList<Category> newCategories) {
+        this.categories = newCategories;
+        notifyDataSetChanged();
+    }
 }
 

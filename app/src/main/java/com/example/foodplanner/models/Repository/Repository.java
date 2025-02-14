@@ -2,6 +2,7 @@ package com.example.foodplanner.models.Repository;
 
 import com.example.foodplanner.models.DTOS.CategoryResponse;
 import com.example.foodplanner.models.DTOS.CountryResponse;
+import com.example.foodplanner.models.DTOS.IngredientResponse;
 import com.example.foodplanner.models.DTOS.MealCategoryResponse;
 import com.example.foodplanner.models.DTOS.MealCountryResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
@@ -35,6 +36,9 @@ public class Repository {
 
     public Single<CountryResponse> getCountries() {
         return remoteDataSource.getCountries();
+    }
+    public  Single<IngredientResponse> getIngredients() {
+        return remoteDataSource.getIngredients();
     }
 
     public Single<MealCategoryResponse> getMealsByCategory(String category) {
