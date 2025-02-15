@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.foodplanner.R;
 import com.example.foodplanner.models.DTOS.Category;
@@ -35,11 +37,13 @@ public class SearchFragment extends Fragment implements TheSearchView {
     private RecyclerView searchRecyclerView;
     private ChipGroup chipGroup;
     private Chip ingredientsChip, countriesChip, categoriesChip;
+    ImageView emptySearch;
+    TextView emptySearchText;
 
     private SearchPresenter searchPresenter;
     private UniversalAdapter universalAdapter;
-    private ArrayList<Object> allItems = new ArrayList<>();
-    private ArrayList<Object> filteredItems = new ArrayList<>();
+    private final ArrayList<Object> allItems = new ArrayList<>();
+    private final ArrayList<Object> filteredItems = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +57,8 @@ public class SearchFragment extends Fragment implements TheSearchView {
         searchView = view.findViewById(R.id.searchView);
         searchRecyclerView = view.findViewById(R.id.SearchRecyclerView);
         searchRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        emptySearch = view.findViewById(R.id.searchImg);
+        emptySearchText = view.findViewById(R.id.emptySearch);
 
         chipGroup = view.findViewById(R.id.chipGroup);
         ingredientsChip = view.findViewById(R.id.ingredientsChip);
@@ -73,7 +79,7 @@ public class SearchFragment extends Fragment implements TheSearchView {
         });
 
         searchRecyclerView.setAdapter(universalAdapter);
-        searchRecyclerView.setVisibility(View.GONE);
+        visibility(View.GONE, View.VISIBLE);
 
         fetchAllData();
         setupSearchView();
@@ -100,9 +106,9 @@ public class SearchFragment extends Fragment implements TheSearchView {
             public boolean onQueryTextChange(String newText) {
                 filterData(newText);
                 if (newText.isEmpty()) {
-                    searchRecyclerView.setVisibility(View.GONE);
+                    visibility(View.GONE, View.VISIBLE);
                 } else {
-                    searchRecyclerView.setVisibility(View.VISIBLE);
+                    visibility(View.VISIBLE, View.GONE);
                 }
                 return true;
             }
@@ -133,20 +139,29 @@ public class SearchFragment extends Fragment implements TheSearchView {
             if (matchesQuery) {
                 if (ingredientsChip.isChecked() && item instanceof Ingredient) {
                     filteredItems.add(item);
-                    searchRecyclerView.setVisibility(View.VISIBLE);
+                    visibility(View.VISIBLE, View.GONE);
                 } else if (categoriesChip.isChecked() && item instanceof Category) {
                     filteredItems.add(item);
-                    searchRecyclerView.setVisibility(View.VISIBLE);
+                    visibility(View.VISIBLE, View.GONE);
                 } else if (countriesChip.isChecked() && item instanceof Country) {
                     filteredItems.add(item);
-                    searchRecyclerView.setVisibility(View.VISIBLE);
+                    visibility(View.VISIBLE, View.GONE);
                 } else if (!ingredientsChip.isChecked() && !categoriesChip.isChecked() && !countriesChip.isChecked()) {
                     filteredItems.add(item);
+                    searchRecyclerView.setVisibility(View.GONE);
+                    emptySearch.setVisibility(View.VISIBLE);
+                    emptySearchText.setVisibility(View.VISIBLE);
                 }
             }
         }
 
         universalAdapter.updateData(filteredItems);
+    }
+
+    private void visibility(int visible, int gone) {
+        searchRecyclerView.setVisibility(visible);
+        emptySearch.setVisibility(gone);
+        emptySearchText.setVisibility(gone);
     }
 
     @Override
