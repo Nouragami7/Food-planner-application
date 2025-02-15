@@ -21,6 +21,8 @@ import com.example.foodplanner.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class LoginFragment extends Fragment {
     TextView signupText;
     Button loginBtn;
@@ -75,19 +77,37 @@ public class LoginFragment extends Fragment {
 
     private boolean validateInfo(String email, String password) {
         if (TextUtils.isEmpty(email)) {
-            emailEditText.setError("Email is required");
+            showValidationDialog("Email is required");
             return false;
         }
         if (TextUtils.isEmpty(password)) {
-            passwordEditText.setError("Password is required");
+           showValidationDialog("Password is required");
             return false;
         }
         if (password.length() < 6) {
-            passwordEditText.setError("Password must be at least 6 characters");
+            showValidationDialog("Password must be at least 6 characters");
             return false;
         }
         return true;
     }
+
+
+    private void showValidationDialog(String message) {
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.custom_dialog, null);
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+        builder.setView(dialogView);
+
+        android.app.AlertDialog alertDialog = builder.create();
+        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        alertDialog.show();
+
+        TextView dialogMessage = dialogView.findViewById(R.id.dialogMessage);
+        Button dialogButton = dialogView.findViewById(R.id.dialogButton);
+
+        dialogMessage.setText(message);
+        dialogButton.setOnClickListener(v -> alertDialog.dismiss());
+    }
+
 
     private void login(String email, String password) {
         myAuthentication.signInWithEmailAndPassword(email, password)

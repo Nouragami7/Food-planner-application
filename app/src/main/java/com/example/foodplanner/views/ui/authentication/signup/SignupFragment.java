@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.util.Objects;
+
 public class SignupFragment extends Fragment {
 
     Button signupBtn;
@@ -86,36 +88,47 @@ public class SignupFragment extends Fragment {
 
     private boolean validateInputs(String username, String email, String password, String confirmPassword) {
         if (email.isEmpty()) {
-            emailEditText.setError("Email is required");
-            emailEditText.requestFocus();
+            showValidationDialog("Email is required");
             return false;
         }
 
         if (password.isEmpty()) {
-            passwordEditText.setError("Password is required");
-            passwordEditText.requestFocus();
+           showValidationDialog("Password is required");
             return false;
         }
 
         if (confirmPassword.isEmpty()) {
-            confirmPasswordEditText.setError("Confirm Password is required");
-            confirmPasswordEditText.requestFocus();
+            showValidationDialog("Confirm Password is required");
             return false;
         }
 
         if (!password.equals(confirmPassword)) {
-            confirmPasswordEditText.setError("Passwords do not match");
-            confirmPasswordEditText.requestFocus();
+            showValidationDialog("Passwords do not match");
             return false;
         }
 
         if (username.isEmpty()) {
-            usernameEditText.setError("Username is required");
-            usernameEditText.requestFocus();
+            showValidationDialog("Username is required");
             return false;
         }
 
         return true;
+    }
+
+    private void showValidationDialog(String message) {
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.custom_dialog, null);
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+        builder.setView(dialogView);
+
+        android.app.AlertDialog alertDialog = builder.create();
+        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        alertDialog.show();
+
+        TextView dialogMessage = dialogView.findViewById(R.id.dialogMessage);
+        Button dialogButton = dialogView.findViewById(R.id.dialogButton);
+
+        dialogMessage.setText(message);
+        dialogButton.setOnClickListener(v -> alertDialog.dismiss());
     }
 
     private void signUp(String username, String email, String password) {

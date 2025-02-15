@@ -44,7 +44,6 @@ public class SplashFragment extends Fragment {
         Animation slideInFromLeft = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_from_left);
         Animation slideInFromRight = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_from_right);
 
-        // Start the animations
         dash.startAnimation(slideInFromLeft);
         dish.startAnimation(slideInFromRight);
 
@@ -62,7 +61,7 @@ public class SplashFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!isLoggedIn) {
+                if (isLoggedIn) {
                     Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_homeFragment);
                 } else {
                     Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_introductionFragment2);

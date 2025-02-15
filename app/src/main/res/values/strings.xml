@@ -52,4 +52,6 @@
     <string name="friday">Friday</string>
     <string name="default_web_client_id">169064303611-25cj2odpblf521accahrlr7lb9akj77t.apps.googleusercontent.com</string>
     <string name="empty_search">Added search to explore\n ingredients, categories, and countries</string>
+    <string name="ok">OK</string>
+    <string name="invalid_input">Invalid input!</string>
 </resources>
