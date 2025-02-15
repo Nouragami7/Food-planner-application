@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.database.FoodPlannerLocalDataSource;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Meal;
@@ -36,6 +40,8 @@ public class HomeFragment extends Fragment implements HomeView {
     private RecyclerView countryRecyclerView;
     private HomePresenterImplementation homePresenter;
     private ProgressBar progressBar;
+    ImageView menuIcon;
+    DrawerLayout drawerLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,14 +56,22 @@ public class HomeFragment extends Fragment implements HomeView {
         categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
         countryRecyclerView = view.findViewById(R.id.countryRecyclerView);
         progressBar = view.findViewById(R.id.progressBar);
+        menuIcon = view.findViewById(R.id.menuIcon);
+        drawerLayout = view.findViewById(R.id.drawer_layout);
 
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         countryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance());
+        Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance(), FoodPlannerLocalDataSource.getInstance(requireContext()));
         homePresenter = new HomePresenterImplementation(this, repository);
 
         loadHomeData();
+
+        menuIcon.setOnClickListener(v -> {
+            if (drawerLayout != null) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
     }
 
     private void loadHomeData() {

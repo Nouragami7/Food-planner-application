@@ -54,4 +54,5 @@
     <string name="empty_search">Added search to explore\n ingredients, categories, and countries</string>
     <string name="ok">OK</string>
     <string name="invalid_input">Invalid input!</string>
+    <string name="delete">Delete</string>
 </resources>

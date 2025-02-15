@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_introductionFragment2"
-            app:destination="@id/introductionFragment2" />
+            app:destination="@id/introductionFragment2"
+            app:popUpTo="@id/navigation_graph"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/navigation_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/introductionFragment2"
@@ -24,10 +28,12 @@
         tools:layout="@layout/fragment_introduction" >
         <action
             android:id="@+id/action_introductionFragment2_to_signupFragment"
-            app:destination="@id/signupFragment" />
+            app:destination="@id/signupFragment"
+            app:popUpTo="@id/introductionFragment2" />
         <action
             android:id="@+id/action_introductionFragment2_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
+            app:destination="@id/loginFragment2"
+            app:popUpTo="@id/introductionFragment2" />
         <action
             android:id="@+id/action_introductionFragment2_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -39,7 +45,8 @@
         tools:layout="@layout/fragment_signup" >
         <action
             android:id="@+id/action_signupFragment_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
+            app:destination="@id/loginFragment2"
+            app:popUpTo="@id/introductionFragment2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -48,10 +55,13 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment2_to_signupFragment"
-            app:destination="@id/signupFragment" />
+            app:destination="@id/signupFragment"
+            app:popUpTo="@id/introductionFragment2" />
         <action
             android:id="@+id/action_loginFragment2_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/navigation_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -60,16 +70,12 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_mealDetailsFragment"
-            app:destination="@id/mealDetailsFragment" />
+            app:destination="@id/mealDetailsFragment"
+            app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_homeFragment_to_mealFilteringFragment"
-            app:destination="@id/mealFilteringFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_planFragment"
-            app:destination="@id/planFragment" />
+            app:destination="@id/mealFilteringFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
@@ -98,7 +104,8 @@
         tools:layout="@layout/fragment_meal_filtering" >
         <action
             android:id="@+id/action_mealFilteringFragment_to_mealDetailsFragment"
-            app:destination="@id/mealDetailsFragment" />
+            app:destination="@id/mealDetailsFragment"
+            app:popUpTo="@id/mealDetailsFragment" />
         <argument
             android:name="mealId"
             app:argType="string" />
@@ -110,11 +117,7 @@
         android:id="@+id/favouriteFragment"
         android:name="com.example.foodplanner.views.ui.favourite.FavouriteFragment"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" >
-        <action
-            android:id="@+id/action_favouriteFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_favourite" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.foodplanner.views.ui.search.SearchFragment"
@@ -122,7 +125,8 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_mealFilteringFragment"
-            app:destination="@id/mealFilteringFragment" />
+            app:destination="@id/mealFilteringFragment"
+            app:popUpTo="@id/searchFragment" />
 
     </fragment>
     <fragment

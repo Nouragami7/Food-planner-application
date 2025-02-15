@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.database.FoodPlannerLocalDataSource;
 import com.example.foodplanner.models.DTOS.MealSpecification;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
@@ -46,7 +47,7 @@ public class MealFilteringFragment extends Fragment implements MealFilteringView
         mealsRecyclerView = view.findViewById(R.id.mealFilteringRecyclerView);
         mealsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance());
+        Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance(), FoodPlannerLocalDataSource.getInstance(requireContext()));
         MealFilteringPresenterImplementation mealFilteringPresenter = new MealFilteringPresenterImplementation(this, repository);
         progressBar = view.findViewById(R.id.progressBar);
 

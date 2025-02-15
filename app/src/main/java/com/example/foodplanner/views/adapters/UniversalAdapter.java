@@ -45,6 +45,9 @@ public class UniversalAdapter extends RecyclerView.Adapter<UniversalAdapter.Gene
         if (item instanceof Ingredient) {
             holder.itemName.setText(((Ingredient) item).getStrIngredient());
             holder.itemView.setOnClickListener(v -> onItemListener.onItemClick(item));
+            String imageUrl = "https://www.themealdb.com/images/ingredients/" +
+                    ((Ingredient) item).getStrIngredient() + "-Small.png";
+            holder.loadImage(imageUrl);
         } else if (item instanceof Category) {
             holder.itemName.setText(((Category) item).getCategoryName());
             holder.loadImage(((Category) item).getCategoryImage());

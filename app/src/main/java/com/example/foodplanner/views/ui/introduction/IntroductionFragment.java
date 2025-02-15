@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.presenters.introduction.IntroductionPresenter;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,15 +31,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
-public class IntroductionFragment extends Fragment {
+public class IntroductionFragment extends Fragment implements IntroductionView {
 
     Button singupWithEmailBtn;
     Button singupWithGoogleBtn;
-
     TextView login;
-
-    private FirebaseAuth myAuthantication;
     private GoogleSignInClient mGoogleSignInClient;
+    private IntroductionPresenter presenter;
 
    private static final String TAG ="IntroductionFragment";
 
@@ -46,11 +45,14 @@ public class IntroductionFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
 
     }
 
@@ -67,14 +69,6 @@ public class IntroductionFragment extends Fragment {
         singupWithEmailBtn = view.findViewById(R.id.signupWithEmail);
         singupWithGoogleBtn = view.findViewById(R.id.singupWithGoogle);
         login = view.findViewById(R.id.loginTxt);
-        myAuthantication = FirebaseAuth.getInstance();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(getContext(),gso);
-
-
         singupWithEmailBtn.setOnClickListener(v -> {
 
             Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_signupFragment);
@@ -84,12 +78,12 @@ public class IntroductionFragment extends Fragment {
             Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_loginFragment2);
         });
         singupWithGoogleBtn.setOnClickListener(v -> {
-            signIn();
+           signInWithGoogle();
         });
 
     }
 
-    private void signIn(){
+    private void signInWithGoogle(){
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent,123);
     }
@@ -101,7 +95,7 @@ public class IntroductionFragment extends Fragment {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                signInWithGoogle(account.getIdToken());
+               presenter.signInWithGoogle(account);
             }catch (ApiException e){
                 Toast.makeText(getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
             }
@@ -110,22 +104,15 @@ public class IntroductionFragment extends Fragment {
 
     }
 
-    private void signInWithGoogle(String idToken){
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
-        myAuthantication.signInWithCredential(credential)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(getContext(), "Login Successfully", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(getView()).navigate(R.id.action_introductionFragment2_to_homeFragment);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+    @Override
+    public void showSuccess(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        Navigation.findNavController(getView()).navigate(R.id.action_introductionFragment2_to_homeFragment);
 
-                    }
-                });
+    }
 
+    @Override
+    public void showError(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

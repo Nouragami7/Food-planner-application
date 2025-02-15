@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.foodplanner.R;
+import com.example.foodplanner.database.FoodPlannerLocalDataSource;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Ingredient;
@@ -65,7 +66,7 @@ public class SearchFragment extends Fragment implements TheSearchView {
         countriesChip = view.findViewById(R.id.countriesChip);
         categoriesChip = view.findViewById(R.id.categoriesChip);
 
-        Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance());
+        Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance(), FoodPlannerLocalDataSource.getInstance(requireContext()));
         searchPresenter = new SearchPresenterImplementation(this, repository);
 
         universalAdapter = new UniversalAdapter(getContext(), filteredItems, item -> {

@@ -5,6 +5,7 @@ import com.example.foodplanner.views.ui.loadingView.LoadingView;
 
 public interface MealDetailsView  {
     public void showMealDetailsById(Meal meal);
+    public void showSuccessMessage(String message);
 
     void showError(String message);
 }

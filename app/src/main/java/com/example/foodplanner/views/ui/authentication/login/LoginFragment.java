@@ -31,6 +31,8 @@ public class LoginFragment extends Fragment {
 
     SharedPreferences sharedPreferences;
 
+    String userId;
+
 
 
     public LoginFragment() {
@@ -113,6 +115,8 @@ public class LoginFragment extends Fragment {
         myAuthentication.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener(authResult -> {
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    userId = currentUser.getUid();
+                    sharedPreferences.edit().putString("userId", userId).apply();
                     Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     if (getView() != null) {
                         Navigation.findNavController(getView()).navigate(R.id.action_loginFragment2_to_homeFragment);
