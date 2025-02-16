@@ -2,14 +2,18 @@ package com.example.foodplanner.presenters.home;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.example.foodplanner.models.DTOS.CategoryResponse;
 import com.example.foodplanner.models.DTOS.CountryResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
 import com.example.foodplanner.models.Repository.Repository;
+import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.views.ui.home.HomeView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -25,14 +29,23 @@ public class HomePresenterImplementation implements HomePresenter {
     private final Repository repository;
     FirebaseAuth firebaseAuth;
     Context context;
+    DatabaseReference myRef;
+    FirebaseDatabase database;
+    SharedPreferences sharedPreferences;
 
-   private final CompositeDisposable compositeDisposable;
+
+    private final CompositeDisposable compositeDisposable;
+
     public HomePresenterImplementation(HomeView homeView, Repository repository, Context context) {
         this.homeView = homeView;
-        this.repository=repository;
-        this.context=context;
+        this.repository = repository;
+        this.context = context;
         this.compositeDisposable = new CompositeDisposable();
         this.firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Meals");
+        sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
     }
 
 
@@ -62,6 +75,7 @@ public class HomePresenterImplementation implements HomePresenter {
 
         compositeDisposable.add(disposable);
     }
+
     @Override
     public void getCategories() {
         homeView.showLoading();
@@ -99,5 +113,11 @@ public class HomePresenterImplementation implements HomePresenter {
         editor.apply();
         homeView.onLogoutSuccess();
     }
+
+    @Override
+    public void getDataFromFirebase() {
+     repository.fetchDataFromFirebase();
+    }
+
 
 }

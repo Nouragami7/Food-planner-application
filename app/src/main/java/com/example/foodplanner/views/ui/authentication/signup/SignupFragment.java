@@ -85,11 +85,6 @@ public class SignupFragment extends Fragment implements SignUpView {
 
     @Override
     public void onSignupSuccess() {
-        sharedPreferences.edit()
-                .putString("userEmail", emailEditText.getText().toString().trim())
-                .putString("userName", usernameEditText.getText().toString().trim())
-                .putString("userId", FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .apply();
         Toast.makeText(getContext(), "SignUp Successfully", Toast.LENGTH_SHORT).show();
         Navigation.findNavController(requireView()).navigate(R.id.action_signupFragment_to_loginFragment2);
 

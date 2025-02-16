@@ -86,7 +86,6 @@ public class HomeFragment extends Fragment implements HomeView {
         navigationView.setNavigationItemSelectedListener(item -> {
             Log.i("TAG", "onViewCreated: " + item);
             if (item.getItemId() == R.id.nav_logout) {
-
                 homePresenter.logout();
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
@@ -104,6 +103,7 @@ public class HomeFragment extends Fragment implements HomeView {
         homePresenter.getMeals();
         homePresenter.getCategories();
         homePresenter.getCountries();
+        homePresenter.getDataFromFirebase();
     }
 
     @Override

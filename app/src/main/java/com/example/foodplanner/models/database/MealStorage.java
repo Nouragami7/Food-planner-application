@@ -30,6 +30,9 @@ public class MealStorage {
 
     boolean isFavourite;
 
+    public MealStorage() {
+    }
+
     public boolean isPlanned() {
         return isPlanned;
     }
