@@ -1,10 +1,13 @@
 package com.example.foodplanner.views.ui.favourite;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.Group;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.database.FoodPlannerLocalDataSource;
@@ -92,7 +96,16 @@ public class FavouriteFragment extends Fragment implements FavouriteView , OnMea
         favouritePresenterImplementation.deleteMealFromFavourite(mealStorage);
         favouritePresenterImplementation.deleteData(mealStorage);
         showSuccessMessage(mealStorage);
-        Snackbar snackbar = Snackbar.make(favouriteRecyclerView, "Meal removed from favourites", Snackbar.LENGTH_LONG);
+        showErrorSnackBar("Meal removed from favourites");
+    }
+
+    private void showErrorSnackBar(String message){
+        Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT);
+        View snackbarView = snackbar.getView();
+        int color = ContextCompat.getColor(requireContext(), R.color.dark_pink);
+        snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
         snackbar.show();
     }
 }

@@ -25,6 +25,9 @@
     <color name="chip_default">#E0E0E0</color>
     <color name="chip_selected">#FF9800</color>
     <color name="light_color_purple">#E5C1FF</color>
+    <color name="red">#E9F41414</color>
+    <color name="green">#3E904A</color>
+
 
 
 </resources>
