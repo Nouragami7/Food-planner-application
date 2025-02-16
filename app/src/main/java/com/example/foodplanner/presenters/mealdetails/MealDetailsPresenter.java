@@ -8,5 +8,6 @@ import io.reactivex.rxjava3.core.Completable;
 public interface MealDetailsPresenter {
     public void getMealDetailsById(int id);
     public void addToFavourite(MealStorage mealStorage);
+    public void addToPlan(MealStorage mealStorage);
 
 }

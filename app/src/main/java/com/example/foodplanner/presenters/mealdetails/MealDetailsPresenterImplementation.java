@@ -38,6 +38,17 @@ public class MealDetailsPresenterImplementation implements MealDetailsPresenter 
 
 
     }
+
+    @Override
+    public void addToPlan(MealStorage mealStorage) {
+        repository.insertMeal(mealStorage).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        () -> mealDetailsView.showSuccessMessage("Meal added to plan"),
+                        throwable -> mealDetailsView.showError(throwable.getMessage())
+                );
+
+    }
 }
 
 

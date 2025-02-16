@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,10 +34,17 @@ import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
 import com.example.foodplanner.presenters.mealdetails.MealDetailsPresenterImplementation;
 import com.example.foodplanner.views.adapters.IngredientsAdapter;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class MealDetailsFragment extends Fragment implements MealDetailsView {
 
@@ -87,6 +95,59 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
 
     }
 
+    private void showDatePicker(Meal meal) {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Africa/Cairo"));
+
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        long startOfWeek = calendar.getTimeInMillis();
+
+        calendar.add(Calendar.DAY_OF_WEEK, 6);
+        long endOfWeek = calendar.getTimeInMillis();
+
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+        constraintsBuilder.setStart(startOfWeek);
+        constraintsBuilder.setEnd(endOfWeek);
+        constraintsBuilder.setValidator(new CalendarConstraints.DateValidator() {
+            @Override
+            public boolean isValid(long date) {
+                return date >= startOfWeek && date <= endOfWeek;
+            }
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(@NonNull Parcel parcel, int i) {
+
+            }
+        });
+        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select a day this week")
+                .setCalendarConstraints(constraintsBuilder.build())
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds()) // Default selection: today
+                .build();
+        datePicker.show(getParentFragmentManager(), "DATE_PICKER");
+
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            Calendar selectedCalendar = Calendar.getInstance(TimeZone.getTimeZone("Africa/Cairo"));
+            selectedCalendar.setTimeInMillis(selection);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String selectedDate = format.format(selectedCalendar.getTime());
+            saveMealToPlan(meal,selectedDate);
+        });
+    }
+
+
+    private void saveMealToPlan(Meal meal, String selectedDate) {
+        String userId= sharedPreferences.getString("userId",null);
+        if (userId != null && !userId.isEmpty()) {
+            MealStorage mealStorage = new MealStorage(true,false,meal,selectedDate, userId, meal.getIdMeal());
+            presenter.addToPlan(mealStorage);
+        }
+
+    }
+
     private void displayMealDetails(Meal meal) {
         Glide.with(getContext()).load(meal.getStrMealThumb()).into(mealImage);
         mealName.setText(meal.getStrMeal());
@@ -104,6 +165,9 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
             else {
                 Toast.makeText(getContext(), "Please login to add to favourites", Toast.LENGTH_SHORT).show();
             }
+        });
+        planButton.setOnClickListener(v -> {
+            showDatePicker(meal);
         });
 
     }
