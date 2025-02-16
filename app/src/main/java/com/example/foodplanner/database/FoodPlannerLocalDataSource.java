@@ -34,6 +34,7 @@ public class FoodPlannerLocalDataSource {
     public Completable insertMeal(MealStorage mealStorage) {
         return mealDAO.insertMeal(mealStorage);
     }
+
     public Completable deleteMeal(MealStorage mealStorage) {
         return mealDAO.deleteMeal(mealStorage);
     }

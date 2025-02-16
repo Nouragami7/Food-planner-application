@@ -9,9 +9,11 @@ import com.example.foodplanner.views.ui.loadingView.LoadingView;
 import java.util.ArrayList;
 
 public interface HomeView extends LoadingView {
-    public void showMeals(ArrayList<Meal> meals);
-    public void showCategories(ArrayList<Category> categories);
-    public void showCountries(ArrayList<Country> countries);
-    public void showError(String errorMsg);
+     void showMeals(ArrayList<Meal> meals);
+     void showCategories(ArrayList<Category> categories);
+     void showCountries(ArrayList<Country> countries);
+     void showError(String errorMsg);
+     void onLogoutSuccess();
+
 
 }

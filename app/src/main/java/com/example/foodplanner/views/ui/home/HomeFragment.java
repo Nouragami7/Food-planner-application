@@ -1,11 +1,15 @@
 package com.example.foodplanner.views.ui.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +33,7 @@ import com.example.foodplanner.presenters.home.HomePresenterImplementation;
 import com.example.foodplanner.views.adapters.CategoryAdapter;
 import com.example.foodplanner.views.adapters.CountryAdapter;
 import com.example.foodplanner.views.adapters.DailyInspirationAdapter;
+import com.google.android.material.navigation.NavigationView;
 import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview;
 
 import java.util.ArrayList;
@@ -58,14 +63,35 @@ public class HomeFragment extends Fragment implements HomeView {
         progressBar = view.findViewById(R.id.progressBar);
         menuIcon = view.findViewById(R.id.menuIcon);
         drawerLayout = view.findViewById(R.id.drawer_layout);
+        NavigationView navigationView = view.findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView userNameTextView = headerView.findViewById(R.id.userName);
+        TextView userEmailTextView = headerView.findViewById(R.id.userEmail);
+
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String savedName = sharedPreferences.getString("userName", "");
+        String savedEmail = sharedPreferences.getString("userEmail", "");
+        userNameTextView.setText(savedName);
+        userEmailTextView.setText(savedEmail);
 
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         countryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance(), FoodPlannerLocalDataSource.getInstance(requireContext()));
-        homePresenter = new HomePresenterImplementation(this, repository);
+        homePresenter = new HomePresenterImplementation(this, repository,requireContext());
 
         loadHomeData();
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            Log.i("TAG", "onViewCreated: " + item);
+            if (item.getItemId() == R.id.nav_logout) {
+
+                homePresenter.logout();
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+            return false;
+        });
 
         menuIcon.setOnClickListener(v -> {
             if (drawerLayout != null) {
@@ -123,6 +149,13 @@ public class HomeFragment extends Fragment implements HomeView {
     public void showError(String errorMsg) {
         Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onLogoutSuccess() {
+        Navigation.findNavController(requireView()).navigate(R.id.action_homeFragment_to_loginFragment2);
+
+    }
+
 
     private void navigateToMealDetails(int mealId, Meal meal) {
         if (getView() != null) {

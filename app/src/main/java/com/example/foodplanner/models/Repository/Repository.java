@@ -71,6 +71,10 @@ public class Repository {
     public Single<List<MealStorage>> getAllFavouriteMeals() {
         return localDataSource.getAllFavouriteMeals();
     }
+    public Single<List<MealStorage>> getAllMealsFromPlan() {
+        return localDataSource.getAllPlannedMeals();
+    }
+
     public Completable deleteMeal(MealStorage mealStorage) {
         return localDataSource.deleteMeal(mealStorage);
     }

@@ -19,6 +19,7 @@ public class MealFilteringPresenterImplementation implements MealFilteringPresen
     private final CompositeDisposable compositeDisposable;
 
 
+
     public MealFilteringPresenterImplementation(MealFilteringView mealFilteringView, Repository repository) {
         this.mealFilteringView = mealFilteringView;
         this.repository = repository;

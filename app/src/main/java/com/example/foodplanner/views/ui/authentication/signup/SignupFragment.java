@@ -1,5 +1,7 @@
 package com.example.foodplanner.views.ui.authentication.signup;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.presenters.signup.SignupPresenterImplementation;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -27,14 +30,14 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Objects;
 
-public class SignupFragment extends Fragment {
+public class SignupFragment extends Fragment implements SignUpView {
 
     Button signupBtn;
     TextView loginText;
 
     private EditText usernameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
-    private FirebaseAuth myAuthantication;
-    private GoogleSignInClient mGoogleSignInClient;
+    SignupPresenterImplementation signupPresenter;
+    SharedPreferences sharedPreferences;
 
     public SignupFragment() {
         // Required empty public constructor
@@ -63,59 +66,43 @@ public class SignupFragment extends Fragment {
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
         confirmPasswordEditText = view.findViewById(R.id.confirmPassEditText);
-        myAuthantication = FirebaseAuth.getInstance();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(getContext(),gso);
+        signupPresenter = new SignupPresenterImplementation(this);
+        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         signupBtn.setOnClickListener(v -> {
-            String username = usernameEditText.getText().toString();
-            String email = emailEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
-            String confirmPassword = confirmPasswordEditText.getText().toString();
-
-            if (validateInputs(username, email, password, confirmPassword)) {
-                signUp(username, email, password);
-            }
+            String username = usernameEditText.getText().toString().trim();
+            String email = emailEditText.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
+            String confirmPassword = confirmPasswordEditText.getText().toString().trim();
+            signupPresenter.signUpWithEmail(username, email, password, confirmPassword);
         });
 
-        loginText.setOnClickListener(v -> {
-         Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_loginFragment2);
-        });
+        loginText.setOnClickListener(v ->
+                Navigation.findNavController(view).navigate(R.id.action_signupFragment_to_loginFragment2)
+        );
+
+}
+
+    @Override
+    public void onSignupSuccess() {
+        sharedPreferences.edit()
+                .putString("userEmail", emailEditText.getText().toString().trim())
+                .putString("userName", usernameEditText.getText().toString().trim())
+                .putString("userId", FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .apply();
+        Toast.makeText(getContext(), "SignUp Successfully", Toast.LENGTH_SHORT).show();
+        Navigation.findNavController(requireView()).navigate(R.id.action_signupFragment_to_loginFragment2);
+
     }
 
-    private boolean validateInputs(String username, String email, String password, String confirmPassword) {
-        if (email.isEmpty()) {
-            showValidationDialog("Email is required");
-            return false;
-        }
+    @Override
+    public void onSignupFailure(String errorMessage) {
+        Toast.makeText(getContext(), "SignUp Failed: " + errorMessage, Toast.LENGTH_SHORT).show();
 
-        if (password.isEmpty()) {
-           showValidationDialog("Password is required");
-            return false;
-        }
-
-        if (confirmPassword.isEmpty()) {
-            showValidationDialog("Confirm Password is required");
-            return false;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            showValidationDialog("Passwords do not match");
-            return false;
-        }
-
-        if (username.isEmpty()) {
-            showValidationDialog("Username is required");
-            return false;
-        }
-
-        return true;
     }
 
-    private void showValidationDialog(String message) {
+    @Override
+    public void showValidationDialog(String message) {
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.custom_dialog, null);
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
         builder.setView(dialogView);
@@ -129,47 +116,10 @@ public class SignupFragment extends Fragment {
 
         dialogMessage.setText(message);
         dialogButton.setOnClickListener(v -> alertDialog.dismiss());
-    }
-
-    private void signUp(String username, String email, String password) {
-        myAuthantication.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                Toast.makeText(getContext(), "SignUp Successfully", Toast.LENGTH_SHORT).show();
-                updateUserProfile(username);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "SignUp Failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void updateUserProfile(String username) {
-        FirebaseUser user = myAuthantication.getCurrentUser();
-        if (user != null) {
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest
-                    .Builder()
-                    .setDisplayName(username)
-                    .build();
-
-            user.updateProfile(profileUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Toast.makeText(getContext(), "SignUp Successfully", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(getView()).navigate(R.id.action_signupFragment_to_loginFragment2);
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(), "Failed to update profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
     }
-
-
 }
+
+
+
+

@@ -76,6 +76,9 @@
             android:id="@+id/action_homeFragment_to_mealFilteringFragment"
             app:destination="@id/mealFilteringFragment"
             app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"

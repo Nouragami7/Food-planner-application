@@ -33,6 +33,7 @@ import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
 import com.example.foodplanner.presenters.mealdetails.MealDetailsPresenterImplementation;
+import com.example.foodplanner.utilts.DataConverter;
 import com.example.foodplanner.views.adapters.IngredientsAdapter;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -82,7 +83,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         ingredientsRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        presenter = new MealDetailsPresenterImplementation(this, Repository.getInstance(FoodPlannerRemoteDataSource.getInstance(), FoodPlannerLocalDataSource.getInstance(requireContext())));
+        presenter = new MealDetailsPresenterImplementation(this, Repository.getInstance(FoodPlannerRemoteDataSource.getInstance(), FoodPlannerLocalDataSource.getInstance(requireContext())),this.getContext());
 
         Meal meal = MealDetailsFragmentArgs.fromBundle(getArguments()).getRandomMeal();
         mealId = MealDetailsFragmentArgs.fromBundle(getArguments()).getId();
@@ -138,14 +139,15 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         });
     }
 
-
     private void saveMealToPlan(Meal meal, String selectedDate) {
         String userId= sharedPreferences.getString("userId",null);
         if (userId != null && !userId.isEmpty()) {
-            MealStorage mealStorage = new MealStorage(true,false,meal,selectedDate, userId, meal.getIdMeal());
+            String date = DataConverter.getFormattedDate(selectedDate);
+            MealStorage mealStorage = new MealStorage(true,false,meal,date, userId, meal.getIdMeal());
             presenter.addToPlan(mealStorage);
+            presenter.sendData(mealStorage);
+            updateButtonState(planButton, true, "Added to Plan", R.color.dark_purple);
         }
-
     }
 
     private void displayMealDetails(Meal meal) {
@@ -161,6 +163,9 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
             if (userId != null && !userId.isEmpty()) {
             MealStorage mealStorage = new MealStorage(false,true,meal,"Favourite", userId, meal.getIdMeal());
             presenter.addToFavourite(mealStorage);
+            presenter.sendData(mealStorage);
+            updateButtonState(favouriteButton, true, "Added to Favourites", R.color.dark_purple);
+
             }
             else {
                 Toast.makeText(getContext(), "Please login to add to favourites", Toast.LENGTH_SHORT).show();
@@ -168,6 +173,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         });
         planButton.setOnClickListener(v -> {
             showDatePicker(meal);
+
         });
 
     }
@@ -210,5 +216,13 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
     public void showError(String message) {
         Log.e("MealDetailsFragment", "Error: " + message);
     }
+
+
+    private void updateButtonState(Button button, boolean isDisabled, String text, int color) {
+        button.setText(text);
+        button.setBackgroundColor(getResources().getColor(color));
+        button.setEnabled(!isDisabled);
+    }
+
 
 }

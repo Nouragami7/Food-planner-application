@@ -18,18 +18,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.presenters.login.LoginPresenterImplementation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements LogInView {
     TextView signupText;
     Button loginBtn;
     EditText emailEditText, passwordEditText;
-    private FirebaseAuth myAuthentication;
-
     SharedPreferences sharedPreferences;
+    LoginPresenterImplementation loginPresenter;
 
     String userId;
 
@@ -58,7 +58,7 @@ public class LoginFragment extends Fragment {
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
         sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        myAuthentication = FirebaseAuth.getInstance();
+        loginPresenter = new LoginPresenterImplementation(this);
 
         signupText.setOnClickListener(v ->
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_signupFragment)
@@ -67,34 +67,26 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(v -> {
             String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
-            sharedPreferences.edit().putString("email", email).apply();
-            sharedPreferences.edit().putString("password", password).apply();
-            sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
-
-            if (validateInfo(email, password)) {
-               login(email, password);
-            }
+            loginPresenter.login(email, password);
         });
     }
 
-    private boolean validateInfo(String email, String password) {
-        if (TextUtils.isEmpty(email)) {
-            showValidationDialog("Email is required");
-            return false;
-        }
-        if (TextUtils.isEmpty(password)) {
-           showValidationDialog("Password is required");
-            return false;
-        }
-        if (password.length() < 6) {
-            showValidationDialog("Password must be at least 6 characters");
-            return false;
-        }
-        return true;
+    @Override
+    public void onLoginSuccess() {
+        sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
+
+        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+        Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment2_to_homeFragment);
+
     }
 
+    @Override
+    public void onLoginFailure(String errorMessage) {
+        Toast.makeText(getContext(), "Login Failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+    }
 
-    private void showValidationDialog(String message) {
+    @Override
+    public void showValidationDialog(String message) {
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.custom_dialog, null);
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
         builder.setView(dialogView);
@@ -108,22 +100,6 @@ public class LoginFragment extends Fragment {
 
         dialogMessage.setText(message);
         dialogButton.setOnClickListener(v -> alertDialog.dismiss());
-    }
 
-
-    private void login(String email, String password) {
-        myAuthentication.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener(authResult -> {
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    userId = currentUser.getUid();
-                    sharedPreferences.edit().putString("userId", userId).apply();
-                    Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                    if (getView() != null) {
-                        Navigation.findNavController(getView()).navigate(R.id.action_loginFragment2_to_homeFragment);
-                    }
-                })
-                .addOnFailureListener(e ->
-                        Toast.makeText(getContext(), "Login Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show()
-                );
     }
 }

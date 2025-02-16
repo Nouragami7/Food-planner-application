@@ -20,6 +20,7 @@ import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
 import com.example.foodplanner.presenters.favourite.FavouritePresenterImplementation;
 import com.example.foodplanner.views.adapters.FavouriteAdapter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class FavouriteFragment extends Fragment implements FavouriteView , OnMea
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance(), FoodPlannerLocalDataSource.getInstance(requireContext()));
-        favouritePresenterImplementation = new FavouritePresenterImplementation(this, repository);
+        favouritePresenterImplementation = new FavouritePresenterImplementation(this, repository, getContext());
         favouriteRecyclerView =view.findViewById(R.id.favouriteRecyclerView);
         favGroup = view.findViewById(R.id.fav_group);
 
@@ -89,8 +90,9 @@ public class FavouriteFragment extends Fragment implements FavouriteView , OnMea
     @Override
     public void onMealDelete(MealStorage mealStorage) {
         favouritePresenterImplementation.deleteMealFromFavourite(mealStorage);
-
-
-
+        favouritePresenterImplementation.deleteData(mealStorage);
+        showSuccessMessage(mealStorage);
+        Snackbar snackbar = Snackbar.make(favouriteRecyclerView, "Meal removed from favourites", Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 }

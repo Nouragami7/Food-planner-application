@@ -6,8 +6,9 @@ import com.example.foodplanner.views.ui.loadingView.LoadingView;
 import io.reactivex.rxjava3.core.Completable;
 
 public interface MealDetailsPresenter {
-    public void getMealDetailsById(int id);
-    public void addToFavourite(MealStorage mealStorage);
-    public void addToPlan(MealStorage mealStorage);
+     void getMealDetailsById(int id);
+     void addToFavourite(MealStorage mealStorage);
+     void addToPlan(MealStorage mealStorage);
+     void sendData(MealStorage mealStorage);
 
 }

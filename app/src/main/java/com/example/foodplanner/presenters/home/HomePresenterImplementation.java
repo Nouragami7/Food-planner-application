@@ -1,10 +1,15 @@
 package com.example.foodplanner.presenters.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.Toast;
+
 import com.example.foodplanner.models.DTOS.CategoryResponse;
 import com.example.foodplanner.models.DTOS.CountryResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.views.ui.home.HomeView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -18,12 +23,16 @@ public class HomePresenterImplementation implements HomePresenter {
 
     private final HomeView homeView;
     private final Repository repository;
+    FirebaseAuth firebaseAuth;
+    Context context;
 
    private final CompositeDisposable compositeDisposable;
-    public HomePresenterImplementation(HomeView homeView, Repository repository) {
+    public HomePresenterImplementation(HomeView homeView, Repository repository, Context context) {
         this.homeView = homeView;
         this.repository=repository;
+        this.context=context;
         this.compositeDisposable = new CompositeDisposable();
+        this.firebaseAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -79,6 +88,16 @@ public class HomePresenterImplementation implements HomePresenter {
                     homeView.showCountries(countries);
                 }, throwable -> homeView.showError(throwable.getMessage()));
         compositeDisposable.add(disposable);
+    }
+
+    @Override
+    public void logout() {
+        firebaseAuth.signOut();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+        homeView.onLogoutSuccess();
     }
 
 }
