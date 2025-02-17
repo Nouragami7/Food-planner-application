@@ -35,16 +35,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mealText" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="410dp"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/waitingAnimation"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="330dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.594"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/waitting" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

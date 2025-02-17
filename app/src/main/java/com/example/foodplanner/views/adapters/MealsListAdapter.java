@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +19,7 @@ import com.example.foodplanner.interfacies.OnMealClickListener;
 import com.example.foodplanner.models.DTOS.MealSpecification;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MealsListAdapter extends RecyclerView.Adapter<MealsListAdapter.MyViewHolder> {
     private static final String TAG = "DailyInspirationAdapter";
@@ -60,7 +61,7 @@ public class MealsListAdapter extends RecyclerView.Adapter<MealsListAdapter.MyVi
 
         holder.itemView.setOnClickListener(v -> {
             if (sharedPreferences.getString("userId", "guest").equals("guest")) {
-                Toast.makeText(context, "Please login first", Toast.LENGTH_SHORT).show();
+                showDialog("Oops! 🤔\nYou need to sign up first \nto explore this delicious meal. 🍽️\nJoin us now and start your food journey!");
             } else {
                 if (onMealClickListener != null) {
                     String mealId = mealSpecification.getIdMeal();
@@ -71,6 +72,23 @@ public class MealsListAdapter extends RecyclerView.Adapter<MealsListAdapter.MyVi
             }
         });
     }
+
+    public void showDialog(String message) {
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, null);
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context); // Fix context issue
+        builder.setView(dialogView);
+
+        android.app.AlertDialog alertDialog = builder.create();
+        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        alertDialog.show();
+
+        TextView dialogMessage = dialogView.findViewById(R.id.dialogMessage);
+        Button dialogButton = dialogView.findViewById(R.id.dialogButton);
+
+        dialogMessage.setText(message);
+        dialogButton.setOnClickListener(v -> alertDialog.dismiss());
+    }
+
 
     @Override
     public int getItemCount() {

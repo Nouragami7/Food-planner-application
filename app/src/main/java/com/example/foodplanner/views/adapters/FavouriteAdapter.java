@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
+import com.example.foodplanner.interfacies.OnSpecifiedMealClickListener;
 import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.models.DTOS.Meal;
 import com.example.foodplanner.interfacies.OnMealDeleteListener;
@@ -23,11 +24,13 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
     private Context context;
     private List<MealStorage> favouriteMeals;
     private OnMealDeleteListener deleteListener;
+    private OnSpecifiedMealClickListener onFavouriteMealClickListener;
 
-    public FavouriteAdapter(Context context, List<MealStorage> favouriteMeals, OnMealDeleteListener deleteListener) {
+    public FavouriteAdapter(Context context, List<MealStorage> favouriteMeals, OnMealDeleteListener deleteListener, OnSpecifiedMealClickListener onFavouriteMealClickListener) {
         this.context = context;
         this.favouriteMeals = favouriteMeals;
         this.deleteListener = deleteListener;
+        this.onFavouriteMealClickListener = onFavouriteMealClickListener;
     }
 
     @NonNull
@@ -51,6 +54,11 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         holder.deleteButton.setOnClickListener(v -> {
             if (deleteListener != null) {
                 deleteListener.onMealDelete(mealStorage);
+            }
+        });
+        holder.itemView.setOnClickListener(v -> {
+            if (onFavouriteMealClickListener != null) {
+                onFavouriteMealClickListener.onMealClick(Integer.parseInt(meal.getIdMeal()), meal);
             }
         });
     }

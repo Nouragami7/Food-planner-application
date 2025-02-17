@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
+import com.example.foodplanner.interfacies.OnSpecifiedMealClickListener;
 import com.example.foodplanner.models.DTOS.Meal;
 import com.example.foodplanner.models.database.MealStorage;
 import java.util.List;
@@ -19,11 +20,13 @@ import java.util.List;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanMealViewHolder> {
     private Context context;
     private List<MealStorage> planMeals;
+    OnSpecifiedMealClickListener onSpecifiedMealClickListener;
 
 
-    public PlanAdapter(Context context, List<MealStorage> planMeals) {
+    public PlanAdapter(Context context, List<MealStorage> planMeals, OnSpecifiedMealClickListener onSpecifiedMealClickListener) {
         this.context = context;
         this.planMeals = planMeals;
+        this.onSpecifiedMealClickListener = onSpecifiedMealClickListener;
     }
 
     @NonNull
@@ -43,6 +46,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanMealViewHo
         Glide.with(context)
                 .load(meal.getStrMealThumb())
                 .into(holder.mealImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSpecifiedMealClickListener.onMealClick(Integer.parseInt(meal.getIdMeal()), meal);
+            }
+        });
 
     }
 

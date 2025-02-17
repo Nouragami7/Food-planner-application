@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.Group;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +21,9 @@ import android.widget.TextView;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.database.FoodPlannerLocalDataSource;
+import com.example.foodplanner.interfacies.OnSpecifiedMealClickListener;
 import com.example.foodplanner.interfacies.OnMealDeleteListener;
+import com.example.foodplanner.models.DTOS.Meal;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
@@ -30,7 +34,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 
-public class FavouriteFragment extends Fragment implements FavouriteView , OnMealDeleteListener {
+public class FavouriteFragment extends Fragment implements FavouriteView , OnMealDeleteListener, OnSpecifiedMealClickListener {
     private static final String TAG = "FavouriteFragment";
     private FavouritePresenterImplementation favouritePresenterImplementation;
 
@@ -74,7 +78,7 @@ public class FavouriteFragment extends Fragment implements FavouriteView , OnMea
         } else {
             favGroup.setVisibility(View.GONE);
             favouriteRecyclerView.setVisibility(View.VISIBLE);
-            FavouriteAdapter favouriteAdapter = new FavouriteAdapter(getContext(), mealStorage, this);
+            FavouriteAdapter favouriteAdapter = new FavouriteAdapter(getContext(), mealStorage, this,this);
             favouriteRecyclerView.setAdapter(favouriteAdapter);
         }
     }
@@ -108,5 +112,13 @@ public class FavouriteFragment extends Fragment implements FavouriteView , OnMea
         TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
         textView.setTextColor(Color.WHITE);
         snackbar.show();
+    }
+
+    @Override
+    public void onMealClick(int id, Meal meal) {
+        NavController navController = Navigation.findNavController(requireView());
+        FavouriteFragmentDirections.ActionFavouriteFragmentToMealDetailsFragment action = FavouriteFragmentDirections.actionFavouriteFragmentToMealDetailsFragment(id, meal);
+        navController.navigate(action);
+
     }
 }

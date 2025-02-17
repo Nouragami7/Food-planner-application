@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.R;
 import com.example.foodplanner.database.FoodPlannerLocalDataSource;
 import com.example.foodplanner.models.DTOS.MealSpecification;
@@ -29,7 +30,9 @@ import java.util.ArrayList;
 public class MealFilteringFragment extends Fragment implements MealFilteringView {
     private RecyclerView mealsRecyclerView;
     private MealsListAdapter mealsListAdapter;
-    private ProgressBar progressBar;
+
+    LottieAnimationView lottieAnimationView;
+
 
     public MealFilteringFragment() {
         // Required empty public constructor
@@ -49,7 +52,7 @@ public class MealFilteringFragment extends Fragment implements MealFilteringView
 
         Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance(), FoodPlannerLocalDataSource.getInstance(requireContext()));
         MealFilteringPresenterImplementation mealFilteringPresenter = new MealFilteringPresenterImplementation(this, repository);
-        progressBar = view.findViewById(R.id.progressBar);
+        lottieAnimationView = view.findViewById(R.id.waitingAnimation);
 
         MealFilteringFragmentArgs args = MealFilteringFragmentArgs.fromBundle(getArguments());
         String id = args.getMealId();
@@ -101,13 +104,13 @@ public class MealFilteringFragment extends Fragment implements MealFilteringView
 
     @Override
     public void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
+        lottieAnimationView.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideLoading() {
-        progressBar.setVisibility(View.GONE);
+        lottieAnimationView.setVisibility(View.GONE);
 
     }
 

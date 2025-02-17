@@ -210,22 +210,37 @@
         app:layout_constraintStart_toEndOf="@+id/passwordIcon"
         app:layout_constraintTop_toTopOf="@+id/passwordIcon" />
 
-    <EditText
-        android:id="@+id/passwordEditText"
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordText"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="32dp"
-        android:background="@android:color/transparent"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:paddingVertical="4dp"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        app:hintEnabled="false"
+        app:passwordToggleTint="@color/light_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/passwordLabel"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordLabel"
+        app:passwordToggleEnabled="true"
+        android:focusableInTouchMode="true"
+        app:boxBackgroundMode="none"
+        app:boxStrokeColor="@color/white">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="10dp"
+            android:maxLines="1"
+            android:paddingVertical="4dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <View
         android:id="@+id/passwordDivider"
@@ -233,9 +248,9 @@
         android:layout_height="1.5dp"
         android:layout_marginTop="4dp"
         android:background="@color/semi_transparent_white"
-        app:layout_constraintEnd_toEndOf="@+id/passwordEditText"
-        app:layout_constraintStart_toStartOf="@+id/passwordEditText"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+        app:layout_constraintEnd_toEndOf="@+id/passwordText"
+        app:layout_constraintStart_toStartOf="@+id/passwordText"
+        app:layout_constraintTop_toBottomOf="@+id/passwordText" />
 
     <ImageView
         android:id="@+id/confirmPasswordIcon"
@@ -261,22 +276,35 @@
         app:layout_constraintStart_toEndOf="@+id/confirmPasswordIcon"
         app:layout_constraintTop_toTopOf="@+id/confirmPasswordIcon" />
 
-    <EditText
-        android:id="@+id/confirmPassEditText"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirmPassText"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="32dp"
-        android:background="@android:color/transparent"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:paddingVertical="4dp"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        app:hintEnabled="false"
+        app:passwordToggleTint="@color/light_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/confirmPasswordLabel"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordLabel"
+        app:passwordToggleEnabled="true"
+        app:boxBackgroundMode="none"
+        android:focusableInTouchMode="true"
+        app:boxStrokeColor="@color/white">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirmPassEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="10dp"
+            android:maxLines="1"
+            android:paddingVertical="4dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <View
         android:id="@+id/confirmPasswordDivider"
@@ -284,9 +312,9 @@
         android:layout_height="1.5dp"
         android:layout_marginTop="4dp"
         android:background="@color/semi_transparent_white"
-        app:layout_constraintEnd_toEndOf="@+id/confirmPassEditText"
-        app:layout_constraintStart_toStartOf="@+id/confirmPassEditText"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPassEditText" />
+        app:layout_constraintEnd_toEndOf="@+id/confirmPassText"
+        app:layout_constraintStart_toStartOf="@+id/confirmPassText"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPassText" />
 
 
     <androidx.appcompat.widget.AppCompatButton

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +17,8 @@ import android.widget.Adapter;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.database.FoodPlannerLocalDataSource;
+import com.example.foodplanner.interfacies.OnSpecifiedMealClickListener;
+import com.example.foodplanner.models.DTOS.Meal;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
@@ -25,7 +29,7 @@ import com.example.foodplanner.views.adapters.PlanAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlanFragment extends Fragment implements PlanView{
+public class PlanFragment extends Fragment implements PlanView, OnSpecifiedMealClickListener {
     private PlanPresenterImplementation presenter;
 
     RecyclerView saturdayRecyclerView, sundayRecyclerView, mondayRecyclerView, tuesdayRecyclerView, wednesdayRecyclerView, thursdayRecyclerView, fridayRecyclerView;
@@ -84,43 +88,43 @@ public class PlanFragment extends Fragment implements PlanView{
             switch (mealStorage.getDate()) {
                 case "Saturday":
                     stardayList.add(mealStorage);
-                    planAdapter = new PlanAdapter(getContext(), stardayList);
+                    planAdapter = new PlanAdapter(getContext(), stardayList,this);
                     saturdayRecyclerView.setAdapter(planAdapter);
                     saturdayRecyclerView.setVisibility(View.VISIBLE);
                     break;
                 case "Sunday":
                     sundayList.add(mealStorage);
-                    planAdapter = new PlanAdapter(getContext(), sundayList);
+                    planAdapter = new PlanAdapter(getContext(), sundayList,this);
                     sundayRecyclerView.setAdapter(planAdapter);
                     sundayRecyclerView.setVisibility(View.VISIBLE);
                     break;
                 case "Monday":
                     mondayList.add(mealStorage);
-                    planAdapter = new PlanAdapter(getContext(), mondayList);
+                    planAdapter = new PlanAdapter(getContext(), mondayList,this);
                     mondayRecyclerView.setAdapter(planAdapter);
                     mondayRecyclerView.setVisibility(View.VISIBLE);
                     break;
                 case "Tuesday":
                     tuesdayList.add(mealStorage);
-                    planAdapter = new PlanAdapter(getContext(), tuesdayList);
+                    planAdapter = new PlanAdapter(getContext(), tuesdayList,this);
                     tuesdayRecyclerView.setAdapter(planAdapter);
                     tuesdayRecyclerView.setVisibility(View.VISIBLE);
                     break;
                 case "Wednesday":
                     wednesdayList.add(mealStorage);
-                    planAdapter = new PlanAdapter(getContext(), wednesdayList);
+                    planAdapter = new PlanAdapter(getContext(), wednesdayList,this);
                     wednesdayRecyclerView.setAdapter(planAdapter);
                     wednesdayRecyclerView.setVisibility(View.VISIBLE);
                     break;
                 case "Thursday":
                     thursdayList.add(mealStorage);
-                    planAdapter = new PlanAdapter(getContext(), thursdayList);
+                    planAdapter = new PlanAdapter(getContext(), thursdayList,this);
                     thursdayRecyclerView.setAdapter(planAdapter);
                     thursdayRecyclerView.setVisibility(View.VISIBLE);
                     break;
                 case "Friday":
                     fridayList.add(mealStorage);
-                    planAdapter = new PlanAdapter(getContext(), fridayList);
+                    planAdapter = new PlanAdapter(getContext(), fridayList,this);
                     fridayRecyclerView.setAdapter(planAdapter);
                     fridayRecyclerView.setVisibility(View.VISIBLE);
                     break;
@@ -131,6 +135,14 @@ public class PlanFragment extends Fragment implements PlanView{
 
     @Override
     public void showError(String message) {
+
+    }
+
+    @Override
+    public void onMealClick(int id, Meal meal) {
+        NavController navController = Navigation.findNavController(requireView());
+        PlanFragmentDirections.ActionPlanFragmentToMealDetailsFragment action = PlanFragmentDirections.actionPlanFragmentToMealDetailsFragment(id, meal);
+        navController.navigate(action);
 
     }
 }

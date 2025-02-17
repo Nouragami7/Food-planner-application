@@ -123,7 +123,15 @@
         android:id="@+id/favouriteFragment"
         android:name="com.example.foodplanner.views.ui.favourite.FavouriteFragment"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_mealDetailsFragment2"
+            app:destination="@id/mealDetailsFragment"
+            app:popUpTo="@id/favouriteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.foodplanner.views.ui.search.SearchFragment"
@@ -139,5 +147,9 @@
         android:id="@+id/planFragment"
         android:name="com.example.foodplanner.views.ui.plan.PlanFragment"
         android:label="fragment_plan"
-        tools:layout="@layout/fragment_plan" />
+        tools:layout="@layout/fragment_plan" >
+        <action
+            android:id="@+id/action_planFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
 </navigation>

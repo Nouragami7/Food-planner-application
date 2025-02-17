@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.R;
 import com.example.foodplanner.database.FoodPlannerLocalDataSource;
@@ -46,9 +49,10 @@ public class HomeFragment extends Fragment implements HomeView, NetworkStateList
     private RecyclerView categoryRecyclerView;
     private RecyclerView countryRecyclerView;
     private HomePresenterImplementation homePresenter;
-    private ProgressBar progressBar;
+    LottieAnimationView lottieAnimationView;
     ImageView menuIcon;
     DrawerLayout drawerLayout;
+    ScrollView home;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,20 +66,22 @@ public class HomeFragment extends Fragment implements HomeView, NetworkStateList
         dailyMealRecyclerView = view.findViewById(R.id.dailyRecyclerView);
         categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
         countryRecyclerView = view.findViewById(R.id.countryRecyclerView);
-        progressBar = view.findViewById(R.id.progressBar);
+        lottieAnimationView = view.findViewById(R.id.waitingLottie);
         menuIcon = view.findViewById(R.id.menuIcon);
         drawerLayout = view.findViewById(R.id.drawer_layout);
+        home = view.findViewById(R.id.homeView);
+
+
         NavigationView navigationView = view.findViewById(R.id.navigation_view);
         View headerView = navigationView.getHeaderView(0);
-
         TextView userNameTextView = headerView.findViewById(R.id.userName);
         TextView userEmailTextView = headerView.findViewById(R.id.userEmail);
-
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String savedName = sharedPreferences.getString("userName", "");
         String savedEmail = sharedPreferences.getString("userEmail", "");
         userNameTextView.setText(savedName);
         userEmailTextView.setText(savedEmail);
+
 
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         countryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -171,13 +177,15 @@ public class HomeFragment extends Fragment implements HomeView, NetworkStateList
 
     @Override
     public void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
+        home.setVisibility(View.GONE);
+        lottieAnimationView.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideLoading() {
-        progressBar.setVisibility(View.GONE);
+        home.setVisibility(View.VISIBLE);
+        lottieAnimationView.setVisibility(View.GONE);
     }
 
     @Override

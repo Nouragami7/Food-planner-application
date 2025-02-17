@@ -1,10 +1,13 @@
 package com.example.foodplanner.views.adapters;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.models.DTOS.Meal;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DailyInspirationAdapter extends RecyclerView.Adapter<DailyInspirationAdapter.MyViewHolder> {
     private static final String TAG = "DailyInspirationAdapter";
@@ -54,16 +58,30 @@ public class DailyInspirationAdapter extends RecyclerView.Adapter<DailyInspirati
         Meal mealsItem = meals.get(position);
         holder.mealName.setText(mealsItem.getStrMeal());
         Glide.with(context).load(mealsItem.getStrMealThumb()).into(holder.mealImage);
-        holder.randomIdCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(sharedPreferences.getString("userId","guest").equals("guest")){
-                    Toast.makeText(context, "Please login to save this meal", Toast.LENGTH_SHORT).show();
-                }else{
-                    onItemClickListener.onClicks(mealsItem);
-                }
+
+        holder.randomIdCard.setOnClickListener(v -> {
+            if (sharedPreferences.getString("userId", "guest").equals("guest")) {
+                showDialog("Oops! 🤔\nYou need to sign up first \nto explore this delicious meal. 🍽️");
+            } else {
+                onItemClickListener.onClicks(mealsItem);
             }
         });
+    }
+
+    public void showDialog(String message) {
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, null);
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context); // Fix context issue
+        builder.setView(dialogView);
+
+        android.app.AlertDialog alertDialog = builder.create();
+        Objects.requireNonNull(alertDialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        alertDialog.show();
+
+        TextView dialogMessage = dialogView.findViewById(R.id.dialogMessage);
+        Button dialogButton = dialogView.findViewById(R.id.dialogButton);
+
+        dialogMessage.setText(message);
+        dialogButton.setOnClickListener(v -> alertDialog.dismiss());
     }
 
     @Override
