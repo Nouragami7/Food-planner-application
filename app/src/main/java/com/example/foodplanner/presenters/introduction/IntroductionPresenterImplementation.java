@@ -16,7 +16,6 @@ public class IntroductionPresenterImplementation implements IntroductionPresente
         myAuthentication = FirebaseAuth.getInstance();
     }
 
-
     @Override
     public void signInWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);

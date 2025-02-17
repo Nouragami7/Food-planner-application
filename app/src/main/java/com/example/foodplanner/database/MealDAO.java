@@ -28,4 +28,7 @@ public interface MealDAO {
    @Delete
    Completable deleteMeal(MealStorage mealStorage);
 
+   @Query("DELETE FROM meals_table")
+   Completable deleteAllMeals();
+
 }

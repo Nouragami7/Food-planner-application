@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment implements HomeView, NetworkStateList
 
     @Override
     public void onLogoutSuccess() {
-        Navigation.findNavController(requireView()).navigate(R.id.action_homeFragment_to_loginFragment2);
+        Navigation.findNavController(requireView()).navigate(R.id.action_homeFragment_to_introductionFragment2);
 
     }
 

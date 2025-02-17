@@ -44,7 +44,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        android:visibility="gone"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/network_error" />
 

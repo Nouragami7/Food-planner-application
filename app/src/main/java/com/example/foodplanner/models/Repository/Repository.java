@@ -78,6 +78,10 @@ public class Repository {
     public Completable deleteMeal(MealStorage mealStorage) {
         return localDataSource.deleteMeal(mealStorage);
     }
+    public Completable clearAllData() {
+        return localDataSource.clearAllData();
+    }
+
     public void fetchDataFromFirebase() {
         localDataSource.fetchDataFromFirebase();
     }

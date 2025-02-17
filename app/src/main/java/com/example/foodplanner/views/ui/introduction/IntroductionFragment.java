@@ -1,6 +1,8 @@
 package com.example.foodplanner.views.ui.introduction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,7 +39,9 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
     Button singupWithGoogleBtn;
     TextView login;
     private GoogleSignInClient mGoogleSignInClient;
+    Button guestBtn;
     private IntroductionPresenter presenter;
+    SharedPreferences sharedPreferences;
 
    private static final String TAG ="IntroductionFragment";
 
@@ -69,6 +73,8 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
         singupWithEmailBtn = view.findViewById(R.id.signupWithEmail);
         singupWithGoogleBtn = view.findViewById(R.id.singupWithGoogle);
         login = view.findViewById(R.id.loginTxt);
+        guestBtn = view.findViewById(R.id.skipBtn);
+        sharedPreferences= getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         singupWithEmailBtn.setOnClickListener(v -> {
 
             Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_signupFragment);
@@ -79,6 +85,10 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
         });
         singupWithGoogleBtn.setOnClickListener(v -> {
            signInWithGoogle();
+        });
+        guestBtn.setOnClickListener(v->{
+            sharedPreferences.edit().putString("userId","guest").apply();
+            Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_homeFragment);
         });
 
     }

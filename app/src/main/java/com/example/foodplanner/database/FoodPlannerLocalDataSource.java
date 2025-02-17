@@ -57,6 +57,11 @@ public class FoodPlannerLocalDataSource {
         return mealDAO.deleteMeal(mealStorage);
     }
 
+    public Completable clearAllData() {
+        return mealDAO.deleteAllMeals();
+    }
+
+
     public void fetchDataFromFirebase() {
         String userId = sharedPreferences.getString("userId", null);
         myRef.child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {

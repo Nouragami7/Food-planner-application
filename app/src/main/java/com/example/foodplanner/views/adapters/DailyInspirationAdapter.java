@@ -1,11 +1,13 @@
 package com.example.foodplanner.views.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -21,6 +23,8 @@ public class DailyInspirationAdapter extends RecyclerView.Adapter<DailyInspirati
     private static final String TAG = "DailyInspirationAdapter";
     Context context;
     ArrayList<Meal> meals;
+
+    SharedPreferences sharedPreferences;
     //setter
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -33,6 +37,7 @@ public class DailyInspirationAdapter extends RecyclerView.Adapter<DailyInspirati
     public DailyInspirationAdapter(Context context, ArrayList<Meal> meals) {
         this.context = context;
         this.meals = meals;
+        sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
     }
 
@@ -52,7 +57,11 @@ public class DailyInspirationAdapter extends RecyclerView.Adapter<DailyInspirati
         holder.randomIdCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.onClicks(mealsItem);
+                if(sharedPreferences.getString("userId","guest").equals("guest")){
+                    Toast.makeText(context, "Please login to save this meal", Toast.LENGTH_SHORT).show();
+                }else{
+                    onItemClickListener.onClicks(mealsItem);
+                }
             }
         });
     }

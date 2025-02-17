@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment2"
             app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_introductionFragment2"
+            app:destination="@id/introductionFragment2" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"

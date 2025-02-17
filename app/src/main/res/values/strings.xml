@@ -55,4 +55,6 @@
     <string name="ok">OK</string>
     <string name="invalid_input">Invalid input!</string>
     <string name="delete">Delete</string>
+    <string name="plan_subtitle">What is on your \n   menu this week? 🍽️</string>
+
 </resources>

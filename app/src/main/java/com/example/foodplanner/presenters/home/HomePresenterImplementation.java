@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -111,6 +112,13 @@ public class HomePresenterImplementation implements HomePresenter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+        clearApplicationCache();
+
+        repository.clearAllData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> Log.d("Logout", "Local database cleared"),
+                        throwable -> Log.e("Logout", "Failed to clear local database", throwable));
         homeView.onLogoutSuccess();
     }
 
@@ -118,6 +126,34 @@ public class HomePresenterImplementation implements HomePresenter {
     public void getDataFromFirebase() {
      repository.fetchDataFromFirebase();
     }
+
+    private void clearApplicationCache() {
+        try {
+            File cacheDir = context.getCacheDir();
+            if (cacheDir != null && cacheDir.isDirectory()) {
+                deleteDir(cacheDir);
+            }
+        } catch (Exception e) {
+            Log.e("CACHE_CLEAR", "Failed to clear cache", e);
+        }
+    }
+
+    private boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (String child : children) {
+                boolean success = deleteDir(new File(dir, child));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        return dir.delete();
+    }
+
+
+
+
 
 
 }
