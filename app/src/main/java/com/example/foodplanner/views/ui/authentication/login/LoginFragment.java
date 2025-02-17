@@ -58,7 +58,7 @@ public class LoginFragment extends Fragment implements LogInView {
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
         sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        loginPresenter = new LoginPresenterImplementation(this);
+        loginPresenter = new LoginPresenterImplementation(this, getContext());
 
         signupText.setOnClickListener(v ->
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_signupFragment)
@@ -74,11 +74,6 @@ public class LoginFragment extends Fragment implements LogInView {
     @Override
     public void onLoginSuccess() {
         sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
-        sharedPreferences.edit()
-                .putString("userEmail", emailEditText.getText().toString().trim())
-                .putString("userId", FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .apply();
-
         Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
         Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment2_to_homeFragment);
 

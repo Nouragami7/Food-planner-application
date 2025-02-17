@@ -15,9 +15,10 @@ public class SignupPresenterImplementation implements SignupPresenter {
     private final FirebaseAuth firebaseAuth;
     SharedPreferences sharedPreferences;
 
-    public SignupPresenterImplementation(SignUpView signUpView) {
+    public SignupPresenterImplementation(SignUpView signUpView,Context context) {
         this.signUpView = signUpView;
         this.firebaseAuth = FirebaseAuth.getInstance();
+        sharedPreferences= context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -57,6 +58,7 @@ public class SignupPresenterImplementation implements SignupPresenter {
 
     private void updateUserProfile(String username) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        sharedPreferences.edit().putString("userName", username).apply();
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(username)

@@ -1,8 +1,8 @@
 package com.example.foodplanner;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Set<Integer> visibleFragments = new HashSet<>(Arrays.asList(
+        Set<Integer> navButtonVisibility = new HashSet<>(Arrays.asList(
                 R.id.homeFragment,
                 R.id.searchFragment,
                 R.id.favouriteFragment,
@@ -71,12 +71,11 @@ public class MainActivity extends AppCompatActivity {
         ));
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.mealDetailsFragment) {
-                bottomNav.setVisibility(View.GONE);
-            } else {
+            if (navButtonVisibility.contains(destination.getId())) {
                 bottomNav.setVisibility(View.VISIBLE);
+            } else {
+                bottomNav.setVisibility(View.GONE);
             }
-
             if (destination.getId() == R.id.favouriteFragment || destination.getId() == R.id.planFragment) {
                 lottieAnimationView.setVisibility(View.GONE);
                 fragmentContainerView.setVisibility(View.VISIBLE);
@@ -125,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     // Network is available
                     updateUIBasedOnNetwork();
                     if (networkStateListener != null) networkStateListener.onNetworkAvailable();
-                    showErrorSnackBar("Network is available", R.color.green); // Show success message
+                    showErrorSnackBar("Network is available", R.color.green);
                 });
             }
 
@@ -150,11 +149,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUIBasedOnNetwork() {
         if (isNetworkAvailable()) {
-            lottieAnimationView.setVisibility(View.GONE); // Hide Lottie animation
-            fragmentContainerView.setVisibility(View.VISIBLE); // Show fragment container
+            lottieAnimationView.setVisibility(View.GONE);
+            fragmentContainerView.setVisibility(View.VISIBLE);
         } else {
-            lottieAnimationView.setVisibility(View.VISIBLE); // Show Lottie animation
-            fragmentContainerView.setVisibility(View.GONE); // Hide fragment container
+            lottieAnimationView.setVisibility(View.VISIBLE);
+            fragmentContainerView.setVisibility(View.GONE);
         }
     }
 

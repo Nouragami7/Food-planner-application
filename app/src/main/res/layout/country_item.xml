@@ -1,46 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="170dp"
+    android:layout_width="150dp"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
-    android:backgroundTint="@color/light_pinko"
-    android:elevation="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="6dp">
+    android:backgroundTint="@color/lavender_blush"
+    android:elevation="12dp"
+    app:cardBackgroundColor="@color/gradient_light"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/countryImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/my_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/CircleShape"/>
+
+
+            <ImageView
+                android:id="@+id/countryImage"
+                android:layout_width="75dp"
+                android:layout_height="70dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:src="@drawable/my_logo" />
 
         <TextView
             android:id="@+id/countryName"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:elevation="4dp"
             android:fontFamily="@font/adlam_display"
+            android:gravity="center"
+            android:padding="6dp"
+            android:shadowColor="#80000000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="8"
             android:textColor="@color/dark_purple"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintTop_toBottomOf="@id/countryImage"
-            tools:text="Meal Name" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/countryImage"
+            tools:layout_editor_absoluteY="55dp"
+            tools:text="France" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

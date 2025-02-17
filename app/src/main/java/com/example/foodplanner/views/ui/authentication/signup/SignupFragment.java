@@ -37,7 +37,6 @@ public class SignupFragment extends Fragment implements SignUpView {
 
     private EditText usernameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
     SignupPresenterImplementation signupPresenter;
-    SharedPreferences sharedPreferences;
 
     public SignupFragment() {
         // Required empty public constructor
@@ -66,8 +65,7 @@ public class SignupFragment extends Fragment implements SignUpView {
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
         confirmPasswordEditText = view.findViewById(R.id.confirmPassEditText);
-        signupPresenter = new SignupPresenterImplementation(this);
-        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        signupPresenter = new SignupPresenterImplementation(this, getContext());
 
         signupBtn.setOnClickListener(v -> {
             String username = usernameEditText.getText().toString().trim();

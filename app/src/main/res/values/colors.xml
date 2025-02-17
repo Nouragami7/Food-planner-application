@@ -27,7 +27,26 @@
     <color name="light_color_purple">#E5C1FF</color>
     <color name="red">#E9F41414</color>
     <color name="green">#3E904A</color>
+    <color name="black_overlay">#80000000</color>
+    <color name="gradient_light">#FFF3E6</color>
+    <color name="very_light_purple">#E6D8FD</color>
 
+    <!-- Light Lavender Purple -->
+    <color name="light_lavender_purple">#D8B9F0</color>
+
+    <!-- Soft Lilac -->
+    <color name="soft_lilac">#C2A0F4</color>
+
+    <!-- Light Purple -->
+    <color name="so_light_purple">#B19CD9</color>
+
+    <!-- Dusty Lavender -->
+    <color name="dusty_lavender">#A89DC6</color>
+
+    <!-- Pastel Purple -->
+    <color name="pastel_purple">#D0A9F5</color>
+    <color name="custom_purple">#D8ADEF</color>
+    <color name="light">#E5D4FA</color>
 
 
 </resources>

@@ -1,5 +1,8 @@
 package com.example.foodplanner.presenters.login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.foodplanner.views.ui.authentication.login.LogInView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -8,10 +11,12 @@ public class LoginPresenterImplementation implements LoginPresenter {
 
     private final LogInView loginView;
     private final FirebaseAuth firebaseAuth;
+    SharedPreferences sharedPreferences;
 
-    public LoginPresenterImplementation(LogInView loginView) {
+    public LoginPresenterImplementation(LogInView loginView, Context context) {
         this.loginView = loginView;
         this.firebaseAuth = FirebaseAuth.getInstance();
+        sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -25,6 +30,9 @@ public class LoginPresenterImplementation implements LoginPresenter {
                     FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                     if (currentUser != null) {
                         loginView.onLoginSuccess();
+                        sharedPreferences.edit().putString("userId", currentUser.getUid()).apply();
+                        sharedPreferences.edit().putString("userName", currentUser.getDisplayName()).apply();
+                        sharedPreferences.edit().putString("userEmail", currentUser.getEmail()).apply();
                     }
                 })
                 .addOnFailureListener(e -> loginView.onLoginFailure(e.getMessage()));
