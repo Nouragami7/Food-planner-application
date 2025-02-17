@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.models.DTOS.Meal;
-import com.example.foodplanner.views.ui.favourite.OnMealDeleteListener;
+import com.example.foodplanner.interfacies.OnMealDeleteListener;
 
 import java.util.List;
 

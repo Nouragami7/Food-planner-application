@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.models.DTOS.Category;
-import com.example.foodplanner.views.ui.meal_filtering.OnCategoryClickListener;
+import com.example.foodplanner.interfacies.OnCategoryClickListener;
 
 import java.util.ArrayList;
 

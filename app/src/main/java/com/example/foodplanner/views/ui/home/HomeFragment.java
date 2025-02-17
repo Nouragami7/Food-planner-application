@@ -22,8 +22,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.R;
 import com.example.foodplanner.database.FoodPlannerLocalDataSource;
+import com.example.foodplanner.interfacies.NetworkStateListener;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Meal;
@@ -38,7 +40,7 @@ import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements HomeView {
+public class HomeFragment extends Fragment implements HomeView, NetworkStateListener {
 
     private CarouselRecyclerview dailyMealRecyclerView;
     private RecyclerView categoryRecyclerView;
@@ -80,6 +82,8 @@ public class HomeFragment extends Fragment implements HomeView {
 
         Repository repository = Repository.getInstance(FoodPlannerRemoteDataSource.getInstance(), FoodPlannerLocalDataSource.getInstance(requireContext()));
         homePresenter = new HomePresenterImplementation(this, repository,requireContext());
+
+        ((MainActivity) requireActivity()).setNetworkStateListener(this);
 
         loadHomeData();
 
@@ -174,5 +178,15 @@ public class HomeFragment extends Fragment implements HomeView {
     @Override
     public void hideLoading() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onNetworkAvailable() {
+        loadHomeData();
+    }
+
+    @Override
+    public void onNetworkLost() {
+        showError("Network is not available");
     }
 }

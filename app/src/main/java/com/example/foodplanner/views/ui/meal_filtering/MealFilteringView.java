@@ -1,7 +1,7 @@
 package com.example.foodplanner.views.ui.meal_filtering;
 
 import com.example.foodplanner.models.DTOS.MealSpecification;
-import com.example.foodplanner.views.ui.loadingView.LoadingView;
+import com.example.foodplanner.interfacies.LoadingView;
 
 import java.util.ArrayList;
 

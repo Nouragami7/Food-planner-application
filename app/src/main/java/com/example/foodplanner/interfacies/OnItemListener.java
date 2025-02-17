@@ -1,4 +1,4 @@
-package com.example.foodplanner.views.ui.search;
+package com.example.foodplanner.interfacies;
 
 public interface OnItemListener {
     void onItemClick(Object item);

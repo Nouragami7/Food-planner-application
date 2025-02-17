@@ -15,7 +15,7 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Ingredient;
-import com.example.foodplanner.views.ui.search.OnItemListener;
+import com.example.foodplanner.interfacies.OnItemListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.database.FoodPlannerLocalDataSource;
+import com.example.foodplanner.interfacies.OnMealDeleteListener;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;

@@ -3,8 +3,7 @@ package com.example.foodplanner.views.ui.home;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Meal;
-import com.example.foodplanner.models.DTOS.MealSpecification;
-import com.example.foodplanner.views.ui.loadingView.LoadingView;
+import com.example.foodplanner.interfacies.LoadingView;
 
 import java.util.ArrayList;
 

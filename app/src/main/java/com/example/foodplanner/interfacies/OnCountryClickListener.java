@@ -1,4 +1,4 @@
-package com.example.foodplanner.views.ui.meal_filtering;
+package com.example.foodplanner.interfacies;
 
 public interface OnCountryClickListener {
      void onCountryClick(String countryName);

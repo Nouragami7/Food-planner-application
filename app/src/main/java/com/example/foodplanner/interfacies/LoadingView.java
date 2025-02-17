@@ -1,4 +1,4 @@
-package com.example.foodplanner.views.ui.loadingView;
+package com.example.foodplanner.interfacies;
 
 public interface LoadingView {
     void showLoading();

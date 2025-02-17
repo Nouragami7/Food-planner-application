@@ -22,6 +22,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.foodplanner.interfacies.NetworkStateListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ConnectivityManager.NetworkCallback networkCallback;
     private ConnectivityManager connectivityManager;
+    NetworkStateListener networkStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     // Network is available
                     updateUIBasedOnNetwork();
+                    if (networkStateListener != null) networkStateListener.onNetworkAvailable();
                     showErrorSnackBar("Network is available", R.color.green); // Show success message
                 });
             }
@@ -131,10 +134,12 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     // Network is lost
                     updateUIBasedOnNetwork();
+                    if (networkStateListener != null) networkStateListener.onNetworkLost();
                     showErrorSnackBar("Network is not available", R.color.red); // Show error message
                 });
             }
         };
+
 
         NetworkRequest networkRequest = new NetworkRequest.Builder()
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
@@ -167,5 +172,9 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
         textView.setTextColor(Color.WHITE);
         snackbar.show();
+    }
+
+    public void setNetworkStateListener(NetworkStateListener listener) {
+        this.networkStateListener = listener;
     }
 }

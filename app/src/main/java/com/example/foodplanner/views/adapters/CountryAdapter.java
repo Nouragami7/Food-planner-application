@@ -1,9 +1,5 @@
 package com.example.foodplanner.views.adapters;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
-import static java.security.AccessController.getContext;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.models.DTOS.Country;
-import com.example.foodplanner.views.ui.meal_filtering.OnCountryClickListener;
+import com.example.foodplanner.interfacies.OnCountryClickListener;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.foodplanner.views.ui.favourite;
+package com.example.foodplanner.interfacies;
 
 import com.example.foodplanner.models.database.MealStorage;
 
