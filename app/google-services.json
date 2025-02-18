@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "169064303611",
+    "project_id": "dishdash-337ef",
+    "storage_bucket": "dishdash-337ef.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169064303611:android:782f88e7937a65c6a2d95e",
+        "android_client_info": {
+          "package_name": "com.example.foodplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169064303611-25cj2odpblf521accahrlr7lb9akj77t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodplanner",
+            "certificate_hash": "c48ff20488e2a2392a35a476e8e927293ae7fe2b"
+          }
+        },
+        {
+          "client_id": "169064303611-0kjond5a15pa3jo1d211eqgnkrbfrtb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKFnAkJzC3B-aKbj1MqR4r3lFyKMno78I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169064303611-0kjond5a15pa3jo1d211eqgnkrbfrtb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
