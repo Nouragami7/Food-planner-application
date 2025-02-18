@@ -116,7 +116,7 @@ public class MealFilteringFragment extends Fragment implements MealFilteringView
 
     public void navigateToMealDetails(int mealId) {
         NavController navController = Navigation.findNavController(requireView());
-        MealFilteringFragmentDirections.ActionMealFilteringFragmentToMealDetailsFragment action = MealFilteringFragmentDirections.actionMealFilteringFragmentToMealDetailsFragment(mealId, null);
+        MealFilteringFragmentDirections.ActionMealFilteringFragmentToMealDetailsFragment action = MealFilteringFragmentDirections.actionMealFilteringFragmentToMealDetailsFragment(mealId, null, false, false);
         navController.navigate(action);
     }
 }

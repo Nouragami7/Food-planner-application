@@ -65,6 +65,22 @@ public class MealDetailsPresenterImplementation implements MealDetailsPresenter 
     }
 
     @Override
+    public void deleteMealFromFavourite(MealStorage mealStorage) {
+            repository.deleteMeal(mealStorage)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            () -> {
+                                mealDetailsView.showSuccessMessage("Sccessfully deleted");
+                            }
+                            , throwable -> {
+                                mealDetailsView.showError(throwable.getMessage());
+                            }
+
+                    );
+    }
+
+    @Override
     public void sendData(MealStorage mealStorage) {
         String userId = sharedPreferences.getString("userId", null);
         myRef.child("Users")

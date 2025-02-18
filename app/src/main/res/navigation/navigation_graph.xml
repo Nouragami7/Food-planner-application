@@ -95,6 +95,12 @@
             android:name="randomMeal"
             app:argType="com.example.foodplanner.models.DTOS.Meal"
             app:nullable="true" />
+        <argument
+            android:name="isFavourite"
+            app:argType="boolean" />
+        <argument
+            android:name="isPlanned"
+            app:argType="boolean" />
     </fragment>
     <argument
         android:name="id"
@@ -150,6 +156,7 @@
         tools:layout="@layout/fragment_plan" >
         <action
             android:id="@+id/action_planFragment_to_mealDetailsFragment"
-            app:destination="@id/mealDetailsFragment" />
+            app:destination="@id/mealDetailsFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 </navigation>

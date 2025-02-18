@@ -159,22 +159,36 @@
         app:layout_constraintStart_toEndOf="@id/passwordIcon"
         app:layout_constraintTop_toTopOf="@id/passwordIcon" />
 
-    <EditText
-        android:id="@+id/passwordEditText"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextInputLayout"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="32dp"
-        android:background="@android:color/transparent"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        android:textSize="16sp"
+        android:focusableInTouchMode="true"
+        app:boxBackgroundMode="none"
+        app:boxStrokeColor="@color/white"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/passwordLabel"
-        app:layout_constraintTop_toBottomOf="@id/passwordLabel" />
+        app:layout_constraintTop_toBottomOf="@id/passwordLabel"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/light_white">
 
-
-
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="10dp"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingVertical="4dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <View
@@ -183,11 +197,10 @@
         android:layout_height="1.5dp"
         android:layout_marginTop="8dp"
         android:background="@color/semi_transparent_white"
-        app:layout_constraintEnd_toEndOf="@id/passwordEditText"
-        app:layout_constraintStart_toStartOf="@id/passwordEditText"
-        app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
-
-
+        app:layout_constraintEnd_toEndOf="@id/passwordTextInputLayout"
+        app:layout_constraintStart_toStartOf="@id/passwordTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/passwordTextInputLayout" />
+    
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginBtn"
         android:layout_width="306dp"

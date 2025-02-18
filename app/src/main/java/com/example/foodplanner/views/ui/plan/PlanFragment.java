@@ -141,7 +141,7 @@ public class PlanFragment extends Fragment implements PlanView, OnSpecifiedMealC
     @Override
     public void onMealClick(int id, Meal meal) {
         NavController navController = Navigation.findNavController(requireView());
-        PlanFragmentDirections.ActionPlanFragmentToMealDetailsFragment action = PlanFragmentDirections.actionPlanFragmentToMealDetailsFragment(id, meal);
+        PlanFragmentDirections.ActionPlanFragmentToMealDetailsFragment action = PlanFragmentDirections.actionPlanFragmentToMealDetailsFragment(id, meal, false, true);
         navController.navigate(action);
 
     }

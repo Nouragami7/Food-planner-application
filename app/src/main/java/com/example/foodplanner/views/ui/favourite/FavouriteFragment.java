@@ -117,7 +117,7 @@ public class FavouriteFragment extends Fragment implements FavouriteView , OnMea
     @Override
     public void onMealClick(int id, Meal meal) {
         NavController navController = Navigation.findNavController(requireView());
-        FavouriteFragmentDirections.ActionFavouriteFragmentToMealDetailsFragment action = FavouriteFragmentDirections.actionFavouriteFragmentToMealDetailsFragment(id, meal);
+        FavouriteFragmentDirections.ActionFavouriteFragmentToMealDetailsFragment action = FavouriteFragmentDirections.actionFavouriteFragmentToMealDetailsFragment(id, meal, true, false);
         navController.navigate(action);
 
     }

@@ -170,7 +170,7 @@ public class HomeFragment extends Fragment implements HomeView, NetworkStateList
     private void navigateToMealDetails(int mealId, Meal meal) {
         if (getView() != null) {
             Navigation.findNavController(getView()).navigate(
-                    HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealId, meal)
+                    HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealId, meal, false, false)
             );
         }
     }
