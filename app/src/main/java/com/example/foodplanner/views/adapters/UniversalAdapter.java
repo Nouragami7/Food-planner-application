@@ -18,12 +18,47 @@ import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Ingredient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UniversalAdapter extends RecyclerView.Adapter<UniversalAdapter.GenericViewHolder> {
     private final Context context;
     private final List<Object> items;
     private final OnItemListener onItemListener;
+
+
+    private static final Map<String, String> COUNTRY_CODE_MAP = new HashMap<>();
+    static {
+        COUNTRY_CODE_MAP.put("American", "us");
+        COUNTRY_CODE_MAP.put("British", "gb");
+        COUNTRY_CODE_MAP.put("Canadian", "ca");
+        COUNTRY_CODE_MAP.put("Chinese", "cn");
+        COUNTRY_CODE_MAP.put("Croatian", "hr");
+        COUNTRY_CODE_MAP.put("Dutch", "nl");
+        COUNTRY_CODE_MAP.put("Egyptian", "eg");
+        COUNTRY_CODE_MAP.put("French", "fr");
+        COUNTRY_CODE_MAP.put("Greek", "gr");
+        COUNTRY_CODE_MAP.put("Indian", "in");
+        COUNTRY_CODE_MAP.put("Irish", "ie");
+        COUNTRY_CODE_MAP.put("Italian", "it");
+        COUNTRY_CODE_MAP.put("Jamaican", "jm");
+        COUNTRY_CODE_MAP.put("Japanese", "jp");
+        COUNTRY_CODE_MAP.put("Kenyan", "ke");
+        COUNTRY_CODE_MAP.put("Malaysian", "my");
+        COUNTRY_CODE_MAP.put("Mexican", "mx");
+        COUNTRY_CODE_MAP.put("Moroccan", "ma");
+        COUNTRY_CODE_MAP.put("Polish", "pl");
+        COUNTRY_CODE_MAP.put("Portuguese", "pt");
+        COUNTRY_CODE_MAP.put("Russian", "ru");
+        COUNTRY_CODE_MAP.put("Spanish", "es");
+        COUNTRY_CODE_MAP.put("Thai", "th");
+        COUNTRY_CODE_MAP.put("Tunisian", "tn");
+        COUNTRY_CODE_MAP.put("Turkish", "tr");
+        COUNTRY_CODE_MAP.put("Vietnamese", "vn");
+    }
+
+
 
     public UniversalAdapter(Context context, List<Object> items, OnItemListener onItemListener) {
         this.context = context;
@@ -54,8 +89,8 @@ public class UniversalAdapter extends RecyclerView.Adapter<UniversalAdapter.Gene
             holder.itemView.setOnClickListener(v -> onItemListener.onItemClick(item));
         } else if (item instanceof Country) {
             holder.itemName.setText(((Country) item).getCountryName());
-            String flagUrl = "https://www.themealdb.com/images/icons/flags/big/64/" +
-                    ((Country) item).getCountryName().substring(0, 2).toLowerCase() + ".png";
+            String countryCode = COUNTRY_CODE_MAP.getOrDefault(((Country) item).getCountryName(), "xx");
+            String flagUrl = "https://www.themealdb.com/images/icons/flags/big/64/" + countryCode + ".png";
             holder.loadImage(flagUrl);
             holder.itemView.setOnClickListener(v -> onItemListener.onItemClick(item));
         }
