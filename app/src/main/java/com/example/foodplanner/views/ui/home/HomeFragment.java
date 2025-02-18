@@ -157,7 +157,7 @@ public class HomeFragment extends Fragment implements HomeView, NetworkStateList
 
     @Override
     public void showError(String errorMsg) {
-        Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
+        Log.i("TAG", "showError: "+errorMsg);
     }
 
     @Override

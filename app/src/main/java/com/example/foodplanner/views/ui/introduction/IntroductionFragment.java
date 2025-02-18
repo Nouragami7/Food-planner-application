@@ -3,10 +3,14 @@ package com.example.foodplanner.views.ui.introduction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -19,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.presenters.introduction.IntroductionPresenter;
+import com.example.foodplanner.presenters.introduction.IntroductionPresenterImplementation;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -27,6 +32,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,6 +81,7 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
         login = view.findViewById(R.id.loginTxt);
         guestBtn = view.findViewById(R.id.skipBtn);
         sharedPreferences= getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        presenter = new IntroductionPresenterImplementation(this,requireContext());
         singupWithEmailBtn.setOnClickListener(v -> {
 
             Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_signupFragment);
@@ -116,13 +123,27 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
 
     @Override
     public void showSuccess(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        showSnackBar(message,getView());
         Navigation.findNavController(getView()).navigate(R.id.action_introductionFragment2_to_homeFragment);
 
     }
 
     @Override
     public void showError(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        showSnackBar(message,getView());
     }
+    private void showSnackBar(String message, View fragmentView) {
+        int ColorResId = R.color.light_pink;
+        int color = ContextCompat.getColor(requireContext(), ColorResId);
+        Snackbar snackbar = Snackbar.make(fragmentView, message, Snackbar.LENGTH_SHORT);
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        snackbar.show();
+    }
+
+
+
+
 }

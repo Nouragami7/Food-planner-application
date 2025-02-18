@@ -130,7 +130,7 @@
         android:layout_width="0dp"
         android:layout_height="1.5dp"
         android:layout_marginTop="8dp"
-        android:background="#99FFFFFF"
+        android:background="@color/semi_transparent_white"
         app:layout_constraintEnd_toEndOf="@id/emailEditText"
         app:layout_constraintStart_toStartOf="@id/emailEditText"
         app:layout_constraintTop_toBottomOf="@id/emailEditText" />
@@ -203,8 +203,8 @@
     
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginBtn"
-        android:layout_width="306dp"
-        android:layout_height="57dp"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"

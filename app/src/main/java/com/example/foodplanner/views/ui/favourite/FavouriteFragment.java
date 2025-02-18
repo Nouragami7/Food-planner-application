@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class FavouriteFragment extends Fragment implements FavouriteView , OnMea
 
 
     @Override
-    public void showSuccessMessage(MealStorage mealStorage) {
+    public void displaySuccess(MealStorage mealStorage) {
         favouritePresenterImplementation.getAllFavoriteMeals();
 
 
@@ -93,6 +94,7 @@ public class FavouriteFragment extends Fragment implements FavouriteView , OnMea
 
     @Override
     public void showError(String message) {
+        Log.i(TAG, "showError: "+ message);
 
     }
 
@@ -100,14 +102,14 @@ public class FavouriteFragment extends Fragment implements FavouriteView , OnMea
     public void onMealDelete(MealStorage mealStorage) {
         favouritePresenterImplementation.deleteMealFromFavourite(mealStorage);
         favouritePresenterImplementation.deleteData(mealStorage);
-        showSuccessMessage(mealStorage);
-        showErrorSnackBar("Meal removed from favourites");
+        displaySuccess(mealStorage);
+        showSnackBar("Meal removed from favourites");
     }
 
-    private void showErrorSnackBar(String message){
+    private void showSnackBar(String message){
         Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT);
         View snackbarView = snackbar.getView();
-        int color = ContextCompat.getColor(requireContext(), R.color.dark_pink);
+        int color = ContextCompat.getColor(requireContext(), R.color.light_pink);
         snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
         TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
         textView.setTextColor(Color.WHITE);

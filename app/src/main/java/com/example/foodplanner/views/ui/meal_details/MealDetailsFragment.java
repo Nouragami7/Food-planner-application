@@ -3,6 +3,8 @@ package com.example.foodplanner.views.ui.meal_details;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +38,7 @@ import com.example.foodplanner.utilts.DataConverter;
 import com.example.foodplanner.views.adapters.IngredientsAdapter;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,7 +54,6 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
     private SharedPreferences sharedPreferences;
     private Boolean isFavourite = false;
     private Boolean isPlan = false;
-    private int mealId;
     private MealDetailsPresenterImplementation presenter;
     private Button favouriteButton;
     private Button planButton;
@@ -92,7 +95,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         );
 
         Meal meal = MealDetailsFragmentArgs.fromBundle(getArguments()).getRandomMeal();
-        mealId = MealDetailsFragmentArgs.fromBundle(getArguments()).getId();
+        int mealId = MealDetailsFragmentArgs.fromBundle(getArguments()).getId();
 
         if (meal != null) {
             displayMealDetails(meal);
@@ -131,7 +134,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select a day this week")
                 .setCalendarConstraints(constraintsBuilder.build())
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds()) // Default selection: today
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build();
         datePicker.show(getParentFragmentManager(), "DATE_PICKER");
 
@@ -152,6 +155,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
             presenter.addToPlan(mealStorage);
             presenter.sendData(mealStorage);
             updateButtonState(planButton, true, "Added to Plan", R.color.dark_purple);
+            planButton.setEnabled(false);
             isPlan = true;
         }
     }
@@ -165,21 +169,18 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         ingredientsRecycler.setAdapter(adapter);
         loadYouTubeVideo(meal.getStrYoutube());
 
-        // Set initial button states
-        updateButtonState(favouriteButton, isFavourite, isFavourite ? "Added to Favourites" : "Add to Favourites", isFavourite ? R.color.dark_purple : R.color.dark_purple);
-        updateButtonState(planButton, isPlan, isPlan ? "Added to Plan" : "Add to Plan", isPlan ? R.color.dark_purple : R.color.dark_purple);
+        updateButtonState(favouriteButton, isFavourite, isFavourite ? "Added to Favourites" : "Add to Favourites", isFavourite ? R.color.dark_purple : R.color.dark_pink);
+        updateButtonState(planButton, isPlan, isPlan ? "Added to Plan" : "Add to Plan", isPlan ? R.color.dark_purple : R.color.light_purple);
 
         favouriteButton.setOnClickListener(v -> {
             String userId = sharedPreferences.getString("userId", null);
             if (userId != null && !userId.isEmpty()) {
                 if (isFavourite) {
-                    // Remove from favourites
                     MealStorage mealStorage = new MealStorage(false, true, meal, "Favourite", userId, meal.getIdMeal());
                     presenter.deleteMealFromFavourite(mealStorage);
-                    updateButtonState(favouriteButton, false, "Add to Favourites", R.color.dark_purple);
+                    updateButtonState(favouriteButton, false, "Add to Favourites", R.color.dark_pink);
                     isFavourite = false;
                 } else {
-                    // Add to favourites
                     MealStorage mealStorage = new MealStorage(false, true, meal, "Favourite", userId, meal.getIdMeal());
                     presenter.addToFavourite(mealStorage);
                     presenter.sendData(mealStorage);
@@ -192,27 +193,18 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         });
 
         planButton.setOnClickListener(v -> {
-            if (isPlan) {
-                String userId = sharedPreferences.getString("userId", null);
-                if (userId != null && !userId.isEmpty()) {
-                    updateButtonState(planButton, false, "Add to Plan", R.color.dark_purple);
-                    isPlan = false;
-                }
-            } else {
-                showDatePicker(meal);
-            }
+            showDatePicker(meal);
+
         });
     }
-
-
     @SuppressLint("ResourceAsColor")
     private void updateSaveButtonState(boolean isSaved) {
         if (isSaved) {
-            favouriteButton.setText("Added to Favourites");
-            favouriteButton.setBackgroundColor(getResources().getColor(R.color.dark_purple)); // Use your desired color
+            favouriteButton.setText(R.string.added_to_favourites);
+            favouriteButton.setBackgroundColor(getResources().getColor(R.color.dark_purple));
         } else {
-            favouriteButton.setText("Add to Favourites");
-            favouriteButton.setBackgroundColor(getResources().getColor(R.color.dark_pink)); // Use your desired color
+            favouriteButton.setText(R.string.add_to_favourites);
+            favouriteButton.setBackgroundColor(getResources().getColor(R.color.dark_pink));
         }
         favouriteButton.setEnabled(true);
     }
@@ -220,21 +212,17 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
     @SuppressLint("ResourceAsColor")
     private void updatePlanButtonState(boolean isPlanned) {
         if (isPlanned) {
-            planButton.setText("Added to Plan");
-            planButton.setBackgroundColor(getResources().getColor(R.color.dark_purple)); // Use your desired color
-        } else {
-            // Change the button text and background color to indicate the meal is not planned
-            planButton.setText("Add to Plan");
-            planButton.setBackgroundColor(getResources().getColor(R.color.light_pink)); // Use your desired color
+            planButton.setText(R.string.added_to_plan);
+            planButton.setBackgroundColor(getResources().getColor(R.color.dark_purple));
+            planButton.setEnabled(false);
         }
-        planButton.setEnabled(true); // Ensure the button is always enabled
+
     }
 
     private void loadYouTubeVideo(String youtubeUrl) {
         videoWebView.getSettings().setJavaScriptEnabled(true);
         videoWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         videoWebView.setWebChromeClient(new WebChromeClient());
-
         Uri uri = Uri.parse(youtubeUrl);
         String videoId = uri.getQueryParameter("v");
 
@@ -254,13 +242,13 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         if (meal != null) {
             displayMealDetails(meal);
         } else {
-            showError("Meal not found");
+            showError(getString(R.string.meal_not_found));
         }
     }
 
     @Override
     public void showSuccessMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        showSnackBar(message);
     }
 
     @Override
@@ -277,5 +265,15 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         button.setText(text);
         button.setBackgroundColor(getResources().getColor(color));
         button.setEnabled(true);
+    }
+
+    private void showSnackBar(String message){
+        Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT);
+        View snackbarView = snackbar.getView();
+        int color = ContextCompat.getColor(requireContext(), R.color.light_pink);
+        snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        snackbar.show();
     }
 }

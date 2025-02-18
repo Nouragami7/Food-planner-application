@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/randomIdCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/randomIdCard"
     android:layout_margin="12dp"
     android:elevation="18dp"
-    app:cardCornerRadius="16dp"
     app:cardBackgroundColor="#F6F6F6"
+    app:cardCornerRadius="16dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mealItem"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
-        android:padding="0dp">
+        android:layout_height="430dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imageCard"
@@ -32,36 +31,36 @@
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/rounded_image"
                 android:scaleType="centerCrop"
-                android:src="@drawable/logo"
-                android:background="@drawable/rounded_image" />
+                android:src="@drawable/logo" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="bottom"
-                android:background="@color/black_overlay"
+                android:layout_marginTop="280dp"
                 android:alpha="0.5"
-                android:layout_marginTop="280dp"/>
+                android:background="@color/black_overlay" />
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="320dp"
-                android:padding="10dp"
+                android:background="@android:color/transparent"
+                android:elevation="5dp"
                 android:fontFamily="@font/abeezee"
                 android:gravity="center"
-                android:text="@string/daily_inspiration"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:elevation="5dp"
+                android:padding="10dp"
                 android:shadowColor="@color/black_overlay"
-                android:shadowRadius="5"
                 android:shadowDx="3"
                 android:shadowDy="3"
-                android:background="@android:color/transparent"/>
+                android:shadowRadius="5"
+                tools:text="@string/daily_inspiration"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

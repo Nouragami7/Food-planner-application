@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAvailable(@NonNull Network network) {
                 runOnUiThread(() -> {
-                    // Network is available
                     updateUIBasedOnNetwork();
                     if (networkStateListener != null) networkStateListener.onNetworkAvailable();
                     showErrorSnackBar("Network is available", R.color.green);
@@ -131,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLost(@NonNull Network network) {
                 runOnUiThread(() -> {
-                    // Network is lost
                     updateUIBasedOnNetwork();
                     if (networkStateListener != null) networkStateListener.onNetworkLost();
                     showErrorSnackBar("Network is not available", R.color.red); // Show error message
@@ -143,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
         NetworkRequest networkRequest = new NetworkRequest.Builder()
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                 .build();
-
         connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
     }
 

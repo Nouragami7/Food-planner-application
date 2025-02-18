@@ -52,7 +52,7 @@ public class FavouritePresenterImplementation implements FavouritePresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         () -> {
-                            favouriteView.showSuccessMessage(mealStorage);
+                            favouriteView.displaySuccess(mealStorage);
                         }
                         , throwable -> {
                             favouriteView.showError(throwable.getMessage());

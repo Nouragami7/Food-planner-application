@@ -56,5 +56,9 @@
     <string name="invalid_input">Invalid input!</string>
     <string name="delete">Delete</string>
     <string name="plan_subtitle">What is on your \n   menu this week? 🍽️</string>
+    <string name="added_to_favourites">Added to Favourites</string>
+    <string name="add_to_favourites">Add to Favourites</string>
+    <string name="added_to_plan">Added to Plan</string>
+    <string name="meal_not_found">Meal not found</string>
 
 </resources>

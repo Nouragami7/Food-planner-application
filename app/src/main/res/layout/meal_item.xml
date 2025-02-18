@@ -44,7 +44,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:elevation="6dp"
-            android:shadowColor="#80000000"
+            android:shadowColor="@color/semi_transparent_black"
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="6"

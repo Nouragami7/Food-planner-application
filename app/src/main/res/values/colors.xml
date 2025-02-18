@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#3023ae</color>
-    <color name="purple">#D469E4</color>
+    <color name="purple">#94499D</color>
     <color name="dae1ee">#DAE1EE</color>
     <color name="violetPurple">#8547CA</color>
     <color name="amber">#E9AC1E</color>
@@ -42,6 +42,5 @@
     <color name="transparent_gray">#A29C9C</color>
     <color name="coffee_brown">#6F4E37</color>
     <color name="dark_mocha">#5C4033</color>
-
 
 </resources>
