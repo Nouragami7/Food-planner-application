@@ -12,18 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
+import com.example.foodplanner.interfacies.OnItemListener;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Ingredient;
-import com.example.foodplanner.interfacies.OnItemListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UniversalAdapter extends RecyclerView.Adapter<UniversalAdapter.GenericViewHolder> {
-    private Context context;
-    private List<Object> items;
-    private OnItemListener onItemListener;
+    private final Context context;
+    private final List<Object> items;
+    private final OnItemListener onItemListener;
 
     public UniversalAdapter(Context context, List<Object> items, OnItemListener onItemListener) {
         this.context = context;

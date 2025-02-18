@@ -57,6 +57,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         TextView ingredientName, measurementName;
 
         ImageView ingredientImage;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             ingredientName = itemView.findViewById(R.id.ingredientName);

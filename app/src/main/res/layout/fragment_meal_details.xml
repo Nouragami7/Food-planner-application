@@ -41,15 +41,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:textColor="@color/dark_purple"
-                android:textSize="32sp"
-                android:textStyle="bold"
                 android:elevation="6dp"
+                android:gravity="center"
                 android:shadowColor="@color/semi_transparent_black"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="6"
+                android:textColor="@color/dark_purple"
+                android:textSize="32sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageCard"
@@ -59,16 +59,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/map"
-                app:layout_constraintTop_toTopOf="@+id/countryName"
                 app:layout_constraintRight_toLeftOf="@+id/countryName"
-                 />
+                app:layout_constraintTop_toTopOf="@+id/countryName" />
 
             <TextView
                 android:id="@+id/countryName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/transparent_gray"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,16 +92,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:text="@string/ingredients"
-                android:textColor="@color/dark_purple"
-                android:textSize="28sp"
-                android:textStyle="bold"
                 android:elevation="6dp"
+                android:gravity="center"
                 android:shadowColor="@color/semi_transparent_black"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="6"
+                android:text="@string/ingredients"
+                android:textColor="@color/dark_purple"
+                android:textSize="28sp"
+                android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/countryName" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -161,7 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="30dp"
-        android:background="@android:color/white"
+        android:background="@color/white"
         android:elevation="8dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -177,7 +176,7 @@
             android:fontFamily="@font/adlam_display"
             android:paddingVertical="10dp"
             android:text="@string/add_to_plan"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -195,7 +194,7 @@
             android:fontFamily="@font/adlam_display"
             android:paddingVertical="10dp"
             android:text="@string/add_to_favourite"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>

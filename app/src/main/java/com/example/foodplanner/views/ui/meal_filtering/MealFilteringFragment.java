@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -99,7 +98,7 @@ public class MealFilteringFragment extends Fragment implements MealFilteringView
 
     @Override
     public void showError(String errorMsg) {
-        Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
+        Log.i("TAG", "showError: " + errorMsg);
     }
 
     @Override

@@ -211,22 +211,21 @@
         app:layout_constraintTop_toTopOf="@+id/passwordIcon" />
 
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordText"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="32dp"
+        android:focusableInTouchMode="true"
+        app:boxBackgroundMode="none"
+        app:boxStrokeColor="@color/white"
         app:hintEnabled="false"
-        app:passwordToggleTint="@color/light_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/passwordLabel"
         app:layout_constraintTop_toBottomOf="@+id/passwordLabel"
         app:passwordToggleEnabled="true"
-        android:focusableInTouchMode="true"
-        app:boxBackgroundMode="none"
-        app:boxStrokeColor="@color/white">
+        app:passwordToggleTint="@color/light_white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
@@ -238,7 +237,7 @@
             android:paddingVertical="4dp"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -282,15 +281,15 @@
         android:layout_height="45dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="32dp"
+        android:focusableInTouchMode="true"
+        app:boxBackgroundMode="none"
+        app:boxStrokeColor="@color/white"
         app:hintEnabled="false"
-        app:passwordToggleTint="@color/light_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/confirmPasswordLabel"
         app:layout_constraintTop_toBottomOf="@+id/confirmPasswordLabel"
         app:passwordToggleEnabled="true"
-        app:boxBackgroundMode="none"
-        android:focusableInTouchMode="true"
-        app:boxStrokeColor="@color/white">
+        app:passwordToggleTint="@color/light_white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/confirmPassEditText"

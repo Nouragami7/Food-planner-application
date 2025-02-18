@@ -1,7 +1,5 @@
 package com.example.foodplanner.presenters.signup;
 
-import static java.security.AccessController.getContext;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -15,10 +13,10 @@ public class SignupPresenterImplementation implements SignupPresenter {
     private final FirebaseAuth firebaseAuth;
     SharedPreferences sharedPreferences;
 
-    public SignupPresenterImplementation(SignUpView signUpView,Context context) {
+    public SignupPresenterImplementation(SignUpView signUpView, Context context) {
         this.signUpView = signUpView;
         this.firebaseAuth = FirebaseAuth.getInstance();
-        sharedPreferences= context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -69,7 +67,5 @@ public class SignupPresenterImplementation implements SignupPresenter {
                     .addOnFailureListener(e -> signUpView.onSignupFailure("Failed to update profile: " + e.getMessage()));
         }
     }
-
-
 }
 

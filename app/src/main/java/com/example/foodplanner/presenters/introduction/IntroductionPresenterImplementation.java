@@ -11,11 +11,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class IntroductionPresenterImplementation implements IntroductionPresenter {
-    private IntroductionView view;
-    private FirebaseAuth myAuthentication;
+    private final IntroductionView view;
+    private final FirebaseAuth myAuthentication;
     SharedPreferences sharedPreferences;
 
-    public IntroductionPresenterImplementation(IntroductionView view,Context context) {
+    public IntroductionPresenterImplementation(IntroductionView view, Context context) {
         this.view = view;
         myAuthentication = FirebaseAuth.getInstance();
         sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -29,7 +29,7 @@ public class IntroductionPresenterImplementation implements IntroductionPresente
                     FirebaseUser user = myAuthentication.getCurrentUser();
                     if (user != null) {
                         sharedPreferences.edit().putString("userId", user.getUid()).apply();
-                        sharedPreferences.edit().putString("userEmail",user.getEmail()).apply();
+                        sharedPreferences.edit().putString("userEmail", user.getEmail()).apply();
                         sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
                         sharedPreferences.edit().putString("userName", user.getDisplayName()).apply();
                         view.showSuccess("Signup Successful");

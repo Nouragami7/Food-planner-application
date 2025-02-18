@@ -12,20 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.interfacies.OnCategoryClickListener;
+import com.example.foodplanner.models.DTOS.Category;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder>  {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
     private static final String TAG = "DailyInspirationAdapter";
+    private final OnCategoryClickListener onCategoryClickListener;
     Context context;
     ArrayList<Category> categories;
-    private OnCategoryClickListener onCategoryClickListener;
 
-    public CategoryAdapter(Context context, ArrayList<Category> categories,OnCategoryClickListener onCategoryClickListener) {
+    public CategoryAdapter(Context context, ArrayList<Category> categories, OnCategoryClickListener onCategoryClickListener) {
         this.context = context;
-        this.categories= categories;
+        this.categories = categories;
         this.onCategoryClickListener = onCategoryClickListener;
 
     }
@@ -52,20 +52,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         return categories.size();
     }
 
-
-
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView categoryName;
         ImageView categoryImage;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryName = itemView.findViewById(R.id.myName);
             categoryImage = itemView.findViewById(R.id.myImage);
         }
-    }
-    public void updateData(ArrayList<Category> newCategories) {
-        this.categories = newCategories;
-        notifyDataSetChanged();
     }
 }
 

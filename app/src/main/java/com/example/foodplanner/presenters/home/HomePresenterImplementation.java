@@ -8,10 +8,8 @@ import com.example.foodplanner.models.DTOS.CategoryResponse;
 import com.example.foodplanner.models.DTOS.CountryResponse;
 import com.example.foodplanner.models.DTOS.MealResponse;
 import com.example.foodplanner.models.Repository.Repository;
-import com.example.foodplanner.models.database.MealStorage;
 import com.example.foodplanner.views.ui.home.HomeView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,7 +31,6 @@ public class HomePresenterImplementation implements HomePresenter {
     DatabaseReference myRef;
     FirebaseDatabase database;
     SharedPreferences sharedPreferences;
-
 
     private final CompositeDisposable compositeDisposable;
 
@@ -124,7 +121,7 @@ public class HomePresenterImplementation implements HomePresenter {
 
     @Override
     public void getDataFromFirebase() {
-     repository.fetchDataFromFirebase();
+        repository.fetchDataFromFirebase();
     }
 
     private void clearApplicationCache() {
@@ -150,10 +147,4 @@ public class HomePresenterImplementation implements HomePresenter {
         }
         return dir.delete();
     }
-
-
-
-
-
-
 }

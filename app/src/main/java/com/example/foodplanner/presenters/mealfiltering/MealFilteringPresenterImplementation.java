@@ -6,19 +6,16 @@ import com.example.foodplanner.models.DTOS.MealIngredientResponse;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.views.ui.meal_filtering.MealFilteringView;
 
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class MealFilteringPresenterImplementation implements MealFilteringPresenter{
+public class MealFilteringPresenterImplementation implements MealFilteringPresenter {
     private final MealFilteringView mealFilteringView;
     private final Repository repository;
 
     private final CompositeDisposable compositeDisposable;
-
-
 
     public MealFilteringPresenterImplementation(MealFilteringView mealFilteringView, Repository repository) {
         this.mealFilteringView = mealFilteringView;
@@ -67,9 +64,8 @@ public class MealFilteringPresenterImplementation implements MealFilteringPresen
                     mealFilteringView.hideLoading();
                     mealFilteringView.showMealsByIngredient(mealIngredientResponse);
                 }, throwable -> mealFilteringView.showError(throwable.getMessage()));
+
         compositeDisposable.add(disposable);
-
     }
-
 
 }

@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
         lottieAnimationView = findViewById(R.id.errorAnimationView);
         fragmentContainerView = findViewById(R.id.nav_host_fragment);
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.nav_host_fragment);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNav, navController);
 
@@ -63,12 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Set<Integer> navButtonVisibility = new HashSet<>(Arrays.asList(
-                R.id.homeFragment,
-                R.id.searchFragment,
-                R.id.favouriteFragment,
-                R.id.planFragment
-        ));
+        Set<Integer> navButtonVisibility = new HashSet<>(Arrays.asList(R.id.homeFragment, R.id.searchFragment, R.id.favouriteFragment, R.id.planFragment));
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (navButtonVisibility.contains(destination.getId())) {
@@ -126,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                     showErrorSnackBar("Network is available", R.color.green);
                 });
             }
-
             @Override
             public void onLost(@NonNull Network network) {
                 runOnUiThread(() -> {
@@ -138,9 +131,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        NetworkRequest networkRequest = new NetworkRequest.Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .build();
+        NetworkRequest networkRequest = new NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build();
         connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
     }
 

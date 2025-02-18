@@ -1,7 +1,5 @@
 package com.example.foodplanner.views.adapters;
 
-import static java.security.AccessController.getContext;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -10,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -29,13 +26,7 @@ public class DailyInspirationAdapter extends RecyclerView.Adapter<DailyInspirati
     ArrayList<Meal> meals;
 
     SharedPreferences sharedPreferences;
-    //setter
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
     OnItemClickListener onItemClickListener;
-
     CardView cardView;
 
     public DailyInspirationAdapter(Context context, ArrayList<Meal> meals) {
@@ -43,6 +34,11 @@ public class DailyInspirationAdapter extends RecyclerView.Adapter<DailyInspirati
         this.meals = meals;
         sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
+    }
+
+    //setter
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -89,20 +85,21 @@ public class DailyInspirationAdapter extends RecyclerView.Adapter<DailyInspirati
         return meals.size();
     }
 
+    public interface OnItemClickListener {
+        void onClicks(Meal meal);
+
+    }
+
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView mealName;
         ImageView mealImage;
         CardView randomIdCard;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mealName = itemView.findViewById(R.id.name);
             mealImage = itemView.findViewById(R.id.image);
             randomIdCard = itemView.findViewById(R.id.randomIdCard);
         }
-    }
-
-    public interface OnItemClickListener{
-        public void onClicks(Meal meal);
-
     }
 }

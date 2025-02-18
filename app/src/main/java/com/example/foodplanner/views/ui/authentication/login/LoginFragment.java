@@ -2,9 +2,12 @@ package com.example.foodplanner.views.ui.authentication.login;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.presenters.login.LoginPresenterImplementation;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -30,10 +34,6 @@ public class LoginFragment extends Fragment implements LogInView {
     EditText emailEditText, passwordEditText;
     SharedPreferences sharedPreferences;
     LoginPresenterImplementation loginPresenter;
-
-    String userId;
-
-
 
     public LoginFragment() {
         // Required empty public constructor
@@ -74,14 +74,14 @@ public class LoginFragment extends Fragment implements LogInView {
     @Override
     public void onLoginSuccess() {
         sharedPreferences.edit().putBoolean("isLoggedIn", true).apply();
-        Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+        showSnackBar("Login Successfully");
         Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment2_to_homeFragment);
 
     }
 
     @Override
     public void onLoginFailure(String errorMessage) {
-        Toast.makeText(getContext(), "Login Failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+        showSnackBar("Login Failed");
     }
 
     @Override
@@ -100,5 +100,14 @@ public class LoginFragment extends Fragment implements LogInView {
         dialogMessage.setText(message);
         dialogButton.setOnClickListener(v -> alertDialog.dismiss());
 
+    }
+    private void showSnackBar(String message){
+        Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT);
+        View snackbarView = snackbar.getView();
+        int color = ContextCompat.getColor(requireContext(), R.color.light_pink);
+        snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        snackbar.show();
     }
 }

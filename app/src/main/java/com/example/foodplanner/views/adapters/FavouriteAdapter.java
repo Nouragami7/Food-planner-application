@@ -13,18 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.interfacies.OnSpecifiedMealClickListener;
-import com.example.foodplanner.models.database.MealStorage;
-import com.example.foodplanner.models.DTOS.Meal;
 import com.example.foodplanner.interfacies.OnMealDeleteListener;
+import com.example.foodplanner.interfacies.OnSpecifiedMealClickListener;
+import com.example.foodplanner.models.DTOS.Meal;
+import com.example.foodplanner.models.database.MealStorage;
 
 import java.util.List;
 
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.FavouriteMealViewHolder> {
-    private Context context;
-    private List<MealStorage> favouriteMeals;
-    private OnMealDeleteListener deleteListener;
-    private OnSpecifiedMealClickListener onFavouriteMealClickListener;
+    private final Context context;
+    private final List<MealStorage> favouriteMeals;
+    private final OnMealDeleteListener deleteListener;
+    private final OnSpecifiedMealClickListener onFavouriteMealClickListener;
 
     public FavouriteAdapter(Context context, List<MealStorage> favouriteMeals, OnMealDeleteListener deleteListener, OnSpecifiedMealClickListener onFavouriteMealClickListener) {
         this.context = context;

@@ -41,10 +41,9 @@ public class FavouritePresenterImplementation implements FavouritePresenter {
                             } else {
                                 favouriteView.showError("No meals found");
                             }
-
                         });
-
     }
+
     @Override
     public void deleteMealFromFavourite(MealStorage mealStorage) {
         repository.deleteMeal(mealStorage)
@@ -56,10 +55,7 @@ public class FavouritePresenterImplementation implements FavouritePresenter {
                         }
                         , throwable -> {
                             favouriteView.showError(throwable.getMessage());
-                        }
-
-                );
-
+                        });
     }
 
     @Override
@@ -72,6 +68,5 @@ public class FavouritePresenterImplementation implements FavouritePresenter {
                     .child(mealStorage.getDate())
                     .removeValue();
         }
-
     }
 }

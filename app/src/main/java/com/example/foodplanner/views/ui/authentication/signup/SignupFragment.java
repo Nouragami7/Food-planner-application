@@ -2,6 +2,8 @@ package com.example.foodplanner.views.ui.authentication.signup;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -23,6 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -83,14 +87,14 @@ public class SignupFragment extends Fragment implements SignUpView {
 
     @Override
     public void onSignupSuccess() {
-        Toast.makeText(getContext(), "SignUp Successfully", Toast.LENGTH_SHORT).show();
+        showSnackBar("SignUp Successfully");
         Navigation.findNavController(requireView()).navigate(R.id.action_signupFragment_to_loginFragment2);
 
     }
 
     @Override
     public void onSignupFailure(String errorMessage) {
-        Toast.makeText(getContext(), "SignUp Failed: " + errorMessage, Toast.LENGTH_SHORT).show();
+        showSnackBar("SignUp Failed");
 
     }
 
@@ -110,6 +114,15 @@ public class SignupFragment extends Fragment implements SignUpView {
         dialogMessage.setText(message);
         dialogButton.setOnClickListener(v -> alertDialog.dismiss());
 
+    }
+    private void showSnackBar(String message){
+        Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT);
+        View snackbarView = snackbar.getView();
+        int color = ContextCompat.getColor(requireContext(), R.color.light_pink);
+        snackbarView.setBackgroundTintList(ColorStateList.valueOf(color));
+        TextView textView = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        snackbar.show();
     }
 }
 

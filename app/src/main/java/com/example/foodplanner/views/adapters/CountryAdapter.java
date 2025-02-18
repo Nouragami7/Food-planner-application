@@ -13,20 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.interfacies.OnCountryClickListener;
+import com.example.foodplanner.models.DTOS.Country;
 
 import java.util.ArrayList;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHolder> {
-    private Context context;
+    private final Context context;
+    private final OnCountryClickListener countryClickListener;
     ArrayList<Country> countries;
-    private OnCountryClickListener countryClickListener;
 
-    public CountryAdapter(Context context, ArrayList<Country> countries,OnCountryClickListener onCountryClickListener) {
+    public CountryAdapter(Context context, ArrayList<Country> countries, OnCountryClickListener onCountryClickListener) {
         this.context = context;
         this.countries = countries;
-        this.countryClickListener =  onCountryClickListener;
+        this.countryClickListener = onCountryClickListener;
     }
 
     @NonNull
@@ -40,7 +40,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Country country = countries.get(position);
-        Log.i("TAG", "onBindViewHolder: "+ country.getCountryName());
+        Log.i("TAG", "onBindViewHolder: " + country.getCountryName());
         if (country != null && country.getCountryName() != null) {
             String countryCode = getCountryCode(country.getCountryName());
             String flagUrl = "https://www.themealdb.com/images/icons/flags/big/64/" + countryCode + ".png";
@@ -57,17 +57,6 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return (countries != null) ? countries.size() : 0;
-    }
-
-    static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView countryName;
-        ImageView countryImage;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            countryName = itemView.findViewById(R.id.countryName);
-            countryImage = itemView.findViewById(R.id.countryImage); // Ensure this ID matches XML
-        }
     }
 
     private String getCountryCode(String countryName) {
@@ -104,9 +93,14 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
         else return "x";
     }
 
+    static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView countryName;
+        ImageView countryImage;
 
-    public void updateData(ArrayList<Country> newCountries) {
-        this.countries = newCountries;
-        notifyDataSetChanged();
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            countryName = itemView.findViewById(R.id.countryName);
+            countryImage = itemView.findViewById(R.id.countryImage); // Ensure this ID matches XML
+        }
     }
 }

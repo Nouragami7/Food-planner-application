@@ -23,9 +23,9 @@ import java.util.Objects;
 
 public class MealsListAdapter extends RecyclerView.Adapter<MealsListAdapter.MyViewHolder> {
     private static final String TAG = "DailyInspirationAdapter";
+    private final OnMealClickListener onMealClickListener;
     Context context;
     ArrayList<MealSpecification> meals;
-    private OnMealClickListener onMealClickListener;
     SharedPreferences sharedPreferences;
 
     public MealsListAdapter(Context context, ArrayList<MealSpecification> meals, OnMealClickListener onMealClickListener) {
@@ -61,7 +61,7 @@ public class MealsListAdapter extends RecyclerView.Adapter<MealsListAdapter.MyVi
 
         holder.itemView.setOnClickListener(v -> {
             if (sharedPreferences.getString("userId", "guest").equals("guest")) {
-                showDialog("Oops! 🤔\nYou need to sign up first \nto explore this delicious meal. 🍽️\nJoin us now and start your food journey!");
+                showDialog("Oops! 🤔\nYou need to sign up first \nto explore this delicious meal.🍽️");
             } else {
                 if (onMealClickListener != null) {
                     String mealId = mealSpecification.getIdMeal();

@@ -15,11 +15,12 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.interfacies.OnSpecifiedMealClickListener;
 import com.example.foodplanner.models.DTOS.Meal;
 import com.example.foodplanner.models.database.MealStorage;
+
 import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanMealViewHolder> {
-    private Context context;
-    private List<MealStorage> planMeals;
+    private final Context context;
+    private final List<MealStorage> planMeals;
     OnSpecifiedMealClickListener onSpecifiedMealClickListener;
 
 

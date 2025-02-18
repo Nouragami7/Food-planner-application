@@ -197,6 +197,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
 
         });
     }
+
     @SuppressLint("ResourceAsColor")
     private void updateSaveButtonState(boolean isSaved) {
         if (isSaved) {
@@ -267,7 +268,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView {
         button.setEnabled(true);
     }
 
-    private void showSnackBar(String message){
+    private void showSnackBar(String message) {
         Snackbar snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_SHORT);
         View snackbarView = snackbar.getView();
         int color = ContextCompat.getColor(requireContext(), R.color.light_pink);

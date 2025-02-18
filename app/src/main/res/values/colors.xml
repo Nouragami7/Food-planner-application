@@ -42,5 +42,7 @@
     <color name="transparent_gray">#A29C9C</color>
     <color name="coffee_brown">#6F4E37</color>
     <color name="dark_mocha">#5C4033</color>
+    <color name="very_light_pink">#FFE1F8</color>
+    <color name="smooth_purple">#CDC1FF</color>
 
 </resources>

@@ -6,20 +6,18 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.ColorRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.presenters.introduction.IntroductionPresenter;
@@ -29,14 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 
 public class IntroductionFragment extends Fragment implements IntroductionView {
@@ -49,7 +41,7 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
     private IntroductionPresenter presenter;
     SharedPreferences sharedPreferences;
 
-   private static final String TAG ="IntroductionFragment";
+    private static final String TAG = "IntroductionFragment";
 
     public IntroductionFragment() {
         // Required empty public constructor
@@ -80,8 +72,8 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
         singupWithGoogleBtn = view.findViewById(R.id.singupWithGoogle);
         login = view.findViewById(R.id.loginTxt);
         guestBtn = view.findViewById(R.id.skipBtn);
-        sharedPreferences= getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        presenter = new IntroductionPresenterImplementation(this,requireContext());
+        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        presenter = new IntroductionPresenterImplementation(this, requireContext());
         singupWithEmailBtn.setOnClickListener(v -> {
 
             Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_signupFragment);
@@ -91,30 +83,30 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
             Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_loginFragment2);
         });
         singupWithGoogleBtn.setOnClickListener(v -> {
-           signInWithGoogle();
+            signInWithGoogle();
         });
-        guestBtn.setOnClickListener(v->{
-            sharedPreferences.edit().putString("userId","guest").apply();
+        guestBtn.setOnClickListener(v -> {
+            sharedPreferences.edit().putString("userId", "guest").apply();
             Navigation.findNavController(view).navigate(R.id.action_introductionFragment2_to_homeFragment);
         });
 
     }
 
-    private void signInWithGoogle(){
+    private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent,123);
+        startActivityForResult(signInIntent, 123);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==123){
+        if (requestCode == 123) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-               presenter.signInWithGoogle(account);
-            }catch (ApiException e){
-                Toast.makeText(getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                presenter.signInWithGoogle(account);
+            } catch (ApiException e) {
+                Toast.makeText(getContext(), "LogIn Failed", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -123,15 +115,16 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
 
     @Override
     public void showSuccess(String message) {
-        showSnackBar(message,getView());
+        showSnackBar(message, getView());
         Navigation.findNavController(getView()).navigate(R.id.action_introductionFragment2_to_homeFragment);
 
     }
 
     @Override
     public void showError(String message) {
-        showSnackBar(message,getView());
+        showSnackBar(message, getView());
     }
+
     private void showSnackBar(String message, View fragmentView) {
         int ColorResId = R.color.light_pink;
         int color = ContextCompat.getColor(requireContext(), ColorResId);
@@ -142,8 +135,5 @@ public class IntroductionFragment extends Fragment implements IntroductionView {
         textView.setTextColor(Color.WHITE);
         snackbar.show();
     }
-
-
-
 
 }

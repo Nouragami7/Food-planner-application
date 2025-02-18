@@ -5,5 +5,4 @@ public interface MealFilteringPresenter {
     void getMealsByCountry(String area);
     void getMealsByIngredient(String ingredient);
 
-
 }

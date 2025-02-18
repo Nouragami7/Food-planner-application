@@ -11,7 +11,7 @@
         android:layout_width="100dp"
         android:layout_height="120dp"
         android:elevation="16dp"
-        app:cardBackgroundColor="#FFE1F8"
+        app:cardBackgroundColor="@color/very_light_pink"
         app:cardCornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,7 +27,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:src="@drawable/my_logo" />
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="4dp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="Ingredient" />
@@ -47,8 +47,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="2dp"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="10sp"
+                android:textColor="@color/transparent_gray"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="100g" />
         </LinearLayout>

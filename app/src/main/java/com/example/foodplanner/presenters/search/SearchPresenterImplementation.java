@@ -15,6 +15,7 @@ public class SearchPresenterImplementation implements SearchPresenter {
     private final TheSearchView searchView;
     private final Repository repository;
     private final CompositeDisposable compositeDisposable;
+
     public SearchPresenterImplementation(TheSearchView searchView, Repository repository) {
         this.searchView = searchView;
         this.repository = repository;
@@ -44,12 +45,12 @@ public class SearchPresenterImplementation implements SearchPresenter {
 
     @Override
     public void getCountries() {
-       Disposable disposable = repository.getCountries()
-               .subscribeOn(Schedulers.io())
-               .map(CountryResponse::getCountries)
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(searchView::showCountries, throwable -> searchView.showError(throwable.getMessage()));
-       compositeDisposable.add(disposable);
+        Disposable disposable = repository.getCountries()
+                .subscribeOn(Schedulers.io())
+                .map(CountryResponse::getCountries)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(searchView::showCountries, throwable -> searchView.showError(throwable.getMessage()));
+        compositeDisposable.add(disposable);
 
     }
 }

@@ -1,6 +1,13 @@
 package com.example.foodplanner.views.ui.search;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -9,29 +16,21 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 import com.example.foodplanner.R;
 import com.example.foodplanner.database.FoodPlannerLocalDataSource;
 import com.example.foodplanner.models.DTOS.Category;
 import com.example.foodplanner.models.DTOS.Country;
 import com.example.foodplanner.models.DTOS.Ingredient;
-import com.example.foodplanner.models.DTOS.MealSpecification;
 import com.example.foodplanner.models.Repository.Repository;
 import com.example.foodplanner.network.FoodPlannerRemoteDataSource;
 import com.example.foodplanner.presenters.search.SearchPresenter;
 import com.example.foodplanner.presenters.search.SearchPresenterImplementation;
 import com.example.foodplanner.views.adapters.UniversalAdapter;
-import com.example.foodplanner.views.ui.meal_filtering.MealFilteringFragmentDirections;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchFragment extends Fragment implements TheSearchView {
     private SearchView searchView;
@@ -71,11 +70,11 @@ public class SearchFragment extends Fragment implements TheSearchView {
 
         universalAdapter = new UniversalAdapter(getContext(), filteredItems, item -> {
             if (item instanceof Ingredient) {
-                navigateToMealFregment(((Ingredient) item).getStrIngredient(),"ingredient");
+                navigateToMealFregment(((Ingredient) item).getStrIngredient(), "ingredient");
             } else if (item instanceof Category) {
-                navigateToMealFregment(((Category) item).getCategoryName(),"category");
+                navigateToMealFregment(((Category) item).getCategoryName(), "category");
             } else if (item instanceof Country) {
-                navigateToMealFregment(((Country) item).getCountryName(),"country");
+                navigateToMealFregment(((Country) item).getCountryName(), "country");
             }
         });
 
@@ -185,12 +184,12 @@ public class SearchFragment extends Fragment implements TheSearchView {
 
     @Override
     public void showError(String errorMsg) {
-        Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show();
+        Log.i("TAG", "showError: " + errorMsg);
     }
 
-    void navigateToMealFregment (String id,String type){
+    void navigateToMealFregment(String id, String type) {
         NavController navController = Navigation.findNavController(requireView());
-       SearchFragmentDirections.ActionSearchFragmentToMealFilteringFragment action = SearchFragmentDirections.actionSearchFragmentToMealFilteringFragment(id,type);
+        SearchFragmentDirections.ActionSearchFragmentToMealFilteringFragment action = SearchFragmentDirections.actionSearchFragmentToMealFilteringFragment(id, type);
         navController.navigate(action);
     }
 
